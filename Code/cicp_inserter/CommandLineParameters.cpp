@@ -49,7 +49,7 @@ CICP is an efficient way to specify color space.
 It is standardized in ITU-T H.273, which can be found here:
 https://www.itu.int/rec/T-REC-H.273
 
-Example usage: cicp_inserter.exe --preset display-p3 C:\\images\\test.png
+Example usage: cicp_inserter.exe --preset display-p3 C:\images\test.png
 
 Presets:
 	bt.709             Rec. ITU-R BT.709-6
@@ -63,10 +63,10 @@ Presets:
 	display-p3         Display P3
 
 You can also specify individual CICP values.
-Example usage: cicp_inserter.exe --primaries 1 --transfer_function 2 --matrix_coefficients 3 --full_range 1 C:\\images\\test.png
+Example usage: cicp_inserter.exe --color_primaries 1 --transfer_function 2 --matrix_coefficients 3 --video_full_range_flag 1 C:\images\test.png
 
 These can be mixed to override defaults. Values specified later override prior values.
-Example usage: cicp_inserter.exe --preset display-p3 --full_range 0 C:\\images\\test.png
+Example usage: cicp_inserter.exe --preset display-p3 --video_full_range_flag 0 C:\images\test.png
 )" << std::endl;
 	}
 

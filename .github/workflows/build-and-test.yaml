@@ -13,7 +13,7 @@ jobs:
   Windows:
     strategy:
       matrix:
-        platform: [Win32, x64]
+        platform: [x86, x64]
         configuration: [Debug, Release]
         runner: [windows-2022] # TODO: Add windows-2019, which errors on Platform Toolset = 'v143' missing.
     runs-on: ${{ matrix.runner }}

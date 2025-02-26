@@ -1,0 +1,9 @@
+*.suo
+*.user
+.vs/
+Win32/
+x64/
+*.ncb
+*.opendb
+*.opensdf
+*.sdf

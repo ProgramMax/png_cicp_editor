@@ -1,0 +1,58 @@
+name: "Build and test"
+
+on:
+  push:
+    branches: [ "tip-of-tree" ]
+  pull_request:
+    branches: [ "tip-of-tree" ]
+
+permissions:
+  contents: read
+
+jobs:
+  Windows:
+    strategy:
+      matrix:
+        platform: [Win32, x64]
+        configuration: [Debug, Release]
+        runner: [windows-2022] # TODO: Add windows-2019, which errors on Platform Toolset = 'v143' missing.
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Update NuGet packages
+      run: nuget restore .\Projects\VisualStudio\cicp_inserter.sln
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} .\Projects\VisualStudio
+
+    - name: Test
+      run: ${{ github.workspace }}\Projects\VideoStudio\tests\${{ matrix.platform }}\${{ matrix.configuration }}\tests.exe
+
+  # TODO: Add Linux & Mac support
+  #Linux:
+    #strategy:
+      #matrix:
+        #platform: [X86-64] # TODO: Add X86, AArch32, and AArch64 platforms
+        #compiler: [Clang, GCC]
+        #runner: [ubuntu-22.04, ubuntu-20.04]
+    #runs-on: ${{ matrix.runner }}
+
+    #steps:
+    #- name: Checkout
+      #uses: actions/checkout@v3
+
+    #- name: Build
+      #env:
+      #  CXX: g++-10
+      #working-directory: ${{ github.workspace }}/Projects/Make
+      #run: make
+
+    #- name: Test
+      #run: ${{ github.workspace }}/Projects/Make/ests

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Dependencies">
+      <UniqueIdentifier>{2be18738-c921-4a91-8993-a433769a3c6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\max">
+      <UniqueIdentifier>{17957f65-3d98-467a-ba3d-e439b852c26b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\max\Testing">
+      <UniqueIdentifier>{d33b4869-701d-4e31-85d8-473a118c141c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Dependencies\max\Code\max\Testing\Test.inl">
+      <Filter>Dependencies\max\Testing</Filter>
+    </None>
+    <None Include="..\..\Dependencies\max\Code\max\Testing\TestSuite.inl">
+      <Filter>Dependencies\max\Testing</Filter>
+    </None>
+    <None Include="..\..\Dependencies\max\AUTHORS">
+      <Filter>Dependencies\max</Filter>
+    </None>
+    <None Include="..\..\Dependencies\max\LICENSE">
+      <Filter>Dependencies\max</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.cpp">
+      <Filter>Dependencies\max\Testing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Code\tests\CommandLineParametersTest.cpp" />
+    <ClCompile Include="..\..\Code\tests\EntryPoint.cpp" />
+    <ClCompile Include="..\..\Code\cicp_inserter\CommandLineParameters.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.hpp">
+      <Filter>Dependencies\max\Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\Test.hpp">
+      <Filter>Dependencies\max\Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\TestSuite.hpp">
+      <Filter>Dependencies\max\Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\tests\CommandLineParametersTest.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp" />
+  </ItemGroup>
+</Project>

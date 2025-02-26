@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include=".github">
+      <UniqueIdentifier>{bf5b20b6-b159-4e1a-a92a-9b7ee4e587ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".github\ISSUE_TEMPLATE">
+      <UniqueIdentifier>{da3bc619-405e-4f90-b464-30acfd90e622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".github\workflows">
+      <UniqueIdentifier>{c9fbd5b1-3ace-4ed3-b720-8d7e91abb12a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Docs">
+      <UniqueIdentifier>{68da5ef6-2657-4845-99b9-f3631a48b432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code">
+      <UniqueIdentifier>{124abd9d-d97e-445c-8c86-db5d3fcb260c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\.github\ISSUE_TEMPLATE\bug_report.md">
+      <Filter>.github\ISSUE_TEMPLATE</Filter>
+    </None>
+    <None Include="..\..\.github\ISSUE_TEMPLATE\feature_request.md">
+      <Filter>.github\ISSUE_TEMPLATE</Filter>
+    </None>
+    <None Include="..\..\.github\workflows\build-and-test.yaml">
+      <Filter>.github\workflows</Filter>
+    </None>
+    <None Include="..\..\Docs\code_of_conduct.md">
+      <Filter>Docs</Filter>
+    </None>
+    <None Include="..\..\Docs\README.md">
+      <Filter>Docs</Filter>
+    </None>
+    <None Include="..\..\.gitignore" />
+    <None Include="..\..\AUTHORS" />
+    <None Include="..\..\LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Code\cicp_inserter\CommandLineParameters.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Code\cicp_inserter\EntryPoint.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp">
+      <Filter>Code</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

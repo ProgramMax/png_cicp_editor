@@ -5,7 +5,7 @@
 #include "CommandLineParameters.hpp"
 #include "FileReader.hpp"
 
-int main(int argc, char *argv[]) noexcept {
+int main(int argc, char const* argv[]) noexcept {
 	auto command_line_parameters = CICP_Inserter::parse_command_line_parameters(argc, argv);
 	if (!command_line_parameters.has_value()) {
 		return 1;

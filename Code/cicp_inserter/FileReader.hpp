@@ -5,12 +5,29 @@
 #ifndef CICP_INSERTER_FILEREADER_HPP
 #define CICP_INSERTER_FILEREADER_HPP
 
-#include <optional>
+#include <expected>
 #include <string>
+#include <string_view>
+#include <vector>
 
 namespace CICP_Inserter {
 
-	std::optional<std::string> read_file(const std::string& file_path) noexcept;
+	enum class ReadFileErrorCode {
+		CannotOpenFile,
+		CannotReadFile,
+	};
+
+	class ReadFileError {
+	public:
+
+		explicit ReadFileError(ReadFileErrorCode error_code, std::vector<std::string_view> output_messages) noexcept;
+
+		ReadFileErrorCode error_code_;
+		std::vector<std::string_view> output_messages_;
+
+	};
+
+	std::expected<std::vector<char>, ReadFileError> read_file(const std::string& file_path) noexcept;
 
 } // namespace CICP_Inserter
 

@@ -47,12 +47,18 @@
     <ClCompile Include="..\..\Code\cicp_inserter\FileReader.cpp">
       <Filter>Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Code\cicp_inserter\PNGParser.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp">
       <Filter>Code</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Code\cicp_inserter\FileReader.hpp">
+      <Filter>Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\cicp_inserter\PNGParser.hpp">
       <Filter>Code</Filter>
     </ClInclude>
   </ItemGroup>

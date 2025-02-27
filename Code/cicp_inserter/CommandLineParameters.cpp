@@ -31,11 +31,15 @@ namespace {
 	static const std::string_view bt2100_hlg_string        = "bt.2100-hlg";
 	static const std::string_view dci_p3_string            = "dci-p3";
 	static const std::string_view display_p3_string        = "display-p3";
+	static const std::string_view p3_d65_pq_string         = "p3-d65-pq";
 
 	// error messages
-	static const std::string_view unrecognized_parameter = "Unrecognized command line parameter: ";
-	static const std::string_view value_outside_range    = "Value outside 0-255 range: ";
-	static const std::string_view expected_value         = "File path provided where a value was expected: ";
+	static constinit char const* unrecognized_parameter = "Unrecognized command line parameter: ";
+	static constinit char const* value_outside_range    = "Value outside 0-255 range: ";
+	static constinit char const* expected_value         = "File path provided where a value was expected: ";
+
+	// utility
+	static constinit char const* newline                = "\n";
 
 	void print_version() noexcept {
 		std::cout << "cicp_inserter version 0.1" << std::endl;
@@ -52,15 +56,16 @@ https://www.itu.int/rec/T-REC-H.273
 Example usage: cicp_inserter.exe --preset display-p3 C:\images\test.png
 
 Presets:
-	bt.709             Rec. ITU-R BT.709-6
-	linear-light-srgb  linear-light sRGB
-	srgb               IEC 61966-2-1 sRGB
-	bt.2020-10-bit     Rec. ITU-R BT.2020-2 (10-bit system)
-	bt.2020-12-bit     Rec. ITU-R BT.2020-2 (12-bit system)
-	bt.2100-pq         Rec. ITU-R BT.2100-2 perceptual quantization (PQ) system
-	bt.2100-hlg        Rec. ITU-R BT.2100-2 hybrid log-gamma (HLG) system
-	dci-p3             SMPTE RP 431-2 with SMPTE ST 428-1 D-Cinema Distribution Master (DCI-P3)
-	display-p3         Display P3
+	bt.709          Rec. ITU-R BT.709-6
+	srgb-linear     linear-light sRGB
+	srgb            IEC 61966-2-1 sRGB
+	bt.2020-10-bit  Rec. ITU-R BT.2020-2 (10-bit system)
+	bt.2020-12-bit  Rec. ITU-R BT.2020-2 (12-bit system)
+	bt.2100-pq      Rec. ITU-R BT.2100-2 perceptual quantization (PQ) system
+	bt.2100-hlg     Rec. ITU-R BT.2100-2 hybrid log-gamma (HLG) system
+	dci-p3          SMPTE RP 431-2 with SMPTE ST 428-1 D-Cinema Distribution Master (DCI-P3)
+	display-p3      Display P3
+	p3-d65-pq       P3-D65 PQ
 
 You can also specify individual CICP values.
 Example usage: cicp_inserter.exe --color_primaries 1 --transfer_function 2 --matrix_coefficients 3 --video_full_range_flag 1 C:\images\test.png
@@ -70,21 +75,51 @@ Example usage: cicp_inserter.exe --preset display-p3 --video_full_range_flag 0 C
 )" << std::endl;
 	}
 
-	std::optional<uint8_t> read_numeric_value(char const* parameter) noexcept {
+	enum class ReadNumericValueErrorCode {
+		UnrecognizedParameter,
+		ValueOutsideRange,
+	};
+
+	class ReadNumericValueError {
+	public:
+
+		explicit ReadNumericValueError(ReadNumericValueErrorCode error_code, std::vector<char const*> output_messages) noexcept
+			: error_code_(std::move(error_code))
+			, output_messages_(std::move(output_messages))
+		{}
+
+		ReadNumericValueErrorCode error_code_;
+		std::vector<char const*> output_messages_;
+
+	};
+
+	std::expected<uint8_t, ReadNumericValueError> read_numeric_value(char const* parameter) noexcept {
 		static constinit int base = 10;
 		char* end_pointer = nullptr;
 		long value = std::strtol(parameter, &end_pointer, base);
 		if (errno == ERANGE || parameter == end_pointer) {
-			std::cerr << unrecognized_parameter << parameter << std::endl;
-			return std::nullopt;
+			return std::unexpected{ ReadNumericValueError{ ReadNumericValueErrorCode::UnrecognizedParameter, { unrecognized_parameter, parameter, newline } } };
 		}
 
 		if (value < 0 || value > 255) {
-			std::cerr << value_outside_range << parameter << std::endl;
-			return std::nullopt;
+			return std::unexpected{ ReadNumericValueError{ ReadNumericValueErrorCode::ValueOutsideRange, { value_outside_range, parameter, newline } } };
 		}
 
 		return static_cast<uint8_t>(value);
+	}
+
+	CICP_Inserter::ParseCommandLineParametersError convert_error(ReadNumericValueError error) noexcept {
+		CICP_Inserter::ParseCommandLineParametersErrorCode new_error_code;
+		switch (error.error_code_) {
+		case ReadNumericValueErrorCode::UnrecognizedParameter:
+			new_error_code = CICP_Inserter::ParseCommandLineParametersErrorCode::UnrecognizedParameter;
+			break;
+		case ReadNumericValueErrorCode::ValueOutsideRange:
+			new_error_code = CICP_Inserter::ParseCommandLineParametersErrorCode::ValueOutsideRange;
+			break;
+		}
+
+		return CICP_Inserter::ParseCommandLineParametersError{ std::move(new_error_code), std::move(error.output_messages_) };
 	}
 
 } // anonymous namespace
@@ -97,10 +132,14 @@ namespace CICP_Inserter {
 		, matrix_coefficients_(std::move(matrix_coefficients))
 		, video_full_range_flag_(std::move(video_full_range_flag))
 		, png_file_path_(std::move(png_file_path))
-	{
-	}
+	{}
 
-	std::optional<CommandLineParameters> parse_command_line_parameters(int argc, char const* argv[]) noexcept {
+	ParseCommandLineParametersError::ParseCommandLineParametersError(ParseCommandLineParametersErrorCode error_code, std::vector<char const*> output_messages) noexcept
+		: error_code_(std::move(error_code))
+		, output_messages_(std::move(output_messages))
+	{}
+
+	std::expected<CommandLineParameters, ParseCommandLineParametersError> parse_command_line_parameters(int argc, char const* argv[]) noexcept {
 		// This operates as a state machine.
 		// 
 		// The ExpectedState enum is used to indicate which variable should come next.
@@ -126,7 +165,7 @@ namespace CICP_Inserter {
 		// Start at 1 because the first command line parameter is the program name.
 		// Loop until argc - 1 because the final parameter should be the file path.
 		if (argc == 1) {
-
+			// TODO: Handle this
 		}
 		for (int i = 1; i < argc - 1; i++) {
 			if (expected_state == ExpectedState::None) {
@@ -152,8 +191,7 @@ namespace CICP_Inserter {
 					expected_state = ExpectedState::VideoFullRangeFlag;
 				}
 				else {
-					std::cerr << unrecognized_parameter << argv[i] << std::endl;
-					return std::nullopt;
+					return std::unexpected{ ParseCommandLineParametersError{ ParseCommandLineParametersErrorCode::UnrecognizedParameter, { unrecognized_parameter, argv[i], newline } } };
 				}
 			}
 			else if (expected_state == ExpectedState::Preset) {
@@ -202,15 +240,19 @@ namespace CICP_Inserter {
 					transfer_function = 13;
 					expected_state = ExpectedState::None;
 				}
+				else if (p3_d65_pq_string.compare(argv[i]) == 0) {
+					color_primaries = 12;
+					transfer_function = 16;
+					expected_state = ExpectedState::None;
+				}
 				else {
-					std::cerr << unrecognized_parameter << argv[i] << std::endl;
-					return std::nullopt;
+					return std::unexpected{ ParseCommandLineParametersError{ ParseCommandLineParametersErrorCode::UnrecognizedParameter, { unrecognized_parameter, argv[i], newline } } };
 				}
 			}
 			else if (expected_state == ExpectedState::ColorPrimaries) {
 				auto value = read_numeric_value(argv[i]);
 				if (!value.has_value()) {
-					return std::nullopt;
+					return std::unexpected{ convert_error(value.error()) };
 				}
 
 				color_primaries = *value;
@@ -219,7 +261,7 @@ namespace CICP_Inserter {
 			else if (expected_state == ExpectedState::TransferFunction) {
 				auto value = read_numeric_value(argv[i]);
 				if (!value.has_value()) {
-					return std::nullopt;
+					return std::unexpected{ convert_error(value.error()) };
 				}
 
 				transfer_function = *value;
@@ -228,7 +270,7 @@ namespace CICP_Inserter {
 			else if (expected_state == ExpectedState::MatrixCoefficients) {
 				auto value = read_numeric_value(argv[i]);
 				if (!value.has_value()) {
-					return std::nullopt;
+					return std::unexpected{ convert_error(value.error()) };
 				}
 
 				matrix_coefficients = *value;
@@ -237,22 +279,28 @@ namespace CICP_Inserter {
 			else if (expected_state == ExpectedState::VideoFullRangeFlag) {
 				auto value = read_numeric_value(argv[i]);
 				if (!value.has_value()) {
-					return std::nullopt;
+					return std::unexpected{ convert_error(value.error()) };
 				}
 
 				video_full_range_flag = *value;
 				expected_state = ExpectedState::None;
 			}
 			else {
-				std::cerr << unrecognized_parameter << argv[i] << std::endl;
-				return std::nullopt;
+				return std::unexpected{ ParseCommandLineParametersError{ ParseCommandLineParametersErrorCode::UnrecognizedParameter, { unrecognized_parameter, argv[i], newline } } };
 			}
 		}
 
 		// TODO: Test if a file path with a space and quotes ("C:\test images\test.png") is provided as one command line parameter
 		if (expected_state != ExpectedState::None) {
-			std::cerr << expected_value << argv[argc - 1] << std::endl;
-			return std::nullopt;
+			return std::unexpected{ ParseCommandLineParametersError{ ParseCommandLineParametersErrorCode::ExpectedValue, { expected_value, argv[argc - 1], newline } } };
+		}
+		else if (version_string.compare(argv[argc - 1]) == 0) {
+			print_version();
+			return std::unexpected{ ParseCommandLineParametersError{ ParseCommandLineParametersErrorCode::NotActuallyAnError, {} } };
+		}
+		else if (help_string.compare(argv[argc - 1]) == 0) {
+			print_help();
+			return std::unexpected{ ParseCommandLineParametersError{ ParseCommandLineParametersErrorCode::NotActuallyAnError, {} } };
 		}
 		std::string png_file_path(argv[argc - 1]);
 

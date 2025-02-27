@@ -6,6 +6,7 @@
 
 #include "CommandLineParameters.hpp"
 #include "FileReader.hpp"
+#include "PNGParser.hpp"
 
 namespace {
 
@@ -30,8 +31,30 @@ int main(int argc, char const* argv[]) noexcept {
 		return 1;
 	}
 
+
+	// Read the file
 	auto file_contents = CICP_Inserter::read_file(command_line_parameters->png_file_path_);
-	// TODO: Process
+	if (!file_contents.has_value()) {
+		print_error(file_contents.error());
+		return 1;
+	}
+
+
+	// Get indicies of chunks
+	auto chunk_indices = CICP_Inserter::get_chunk_indices(file_contents.value());
+	if (!chunk_indices.has_value()) {
+		print_error(chunk_indices.error());
+		return 1;
+	}
+
+	for (auto& index : chunk_indices.value()) {
+		auto chunk_type = CICP_Inserter::get_chunk_type(file_contents.value(), index);
+		std::cout << chunk_type[0]
+		          << chunk_type[1]
+		          << chunk_type[2]
+		          << chunk_type[3]
+		          << std::endl;
+	}
 
 	return 0;
 }

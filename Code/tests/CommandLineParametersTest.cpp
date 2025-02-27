@@ -157,6 +157,20 @@ namespace CICP_Inserter {
 			}
 		});
 
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset p3-d65-pq returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 4;
+			char const* argv[argc] = { program_name, preset, "p3-d65-pq", test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 12);
+			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 16);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			}
+		});
+
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--color_primaries 42 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 4;
 			char const* argv[argc] = { program_name, color_primaries, "42", test_image_path };
@@ -241,8 +255,6 @@ namespace CICP_Inserter {
 			}
 		});
 
-		// TODO: Change things such that we can test without printing to stderr
-		/*
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "Missing file path errors", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 3;
 			char const* argv[argc] = { program_name, preset, "srgb" };
@@ -256,6 +268,7 @@ namespace CICP_Inserter {
 			char const* argv[argc] = { program_name, "--not-a-flag", "0" };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::UnrecognizedParameter);
 			}
 		});
 
@@ -264,6 +277,7 @@ namespace CICP_Inserter {
 			char const* argv[argc] = { program_name, preset, "foo", test_image_path };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::UnrecognizedParameter);
 			}
 		});
 
@@ -272,6 +286,7 @@ namespace CICP_Inserter {
 			char const* argv[argc] = { program_name, color_primaries, "foo", test_image_path };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::UnrecognizedParameter);
 			}
 		});
 
@@ -280,6 +295,7 @@ namespace CICP_Inserter {
 			char const* argv[argc] = { program_name, color_primaries, "-1", test_image_path };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::ValueOutsideRange);
 			}
 		});
 
@@ -288,9 +304,9 @@ namespace CICP_Inserter {
 			char const* argv[argc] = { program_name, color_primaries, "256", test_image_path };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::ValueOutsideRange);
 			}
 		});
-		*/
 
 		CommandLineParametersTestSuite.RunTests();
 	}

@@ -6,9 +6,10 @@
 #define CICP_INSERTER_COMMANDLINEPARAMETERS_HPP
 
 #include <cstdint>
-#include <optional>
+#include <expected>
 #include <string>
 #include <utility>
+#include <vector>
 
 namespace CICP_Inserter {
 
@@ -25,7 +26,24 @@ namespace CICP_Inserter {
 
 	};
 
-	std::optional<CommandLineParameters> parse_command_line_parameters(int argc, char const* argv[]) noexcept;
+	enum class ParseCommandLineParametersErrorCode {
+		UnrecognizedParameter,
+		ValueOutsideRange,
+		ExpectedValue,
+		NotActuallyAnError, // TODO: Find a good way to separate actions (--help, --version) from returning a CommandLineParameters and remove this
+	};
+
+	class ParseCommandLineParametersError {
+	public:
+
+		explicit ParseCommandLineParametersError(ParseCommandLineParametersErrorCode error_code, std::vector<char const*> output_messages) noexcept;
+
+		ParseCommandLineParametersErrorCode error_code_;
+		std::vector<char const*> output_messages_;
+
+	};
+
+	std::expected<CommandLineParameters, ParseCommandLineParametersError> parse_command_line_parameters(int argc, char const* argv[]) noexcept;
 
 } // namespace CICP_Inserter
 

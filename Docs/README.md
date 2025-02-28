@@ -4,6 +4,8 @@ cicp_inserter allows for easy insertion of CICP data into a PNG file.
 
 A typical use case looks like this:
 `cicp_inserter.exe --preset display-p3 C:\images\test.png`
+> [!WARNING]
+> This updates the existing file. Meaning any bugs or errors might clobber your file.
 
 This command updates the file to use Display P3.
 It does not update or alter any color values.

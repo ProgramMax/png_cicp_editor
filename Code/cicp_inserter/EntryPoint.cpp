@@ -7,6 +7,7 @@
 #include "CICPInserter.hpp"
 #include "CommandLineParameters.hpp"
 #include "FileReader.hpp"
+#include "FileWriter.hpp"
 #include "PNGParser.hpp"
 
 namespace {
@@ -53,6 +54,25 @@ int main(int argc, char const* argv[]) noexcept {
 	auto insertion_index = CICP_Inserter::get_insertion_index(file_contents.value(), chunk_indices.value());
 	if (!insertion_index.has_value()) {
 		print_error(insertion_index.error());
+		return 1;
+	}
+
+
+	// Prepare cICP buffer to write
+
+
+	// Prepare file before & after buffers for write
+	std::vector<std::span<char>> buffers;
+	auto file_contents_start = file_contents.value().data();
+	auto insertion_index_value = insertion_index.value();
+	buffers.push_back({ file_contents_start, file_contents_start + insertion_index_value });
+	buffers.push_back({ file_contents_start + insertion_index_value, file_contents.value().size() - insertion_index_value });
+
+
+	// Write the file with cICP inserted
+	auto write_result = CICP_Inserter::write_file(command_line_parameters->png_file_path_, buffers);
+	if (!write_result.has_value()) {
+		print_error(write_result.error());
 		return 1;
 	}
 

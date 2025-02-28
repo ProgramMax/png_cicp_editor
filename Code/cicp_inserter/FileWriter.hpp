@@ -11,22 +11,15 @@
 #include <string_view>
 #include <vector>
 
+#include "Error.hpp"
+
 namespace CICP_Inserter {
 
 	enum class WriteFileErrorCode {
 		CannotOpenFile,
 		CannotWriteFile,
 	};
-
-	class WriteFileError {
-	public:
-
-		explicit WriteFileError(WriteFileErrorCode error_code, std::vector<std::string_view> output_messages) noexcept;
-
-		WriteFileErrorCode error_code_;
-		std::vector<std::string_view> output_messages_;
-
-	};
+	using WriteFileError = ErrorWithCode<WriteFileErrorCode>;
 
 	std::expected<void, WriteFileError> write_file(const std::string& file_path, std::vector<std::span<char>> buffers) noexcept;
 

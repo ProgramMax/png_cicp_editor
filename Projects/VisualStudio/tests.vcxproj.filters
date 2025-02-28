@@ -40,6 +40,8 @@
     <ClCompile Include="..\..\Code\tests\CICPInserterTest.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\FileWriter.cpp" />
     <ClCompile Include="..\..\Code\tests\FileWriterTest.cpp" />
+    <ClCompile Include="..\..\Code\cicp_inserter\Error.cpp" />
+    <ClCompile Include="..\..\Code\tests\ErrorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.hpp">
@@ -61,5 +63,7 @@
     <ClInclude Include="..\..\Code\tests\CICPInserterTest.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\FileWriter.hpp" />
     <ClInclude Include="..\..\Code\tests\FileWriterTest.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\Error.hpp" />
+    <ClInclude Include="..\..\Code\tests\ErrorTest.hpp" />
   </ItemGroup>
 </Project>

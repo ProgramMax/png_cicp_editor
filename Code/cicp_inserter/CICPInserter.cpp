@@ -32,11 +32,6 @@ namespace {
 
 namespace CICP_Inserter {
 
-	GetInsertionIndexError::GetInsertionIndexError(GetInsertionIndexErrorCode error_code, std::vector<std::string_view> output_messages) noexcept
-		: error_code_(std::move(error_code))
-		, output_messages_(std::move(output_messages))
-	{}
-
 	std::expected<size_t, GetInsertionIndexError> get_insertion_index(const std::span<char>& file_contents, const std::vector<size_t>& chunk_indices) noexcept {
 		auto plte_index = size_t{ SIZE_MAX };
 		auto idat_index = size_t{ SIZE_MAX };

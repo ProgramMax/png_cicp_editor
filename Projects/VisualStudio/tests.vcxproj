@@ -160,12 +160,14 @@
   <ItemGroup>
     <ClCompile Include="..\..\Code\cicp_inserter\CICPInserter.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\CommandLineParameters.cpp" />
+    <ClCompile Include="..\..\Code\cicp_inserter\Error.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\FileReader.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\FileWriter.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\PNGParser.cpp" />
     <ClCompile Include="..\..\Code\tests\CICPInserterTest.cpp" />
     <ClCompile Include="..\..\Code\tests\CommandLineParametersTest.cpp" />
     <ClCompile Include="..\..\Code\tests\EntryPoint.cpp" />
+    <ClCompile Include="..\..\Code\tests\ErrorTest.cpp" />
     <ClCompile Include="..\..\Code\tests\FileReaderTest.cpp" />
     <ClCompile Include="..\..\Code\tests\FileWriterTest.cpp" />
     <ClCompile Include="..\..\Code\tests\PNGParserTest.cpp" />
@@ -174,11 +176,13 @@
   <ItemGroup>
     <ClInclude Include="..\..\Code\cicp_inserter\CICPInserter.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\Error.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\FileReader.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\FileWriter.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\PNGParser.hpp" />
     <ClInclude Include="..\..\Code\tests\CICPInserterTest.hpp" />
     <ClInclude Include="..\..\Code\tests\CommandLineParametersTest.hpp" />
+    <ClInclude Include="..\..\Code\tests\ErrorTest.hpp" />
     <ClInclude Include="..\..\Code\tests\FileReaderTest.hpp" />
     <ClInclude Include="..\..\Code\tests\FileWriterTest.hpp" />
     <ClInclude Include="..\..\Code\tests\PNGParserTest.hpp" />

@@ -34,11 +34,6 @@ namespace {
 
 namespace CICP_Inserter {
 
-	GetChunkIndicesError::GetChunkIndicesError(GetChunkIndicesErrorCode error_code, std::vector<std::string_view> output_messages) noexcept
-		: error_code_(std::move(error_code))
-		, output_messages_(std::move(output_messages))
-	{}
-
 	std::expected<std::vector<size_t>, GetChunkIndicesError> get_chunk_indices(const std::span<char>& file_contents) noexcept {
 		if (png_header.compare(file_contents.data()) != 0) {
 			return std::unexpected{ GetChunkIndicesError{ GetChunkIndicesErrorCode::NotAPNGFile, { not_a_png_file } } };

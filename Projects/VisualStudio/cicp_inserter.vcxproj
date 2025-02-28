@@ -32,6 +32,7 @@
     <ClCompile Include="..\..\Code\cicp_inserter\CICPInserter.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\CommandLineParameters.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\EntryPoint.cpp" />
+    <ClCompile Include="..\..\Code\cicp_inserter\Error.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\FileReader.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\FileWriter.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\PNGParser.cpp" />
@@ -39,6 +40,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Code\cicp_inserter\CICPInserter.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\Error.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\FileReader.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\FileWriter.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\PNGParser.hpp" />

@@ -60,30 +60,6 @@ namespace CICP_Inserter {
 			}
 		});
 
-		FileReaderTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "get_chunk_type correctly identifies chunks", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
-			auto indices = CICP_Inserter::get_chunk_indices(std::span<char>{ valid_png });
-			CurrentTest.MAX_TESTING_ASSERT(indices.has_value());
-			CurrentTest.MAX_TESTING_ASSERT(indices.value().size() == 3);
-
-			auto first_chunk  = get_chunk_type(valid_png, indices.value()[0]);
-			auto second_chunk = get_chunk_type(valid_png, indices.value()[1]);
-			auto third_chunk  = get_chunk_type(valid_png, indices.value()[2]);
-
-			CurrentTest.MAX_TESTING_ASSERT(first_chunk[0] == 'I' &&
-			                               first_chunk[1] == 'H' &&
-			                               first_chunk[2] == 'D' &&
-			                               first_chunk[3] == 'R');
-			CurrentTest.MAX_TESTING_ASSERT(second_chunk[0] == 'I' &&
-			                               second_chunk[1] == 'D' &&
-			                               second_chunk[2] == 'A' &&
-			                               second_chunk[3] == 'T');
-			CurrentTest.MAX_TESTING_ASSERT(third_chunk[0] == 'I' &&
-			                               third_chunk[1] == 'E' &&
-			                               third_chunk[2] == 'N' &&
-			                               third_chunk[3] == 'D');
-			}
-		});
-
 		FileReaderTestSuite.RunTests();
 	}
 

@@ -57,13 +57,4 @@ namespace CICP_Inserter {
 		return chunk_indices;
 	}
 
-	std::array<char, 4> get_chunk_type(const std::span<char>& file_contents, size_t index) noexcept {
-		return {
-			file_contents[index + 4],
-			file_contents[index + 5],
-			file_contents[index + 6],
-			file_contents[index + 7]
-		};
-	}
-
 } // namespace CICP_Inserter

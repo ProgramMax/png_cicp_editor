@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+#include "CICPInserter.hpp"
 #include "CommandLineParameters.hpp"
 #include "FileReader.hpp"
 #include "PNGParser.hpp"
@@ -40,21 +41,21 @@ int main(int argc, char const* argv[]) noexcept {
 	}
 
 
-	// Get indicies of chunks
+	// Get indicies of all chunks
 	auto chunk_indices = CICP_Inserter::get_chunk_indices(file_contents.value());
 	if (!chunk_indices.has_value()) {
 		print_error(chunk_indices.error());
 		return 1;
 	}
 
-	for (auto& index : chunk_indices.value()) {
-		auto chunk_type = CICP_Inserter::get_chunk_type(file_contents.value(), index);
-		std::cout << chunk_type[0]
-		          << chunk_type[1]
-		          << chunk_type[2]
-		          << chunk_type[3]
-		          << std::endl;
+
+	// Find insertion index for cICP chunk
+	auto insertion_index = CICP_Inserter::get_insertion_index(file_contents.value(), chunk_indices.value());
+	if (!insertion_index.has_value()) {
+		print_error(insertion_index.error());
+		return 1;
 	}
+
 
 	return 0;
 }

@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <array>
 #include <expected>
 #include <span>
 #include <string_view>
@@ -25,6 +24,5 @@ namespace CICP_Inserter {
 	};
 
 	std::expected<std::vector<size_t>, GetChunkIndicesError> get_chunk_indices(const std::span<char>& file_contents) noexcept;
-	std::array<char, 4> get_chunk_type(const std::span<char>& file_contents, size_t index) noexcept;
 
 } // namespace CICP_Inserter

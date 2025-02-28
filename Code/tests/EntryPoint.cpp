@@ -2,11 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "CICPInserterTest.hpp"
 #include "CommandLineParametersTest.hpp"
 #include "FileReaderTest.hpp"
 #include "PNGParserTest.hpp"
 
 int main() {
+	CICP_Inserter::RunCICPInserterTestSuite();
 	CICP_Inserter::RunCommandLineParametersTestSuite();
 	CICP_Inserter::RunFileReaderTestSuite();
 	CICP_Inserter::RunPNGParserTestSuite();

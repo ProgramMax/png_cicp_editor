@@ -16,7 +16,7 @@ If cicp_inserter is missing a feature you need, submit a [feature request](https
 ## Dependencies
 
 cicp_inserter depends on [max](https://github.com/ProgramMax/max), which also has a [BSD 3-Clause license](https://github.com/ProgramMax/max/blob/master/LICENSE).
-You can find some parts of max under [Dependencies/max](https://github.com/ProgramMax/maxGUI/blob/master/Dependencies/max).
+You can find some parts of max under [Dependencies/max](https://github.com/ProgramMax/cicp_inserter/blob/master/Dependencies/max).
 
 ## Engage
 

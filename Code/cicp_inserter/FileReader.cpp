@@ -6,7 +6,6 @@
 
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 #include <utility>
 
 namespace {
@@ -45,6 +44,8 @@ namespace CICP_Inserter {
 		{
 			return std::unexpected{ ReadFileError{ ReadFileErrorCode::CannotReadFile, { cannot_read_file, file_path, newline } } };
 		}
+
+		png_file.close();
 
 		return buffer;
 	}

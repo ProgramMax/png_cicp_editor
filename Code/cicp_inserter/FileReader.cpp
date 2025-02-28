@@ -21,11 +21,6 @@ namespace {
 
 namespace CICP_Inserter {
 
-	ReadFileError::ReadFileError(ReadFileErrorCode error_code, std::vector<std::string_view> output_messages) noexcept
-		: error_code_(std::move(error_code))
-		, output_messages_(std::move(output_messages))
-	{}
-
 	std::expected<std::vector<char>, ReadFileError> read_file(const std::string& file_path) noexcept {
 		// TODO: Do I really need filesystem here?
 		// The parameter should be a filesystem::path.

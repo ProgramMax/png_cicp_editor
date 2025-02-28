@@ -21,12 +21,6 @@ namespace {
 
 namespace CICP_Inserter {
 
-	WriteFileError::WriteFileError(WriteFileErrorCode error_code, std::vector<std::string_view> output_messages) noexcept
-		: error_code_(std::move(error_code))
-		, output_messages_(std::move(output_messages))
-	{
-	}
-
 	std::expected<void, WriteFileError> write_file(const std::string& file_path, std::vector<std::span<char>> buffers) noexcept {
 		// TODO: Do I really need filesystem here?
 		// The parameter should be a filesystem::path.
@@ -47,6 +41,8 @@ namespace CICP_Inserter {
 		}
 
 		png_file.close();
+
+		return std::expected<void, WriteFileError>{};
 	}
 
 } // namespace CICP_Inserter

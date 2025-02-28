@@ -10,22 +10,15 @@
 #include <string_view>
 #include <vector>
 
+#include "Error.hpp"
+
 namespace CICP_Inserter {
 
 	enum class ReadFileErrorCode {
 		CannotOpenFile,
 		CannotReadFile,
 	};
-
-	class ReadFileError {
-	public:
-
-		explicit ReadFileError(ReadFileErrorCode error_code, std::vector<std::string_view> output_messages) noexcept;
-
-		ReadFileErrorCode error_code_;
-		std::vector<std::string_view> output_messages_;
-
-	};
+	using ReadFileError = ErrorWithCode<ReadFileErrorCode>;
 
 	std::expected<std::vector<char>, ReadFileError> read_file(const std::string& file_path) noexcept;
 

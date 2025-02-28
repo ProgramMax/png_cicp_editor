@@ -11,6 +11,8 @@
 #include <utility>
 #include <vector>
 
+#include "Error.hpp"
+
 namespace CICP_Inserter {
 
 	class CommandLineParameters {
@@ -32,16 +34,7 @@ namespace CICP_Inserter {
 		ExpectedValue,
 		NotActuallyAnError, // TODO: Find a good way to separate actions (--help, --version) from returning a CommandLineParameters and remove this
 	};
-
-	class ParseCommandLineParametersError {
-	public:
-
-		explicit ParseCommandLineParametersError(ParseCommandLineParametersErrorCode error_code, std::vector<char const*> output_messages) noexcept;
-
-		ParseCommandLineParametersErrorCode error_code_;
-		std::vector<char const*> output_messages_;
-
-	};
+	using ParseCommandLineParametersError = ErrorWithCode<ParseCommandLineParametersErrorCode>;
 
 	std::expected<CommandLineParameters, ParseCommandLineParametersError> parse_command_line_parameters(int argc, char const* argv[]) noexcept;
 

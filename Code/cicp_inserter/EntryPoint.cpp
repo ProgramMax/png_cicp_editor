@@ -6,20 +6,10 @@
 
 #include "CICPInserter.hpp"
 #include "CommandLineParameters.hpp"
+#include "Error.hpp"
 #include "FileReader.hpp"
 #include "FileWriter.hpp"
 #include "PNGParser.hpp"
-
-namespace {
-
-	template<typename T>
-	void print_error(T error) noexcept {
-		for (auto& message : error.output_messages_) {
-			std::cerr << message;
-		}
-	}
-
-} // anonymous namespace
 
 int main(int argc, char const* argv[]) noexcept {
 	// Parse the command line parameters
@@ -29,7 +19,7 @@ int main(int argc, char const* argv[]) noexcept {
 			return 0;
 		}
 
-		print_error(std::move(command_line_parameters.error()));
+		print_error(command_line_parameters.error());
 		return 1;
 	}
 

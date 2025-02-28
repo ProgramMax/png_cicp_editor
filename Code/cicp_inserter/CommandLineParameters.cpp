@@ -79,19 +79,7 @@ Example usage: cicp_inserter.exe --preset display-p3 --video_full_range_flag 0 C
 		UnrecognizedParameter,
 		ValueOutsideRange,
 	};
-
-	class ReadNumericValueError {
-	public:
-
-		explicit ReadNumericValueError(ReadNumericValueErrorCode error_code, std::vector<char const*> output_messages) noexcept
-			: error_code_(std::move(error_code))
-			, output_messages_(std::move(output_messages))
-		{}
-
-		ReadNumericValueErrorCode error_code_;
-		std::vector<char const*> output_messages_;
-
-	};
+	using ReadNumericValueError = CICP_Inserter::ErrorWithCode<ReadNumericValueErrorCode>;
 
 	std::expected<uint8_t, ReadNumericValueError> read_numeric_value(char const* parameter) noexcept {
 		static constinit int base = 10;
@@ -132,11 +120,6 @@ namespace CICP_Inserter {
 		, matrix_coefficients_(std::move(matrix_coefficients))
 		, video_full_range_flag_(std::move(video_full_range_flag))
 		, png_file_path_(std::move(png_file_path))
-	{}
-
-	ParseCommandLineParametersError::ParseCommandLineParametersError(ParseCommandLineParametersErrorCode error_code, std::vector<char const*> output_messages) noexcept
-		: error_code_(std::move(error_code))
-		, output_messages_(std::move(output_messages))
 	{}
 
 	std::expected<CommandLineParameters, ParseCommandLineParametersError> parse_command_line_parameters(int argc, char const* argv[]) noexcept {

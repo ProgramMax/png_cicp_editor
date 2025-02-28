@@ -20,7 +20,7 @@ namespace {
 
 	// file contents
 	// This is a 1x1 black PNG
-	static auto valid_png = std::array{ '\x89', 'P', 'N', 'G', '\x0d', '\x0a', '\x1a', '\x0a', '\x00', '\x00', '\x00', '\x0d', 'I', 'H', 'D', 'R', '\x00', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x01', '\x08', '\x02', '\x00', '\x00', '\x00', '\x90', '\x77', '\x53', '\xde', '\x00', '\x00', '\x00', '\x0c', 'I', 'D', 'A', 'T', '\x08', '\x99', '\x63', '\x60', '\x60', '\x60', '\x00', '\x00', '\x00', '\x04', '\x00', '\x01', '\xa3', '\x0a', '\x0a', '\x15', '\xe3', '\x00', '\x00', '\x00', '\x00', 'I', 'E', 'N', 'D', '\xae', '\x42', '\x60', '\x82' };
+	static auto valid_png = std::array{ '\x89', 'P', 'N', 'G', '\x0d', '\x0a', '\x1a', '\x0a', '\x00', '\x00', '\x00', '\x0d', 'I', 'H', 'D', 'R', '\x00', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x01', '\x08', '\x02', '\x00', '\x00', '\x00', '\x90', '\x77', '\x53', '\xde', '\x00', '\x00', '\x00', '\x0c', 'I', 'D', 'A', 'T', '\x08', '\x99', '\x63', '\x60', '\x60', '\x60', '\x00', '\x00', '\x00', '\x04', '\x00', '\x01', '\xa3', '\x0a', '\x15', '\xe3', '\x00', '\x00', '\x00', '\x00', 'I', 'E', 'N', 'D', '\xae', '\x42', '\x60', '\x82' };
 	static auto invalid_png = std::array{ 'f', 'o', 'o' };
 
 } // anonymous namespace
@@ -60,7 +60,6 @@ namespace CICP_Inserter {
 			}
 		});
 
-		/*
 		FileReaderTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "get_chunk_type correctly identifies chunks", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			auto indices = CICP_Inserter::get_chunk_indices(std::span<char>{ valid_png });
 			CurrentTest.MAX_TESTING_ASSERT(indices.has_value());
@@ -78,14 +77,12 @@ namespace CICP_Inserter {
 			                               second_chunk[1] == 'D' &&
 			                               second_chunk[2] == 'A' &&
 			                               second_chunk[3] == 'T');
-			// TODO: The test fails on this assert. Thank you for identifying my bug, test.
 			CurrentTest.MAX_TESTING_ASSERT(third_chunk[0] == 'I' &&
 			                               third_chunk[1] == 'E' &&
 			                               third_chunk[2] == 'N' &&
 			                               third_chunk[3] == 'D');
 			}
 		});
-		*/
 
 		FileReaderTestSuite.RunTests();
 	}

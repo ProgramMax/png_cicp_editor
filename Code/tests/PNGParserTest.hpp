@@ -1,0 +1,14 @@
+// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef CICP_INSERTER_PNGPARSERTEST_HPP
+#define CICP_INSERTER_PNGPARSERTEST_HPP
+
+namespace CICP_Inserter {
+
+	void RunPNGParserTestSuite();
+
+} // namespace CICP_Inserter
+
+#endif // #ifndef CICP_INSERTER_PNGPARSERTEST_HPP

@@ -4,6 +4,7 @@
 
 #include <array>
 #include <expected>
+#include <span>
 #include <string_view>
 #include <vector>
 
@@ -23,7 +24,7 @@ namespace CICP_Inserter {
 
 	};
 
-	std::expected<std::vector<size_t>, GetChunkIndicesError> get_chunk_indices(const std::vector<char>& file_contents) noexcept;
-	std::array<char, 4> get_chunk_type(const std::vector<char>& file_contents, size_t index) noexcept;
+	std::expected<std::vector<size_t>, GetChunkIndicesError> get_chunk_indices(const std::span<char>& file_contents) noexcept;
+	std::array<char, 4> get_chunk_type(const std::span<char>& file_contents, size_t index) noexcept;
 
 } // namespace CICP_Inserter

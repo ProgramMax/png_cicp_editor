@@ -31,6 +31,15 @@ namespace CICP_Inserter {
 
 		// TODO: Add tests for --version & --help
 
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "ParseCommandLineParametersError ctor assigns members", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			auto error = ParseCommandLineParametersError{ ParseCommandLineParametersErrorCode::UnrecognizedParameter, { preset } };
+
+			CurrentTest.MAX_TESTING_ASSERT(error.error_code_ == ParseCommandLineParametersErrorCode::UnrecognizedParameter);
+			CurrentTest.MAX_TESTING_ASSERT(error.output_messages_.size() == 1);
+			CurrentTest.MAX_TESTING_ASSERT(error.output_messages_[0] == preset);
+			}
+		});
+
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.709 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 4;
 			char const* argv[argc] = { program_name, preset, "bt.709", test_image_path };

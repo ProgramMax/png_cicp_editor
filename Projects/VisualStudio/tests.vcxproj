@@ -159,13 +159,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Code\cicp_inserter\CommandLineParameters.cpp" />
+    <ClCompile Include="..\..\Code\cicp_inserter\FileReader.cpp" />
+    <ClCompile Include="..\..\Code\cicp_inserter\PNGParser.cpp" />
     <ClCompile Include="..\..\Code\tests\CommandLineParametersTest.cpp" />
     <ClCompile Include="..\..\Code\tests\EntryPoint.cpp" />
+    <ClCompile Include="..\..\Code\tests\FileReaderTest.cpp" />
+    <ClCompile Include="..\..\Code\tests\PNGParserTest.cpp" />
     <ClCompile Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\FileReader.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\PNGParser.hpp" />
     <ClInclude Include="..\..\Code\tests\CommandLineParametersTest.hpp" />
+    <ClInclude Include="..\..\Code\tests\FileReaderTest.hpp" />
+    <ClInclude Include="..\..\Code\tests\PNGParserTest.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\Test.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\TestSuite.hpp" />

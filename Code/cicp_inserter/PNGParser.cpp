@@ -15,7 +15,7 @@ namespace {
 	// utility
 	static const std::string_view png_header = "\x89PNG\x0d\x0a\x1a\x0a";
 
-	uint32_t read_32_bits(const std::vector<char>& file_contents, size_t index) noexcept {
+	uint32_t read_32_bits(const std::span<char>& file_contents, size_t index) noexcept {
 		uint8_t first_byte  = file_contents[index + 0];
 		uint8_t second_byte = file_contents[index + 1];
 		uint8_t third_byte  = file_contents[index + 2];
@@ -39,7 +39,7 @@ namespace CICP_Inserter {
 		, output_messages_(std::move(output_messages))
 	{}
 
-	std::expected<std::vector<size_t>, GetChunkIndicesError> get_chunk_indices(const std::vector<char>& file_contents) noexcept {
+	std::expected<std::vector<size_t>, GetChunkIndicesError> get_chunk_indices(const std::span<char>& file_contents) noexcept {
 		if (png_header.compare(file_contents.data()) != 0) {
 			return std::unexpected{ GetChunkIndicesError{ GetChunkIndicesErrorCode::NotAPNGFile, { not_a_png_file } } };
 		}
@@ -57,7 +57,7 @@ namespace CICP_Inserter {
 		return chunk_indices;
 	}
 
-	std::array<char, 4> get_chunk_type(const std::vector<char>& file_contents, size_t index) noexcept {
+	std::array<char, 4> get_chunk_type(const std::span<char>& file_contents, size_t index) noexcept {
 		return {
 			file_contents[index + 4],
 			file_contents[index + 5],

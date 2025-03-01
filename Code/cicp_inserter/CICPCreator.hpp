@@ -6,6 +6,7 @@
 #define CICP_INSERTER_CICPCREATOR_HPP
 
 #include <array>
+#include <cstdint>
 
 namespace CICP_Inserter {
 

@@ -42,7 +42,7 @@ namespace {
 	static constinit char const* newline                = "\n";
 
 	void print_version() noexcept {
-		std::cout << "cicp_inserter version 0.1" << std::endl;
+		std::cout << "cicp_inserter version 1.0" << std::endl;
 	}
 
 	void print_help() noexcept {

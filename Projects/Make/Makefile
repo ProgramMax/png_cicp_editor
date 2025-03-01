@@ -84,7 +84,7 @@ LINKER_FLAGS += $(LIBRARY_PATH_FLAGS)
 # libstdc++'s <expected> from working as expected.
 # As a result, we need to use GCC's libc++ for now.
 ifeq 'clang++' '$(findstring clang++,$(CXX))'
-	CPP_FLAGS += -stdlib=libc++
+	CPP_FLAGS += -std=gnu++23 -stdlib=libc++
 	LINKER_FLAGS += -stdlib=libc++
 endif
 

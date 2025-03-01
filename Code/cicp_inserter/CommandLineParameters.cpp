@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string_view>
+#include <utility>
 
 // TODO: possibly add --narrow
 
@@ -105,6 +106,8 @@ Example usage: cicp_inserter.exe --preset display-p3 --video_full_range_flag 0 C
 		case ReadNumericValueErrorCode::ValueOutsideRange:
 			new_error_code = CICP_Inserter::ParseCommandLineParametersErrorCode::ValueOutsideRange;
 			break;
+		default:
+			std::unreachable();
 		}
 
 		return CICP_Inserter::ParseCommandLineParametersError{ std::move(new_error_code), std::move(error.output_messages_) };

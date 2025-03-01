@@ -77,10 +77,10 @@ namespace CICP_Inserter {
 
 		// crc
 		unsigned long calculated_crc = crc(&buffer[4], 8);
-		buffer[12] = calculated_crc >> 24;
-		buffer[13] = calculated_crc >> 16;
-		buffer[14] = calculated_crc >> 8;
-		buffer[15] = calculated_crc >> 0;
+		buffer[12] = static_cast<char>(calculated_crc >> 24);
+		buffer[13] = static_cast<char>(calculated_crc >> 16);
+		buffer[14] = static_cast<char>(calculated_crc >> 8);
+		buffer[15] = static_cast<char>(calculated_crc >> 0);
 
 		return buffer;
 	}

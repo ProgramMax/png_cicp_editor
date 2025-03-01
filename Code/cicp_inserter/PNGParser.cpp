@@ -4,6 +4,7 @@
 
 #include "PNGParser.hpp"
 
+#include <cstdint>
 #include <string_view>
 #include <utility>
 

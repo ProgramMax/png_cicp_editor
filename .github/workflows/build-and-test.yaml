@@ -35,24 +35,26 @@ jobs:
     - name: Test
       run: ${{ github.workspace }}\Projects\VisualStudio\tests\${{ matrix.platform }}\${{ matrix.configuration }}\tests.exe
 
-  # TODO: Add Linux & Mac support
-  #Linux:
-    #strategy:
-      #matrix:
-        #platform: [X86-64] # TODO: Add X86, AArch32, and AArch64 platforms
-        #compiler: [Clang, GCC]
-        #runner: [ubuntu-22.04, ubuntu-20.04]
-    #runs-on: ${{ matrix.runner }}
+   Linux:
+    strategy:
+      matrix:
+        platform: [X86-64] # TODO: Add X86, AArch32, and AArch64 platforms
+        compiler: [clang++, g++]
+        runner: [ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
 
-    #steps:
-    #- name: Checkout
-      #uses: actions/checkout@v3
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
 
-    #- name: Build
-      #env:
-      #  CXX: g++-10
-      #working-directory: ${{ github.workspace }}/Projects/Make
-      #run: make
+    - name: Build
+      env:
+        CXX: ${{ matrix.compiler }}
+      working-directory: ${{ github.workspace }}/Projects/Make
+      run: make
 
-    #- name: Test
-      #run: ${{ github.workspace }}/Projects/Make/ests
+    - name: Test
+      run: ${{ github.workspace }}/Projects/Make/test
+
+# TODO: Add Mac support
+

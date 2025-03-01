@@ -35,11 +35,11 @@ jobs:
     - name: Test
       run: ${{ github.workspace }}\Projects\VisualStudio\tests\${{ matrix.platform }}\${{ matrix.configuration }}\tests.exe
 
-   Linux:
+  Linux:
     strategy:
       matrix:
         platform: [X86-64] # TODO: Add X86, AArch32, and AArch64 platforms
-        compiler: [clang++, g++]
+        compiler: [g++-14] # TODO: Add clang++-18
         runner: [ubuntu-24.04]
     runs-on: ${{ matrix.runner }}
 

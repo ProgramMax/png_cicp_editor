@@ -80,6 +80,16 @@ endif
 CPP_FLAGS += $(INCLUDE_PATHS_FLAGS) -std=c++23 $(TARGET_BIT_FLAG)
 LINKER_FLAGS += $(LIBRARY_PATH_FLAGS)
 
+# Clang exposes an older version of concepts, which prevents
+# libstdc++'s <expected> from working as expected.
+# As a result, we need to use GCC's libc++ for now.
+ifeq 'clang++' '$(findstring clang++,$(CXX))'
+	CPP_FLAGS += -stdlib=libc++
+	LINKER_FLAGS += -stdlib=libc++
+endif
+
+
+
 all: $(PROGRAM) $(TEST_PROGRAM)
 
 $(PROGRAM): $(CXX_OBJS)

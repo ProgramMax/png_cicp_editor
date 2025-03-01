@@ -39,7 +39,7 @@ jobs:
     strategy:
       matrix:
         platform: [X86-64] # TODO: Add X86, AArch32, and AArch64 platforms
-        compiler: [clang++, g++]
+        compiler: [clang++-18, g++-14]
         runner: [ubuntu-24.04]
     runs-on: ${{ matrix.runner }}
 
@@ -47,14 +47,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Check compiler versions
-      run: gcc -v && clang -v
+        #- name: Check compiler versions
+        #run: gcc -v && clang -v
 
-    - name: Set compiler versions
-      run: sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100 --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-14 --slave /usr/bin/g++ g++ /usr/bin/g++-14
+        #- name: Set compiler versions
+        #run: sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100 --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-14 --slave /usr/bin/g++ g++ /usr/bin/g++-14
 
-    - name: Check compiler versions again
-      run: gcc -v && clang -v
+        #- name: Check compiler versions again
+        #run: gcc -v && clang -v
 
     - name: Build
       env:

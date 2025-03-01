@@ -54,7 +54,7 @@ jobs:
       run: make
 
     - name: Test
-      run: ${{ github.workspace }}/Projects/Make/test
+      run: ${{ github.workspace }}/Projects/Make/Build/tests
 
 # TODO: Add Mac support
 

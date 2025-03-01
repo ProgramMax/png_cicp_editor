@@ -47,6 +47,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Install libc++-dev
+      run: sudo apt install libc++-dev
+
     - name: Build
       env:
         CXX: ${{ matrix.compiler }}

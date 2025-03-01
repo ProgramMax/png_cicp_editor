@@ -47,6 +47,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Check compiler versions
+      run: gcc -v && clang -v
+
+    - name: Set compiler versions
+      run: sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100 --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-14 --slave /usr/bin/g++ g++ /usr/bin/g++-14
+
+    - name: Check compiler versions again
+      run: gcc -v && clang -v
+
     - name: Build
       env:
         CXX: ${{ matrix.compiler }}

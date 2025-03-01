@@ -59,6 +59,9 @@
     <ClCompile Include="..\..\Code\cicp_inserter\Error.cpp">
       <Filter>Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Code\cicp_inserter\CICPCreator.cpp">
+      <Filter>Code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp">
@@ -77,6 +80,9 @@
       <Filter>Code</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Code\cicp_inserter\Error.hpp">
+      <Filter>Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\cicp_inserter\CICPCreator.hpp">
       <Filter>Code</Filter>
     </ClInclude>
   </ItemGroup>

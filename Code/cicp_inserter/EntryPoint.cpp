@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+#include "CICPCreator.hpp"
 #include "CICPInserter.hpp"
 #include "CommandLineParameters.hpp"
 #include "Error.hpp"
@@ -49,6 +50,7 @@ int main(int argc, char const* argv[]) noexcept {
 
 
 	// Prepare cICP buffer to write
+	auto cicp_buffer = CICP_Inserter::create_cicp_buffer(command_line_parameters->color_primaries_, command_line_parameters->transfer_function_, command_line_parameters->matrix_coefficients_, command_line_parameters->video_full_range_flag_);
 
 
 	// Prepare file before & after buffers for write
@@ -56,6 +58,7 @@ int main(int argc, char const* argv[]) noexcept {
 	auto file_contents_start = file_contents.value().data();
 	auto insertion_index_value = insertion_index.value();
 	buffers.push_back({ file_contents_start, file_contents_start + insertion_index_value });
+	buffers.push_back({ cicp_buffer });
 	buffers.push_back({ file_contents_start + insertion_index_value, file_contents.value().size() - insertion_index_value });
 
 

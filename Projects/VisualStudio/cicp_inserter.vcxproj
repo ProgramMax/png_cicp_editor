@@ -29,6 +29,7 @@
     <None Include="..\..\LICENSE" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Code\cicp_inserter\CICPCreator.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\CICPInserter.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\CommandLineParameters.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\EntryPoint.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="..\..\Code\cicp_inserter\PNGParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Code\cicp_inserter\CICPCreator.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\CICPInserter.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\Error.hpp" />

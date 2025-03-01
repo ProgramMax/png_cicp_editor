@@ -83,6 +83,8 @@ LINKER_FLAGS += $(LIBRARY_PATH_FLAGS)
 # Clang exposes an older version of concepts, which prevents
 # libstdc++'s <expected> from working as expected.
 # As a result, we need to use GCC's libc++ for now.
+#
+# Make sure you have libc++-dev installed.
 ifeq 'clang++' '$(findstring clang++,$(CXX))'
 	CPP_FLAGS += -std=gnu++23 -stdlib=libc++
 	LINKER_FLAGS += -stdlib=libc++

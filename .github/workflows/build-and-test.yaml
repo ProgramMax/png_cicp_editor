@@ -50,8 +50,8 @@ jobs:
     - name: Build
       env:
         CXX: ${{ matrix.compiler }}
-      working-directory: ${{env.GITHUB_WORKSPACE}}/Projects/Make
-      run: make
+      working-directory: ${{ github.workspace }}/Projects/Make
+      run: ls && make
 
     - name: Test
       run: ${{ github.workspace }}/Projects/Make/Build/tests

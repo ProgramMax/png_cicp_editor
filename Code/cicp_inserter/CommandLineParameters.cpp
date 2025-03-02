@@ -15,8 +15,15 @@ namespace {
 
 	// flags
 	static const std::string_view version_string               = "--version";
+	static const std::string_view v_string                     = "-v";
 	static const std::string_view help_string                  = "--help";
+	static const std::string_view h_string                     = "-h";
 	static const std::string_view preset_string                = "--preset";
+	static const std::string_view p_string                     = "-p";
+	static const std::string_view narrow_string                = "--narrow";
+	static const std::string_view n_string                     = "-n";
+	static const std::string_view full_string                  = "--full";
+	static const std::string_view f_string                     = "-f";
 	static const std::string_view color_primaries_string       = "--color_primaries";
 	static const std::string_view transfer_function_string     = "--transfer_function";
 	static const std::string_view matrix_coefficients_string   = "--matrix_coefficients";
@@ -73,6 +80,21 @@ Example usage: cicp_inserter.exe --color_primaries 1 --transfer_function 2 --mat
 
 These can be mixed to override defaults. Values specified later override prior values.
 Example usage: cicp_inserter.exe --preset display-p3 --video_full_range_flag 0 C:\images\test.png
+
+General flags:
+	-h --help             Show help information (what you are viewing now)
+	-v --version          Show version information
+	-p --preset [value]   Use [value]'s CICP values
+	-n --narrow           Use narrow range (--video_full_range_flag 0)
+	-f --full             Use full range (--video_full_range_flag 1)
+
+Specific flags to match CICP parameter names from ITU-T H.273 (experts only):
+	   --color_primaries [value]
+	   --transfer_function [value]
+	   --matrix_coefficients [value]
+	   --video_full_range_flag [value]
+Note: Specific flags use values from ITU-T H.273. Not all values are valid.
+PNG puts further restrictions on which values are valid.
 )" << std::endl;
 	}
 
@@ -155,14 +177,25 @@ namespace CICP_Inserter {
 		}
 		for (int i = 1; i < argc - 1; i++) {
 			if (expected_state == ExpectedState::None) {
-				if (version_string.compare(argv[i]) == 0) {
+				if (version_string.compare(argv[i]) == 0 ||
+				    v_string.compare(argv[i]) == 0) {
 					print_version();
 				}
-				else if (help_string.compare(argv[i]) == 0) {
+				else if (help_string.compare(argv[i]) == 0 ||
+				         h_string.compare(argv[i]) == 0) {
 					print_help();
 				}
-				else if (preset_string.compare(argv[i]) == 0) {
+				else if (preset_string.compare(argv[i]) == 0 ||
+				         p_string.compare(argv[i]) == 0) {
 					expected_state = ExpectedState::Preset;
+				}
+				else if (narrow_string.compare(argv[i]) == 0 ||
+				         n_string.compare(argv[i]) == 0) {
+					video_full_range_flag = 0;
+				}
+				else if (full_string.compare(argv[i]) == 0 ||
+				         f_string.compare(argv[i]) == 0) {
+					video_full_range_flag = 1;
 				}
 				else if (color_primaries_string.compare(argv[i]) == 0) {
 					expected_state = ExpectedState::ColorPrimaries;

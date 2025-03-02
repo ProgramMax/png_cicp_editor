@@ -10,14 +10,19 @@
 
 namespace {
 
-	static constinit char const* preset = "--preset";
+	static constinit char const* preset  = "--preset";
+	static constinit char const* narrow  = "--narrow";
+	static constinit char const* full    = "--full";
+	static constinit char const* p_string = "-p";
+	static constinit char const* n_string = "-n";
+	static constinit char const* f_string = "-f";
 
-	static constinit char const* color_primaries = "--color_primaries";
-	static constinit char const* transfer_function = "--transfer_function";
-	static constinit char const* matrix_coefficients = "--matrix_coefficients";
+	static constinit char const* color_primaries       = "--color_primaries";
+	static constinit char const* transfer_function     = "--transfer_function";
+	static constinit char const* matrix_coefficients   = "--matrix_coefficients";
 	static constinit char const* video_full_range_flag = "--video_full_range_flag";
 
-	static constinit char const* program_name = "cicp_inserter.exe";
+	static constinit char const* program_name    = "cicp_inserter.exe";
 	static constinit char const* test_image_path = "C:\\test\\image.png";
 
 } // anonymous namespace
@@ -180,6 +185,20 @@ namespace CICP_Inserter {
 			}
 		});
 
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p bt.709 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 4;
+			char const* argv[argc] = { program_name, p_string, "bt.709", test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			}
+		});
+
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--color_primaries 42 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 4;
 			char const* argv[argc] = { program_name, color_primaries, "42", test_image_path };
@@ -257,6 +276,62 @@ namespace CICP_Inserter {
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb --narrow returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 5;
+			char const* argv[argc] = { program_name, preset, "srgb", narrow, test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb -n returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 5;
+			char const* argv[argc] = { program_name, preset, "srgb", n_string, test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb -n --full returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 6;
+			char const* argv[argc] = { program_name, preset, "srgb", n_string, full, test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb -n -f returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 6;
+			char const* argv[argc] = { program_name, preset, "srgb", n_string, f_string, test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);

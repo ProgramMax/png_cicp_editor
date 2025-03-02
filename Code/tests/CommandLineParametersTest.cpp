@@ -48,7 +48,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -62,7 +62,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 8);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -76,7 +76,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -90,7 +90,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 14);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -104,7 +104,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 15);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -118,7 +118,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 16);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -132,7 +132,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 18);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -146,7 +146,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 11);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 17);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -160,7 +160,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 12);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -174,7 +174,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 12);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 16);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -188,7 +188,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 42);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -202,7 +202,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -230,7 +230,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 42);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}
@@ -258,7 +258,7 @@ namespace CICP_Inserter {
 
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 42);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
 			}

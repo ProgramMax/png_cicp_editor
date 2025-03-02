@@ -70,8 +70,6 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build
-      env:
-        CXX: ${{ matrix.compiler }}
       working-directory: ${{ github.workspace }}/Projects/Make
       run: make
 

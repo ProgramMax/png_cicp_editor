@@ -145,7 +145,7 @@ namespace CICP_Inserter {
 
 		uint8_t color_primaries = 0;
 		uint8_t transfer_function = 0;
-		uint8_t matrix_coefficients = 1;
+		uint8_t matrix_coefficients = 0;
 		uint8_t video_full_range_flag = 1;
 
 		// Start at 1 because the first command line parameter is the program name.

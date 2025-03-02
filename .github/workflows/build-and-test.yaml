@@ -59,5 +59,23 @@ jobs:
     - name: Test
       run: ${{ github.workspace }}/Projects/Make/Build/tests
 
-# TODO: Add Mac support
+  MacOS:
+    strategy:
+      matrix:
+        runner: [macos-15, macos-15-arm64]
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Build
+      env:
+        CXX: ${{ matrix.compiler }}
+      working-directory: ${{ github.workspace }}/Projects/Make
+      run: make
+
+    - name: Test
+      run: ${{ github.workspace }}/Projects/Make/Build/tests
+
 

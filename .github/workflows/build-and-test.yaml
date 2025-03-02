@@ -62,7 +62,7 @@ jobs:
   MacOS:
     strategy:
       matrix:
-        runner: [macos-15, macos-15-arm64]
+        runner: [macos-15] # TODO: macos-15-arm64 was never assigned a runner from GitHub after 14 hours. Revisit later
     runs-on: ${{ matrix.runner }}
 
     steps:

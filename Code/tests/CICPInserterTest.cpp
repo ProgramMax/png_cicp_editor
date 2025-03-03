@@ -29,7 +29,7 @@ namespace {
 
 	// 1x1 black PNG w/ sRGB cICP as final chunk
 	static auto last_chunk_cicp_png_contents = std::array{ '\x89', 'P', 'N', 'G', '\x0d', '\x0a', '\x1a', '\x0a', '\x00', '\x00', '\x00', '\x0d', 'I', 'H', 'D', 'R', '\x00', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x01', '\x08', '\x02', '\x00', '\x00', '\x00', '\x90', '\x77', '\x53', '\xde', '\x00', '\x00', '\x00', '\x04', 'c', 'I', 'C', 'P', '\x01', '\x0d', '\x00', '\x01', '\x9c', '\x69', '\x3b', '\x32' };
-	static auto last_chunk_cicp_chunk_indices = std::vector<size_t>{ 8, 33, 49 };
+	static auto last_chunk_cicp_chunk_indices = std::vector<size_t>{ 8, 33 };
 
 
 	static constinit char const* test_error_message = "test";

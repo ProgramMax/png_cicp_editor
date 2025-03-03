@@ -1,7 +1,7 @@
 # cicp_inserter
 
 cicp_inserter allows for easy insertion of CICP data into a PNG file.
-CICP is an efficient way to specify explicit color primaries, transfer function.
+CICP is an efficient way to specify explicit color space.
 It is described in Recommendation ITU-T H.273, which can be found here:
 https://www.itu.int/rec/T-REC-H.273
 

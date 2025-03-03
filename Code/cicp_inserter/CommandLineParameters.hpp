@@ -18,8 +18,9 @@ namespace CICP_Inserter {
 	class CommandLineParameters {
 	public:
 
-		CommandLineParameters(uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag, std::string png_file_path) noexcept;
+		CommandLineParameters(bool overwrite_cicp, uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag, std::string png_file_path) noexcept;
 
+		bool overwrite_cicp_;
 		uint8_t color_primaries_;
 		uint8_t transfer_function_;
 		uint8_t matrix_coefficients_;

@@ -19,19 +19,18 @@ It does not update or alter any color values.
 It simply updates the file (with all existing data unchanged) to be in a given color space.
 
 
-Other presets available:
-| Preset | Specification |
-|--------|---------------|
-| bt.709         | Rec. ITU-R BT.709-6 |
-| srgb-linear    | linear-light sRGB |
-| srgb           | IEC 61966-2-1 sRGB |
-| bt.2020-10-bit | Rec. ITU-R BT.2020-2 (10-bit system) |
-| bt.2020-12-bit | Rec. ITU-R BT.2020-2 (12-bit system) |
-| bt.2100-pq     | Rec. ITU-R BT.2100-2 perceptual quantization (PQ) system |
-| bt.2100-hlg    | Rec. ITU-R BT.2100-2 hybrid log-gamma (HLG) system |
+| Preset         | Specification                                                            |
+|----------------|--------------------------------------------------------------------------|
+| bt.709         | Rec. ITU-R BT.709-6                                                      |
+| srgb-linear    | linear-light sRGB                                                        |
+| srgb           | IEC 61966-2-1 sRGB                                                       |
+| bt.2020-10-bit | Rec. ITU-R BT.2020-2 (10-bit system)                                     |
+| bt.2020-12-bit | Rec. ITU-R BT.2020-2 (12-bit system)                                     |
+| bt.2100-pq     | Rec. ITU-R BT.2100-2 perceptual quantization (PQ) system                 |
+| bt.2100-hlg    | Rec. ITU-R BT.2100-2 hybrid log-gamma (HLG) system                       |
 | dci-p3         | SMPTE RP 431-2 with SMPTE ST 428-1 D-Cinema Distribution Master (DCI-P3) |
-| display-p3     | Display P3 |
-| p3-d65-pq      | P3-D65 PQ |
+| display-p3     | Display P3                                                               |
+| p3-d65-pq      | P3-D65 PQ                                                                |
 
 You can also specify individual CICP values.
 Example usage: `cicp_inserter.exe --color_primaries 1 --transfer_function 2 --matrix_coefficients 3 --video_full_range_flag 1 C:\images\test.png`

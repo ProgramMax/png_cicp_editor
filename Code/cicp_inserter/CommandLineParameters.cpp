@@ -24,6 +24,8 @@ namespace {
 	static const std::string_view n_string                     = "-n";
 	static const std::string_view full_string                  = "--full";
 	static const std::string_view f_string                     = "-f";
+	static const std::string_view overwrite_string             = "--overwrite";
+	static const std::string_view o_string                     = "-o";
 	static const std::string_view color_primaries_string       = "--color_primaries";
 	static const std::string_view transfer_function_string     = "--transfer_function";
 	static const std::string_view matrix_coefficients_string   = "--matrix_coefficients";
@@ -87,6 +89,7 @@ General flags:
 	-p --preset [value]   Use [value]'s CICP values
 	-n --narrow           Use narrow range (--video_full_range_flag 0)
 	-f --full             Use full range (--video_full_range_flag 1)
+	-o --overwrite        Overwrite an existing CICP value in the file
 
 Specific flags to match CICP parameter names from ITU-T H.273 (experts only):
 	   --color_primaries [value]
@@ -139,8 +142,9 @@ PNG puts further restrictions on which values are valid.
 
 namespace CICP_Inserter {
 
-	CommandLineParameters::CommandLineParameters(uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag, std::string png_file_path) noexcept
-		: color_primaries_(std::move(color_primaries))
+	CommandLineParameters::CommandLineParameters(bool overwrite_cicp, uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag, std::string png_file_path) noexcept
+		: overwrite_cicp_(std::move(overwrite_cicp))
+		, color_primaries_(std::move(color_primaries))
 		, transfer_function_(std::move(transfer_function))
 		, matrix_coefficients_(std::move(matrix_coefficients))
 		, video_full_range_flag_(std::move(video_full_range_flag))
@@ -165,6 +169,7 @@ namespace CICP_Inserter {
 		};
 		auto expected_state = ExpectedState::None;
 
+		bool overwrite_cicp = false;
 		uint8_t color_primaries = 0;
 		uint8_t transfer_function = 0;
 		uint8_t matrix_coefficients = 0;
@@ -196,6 +201,10 @@ namespace CICP_Inserter {
 				else if (full_string.compare(argv[i]) == 0 ||
 				         f_string.compare(argv[i]) == 0) {
 					video_full_range_flag = 1;
+				}
+				else if (overwrite_string.compare(argv[i]) == 0 ||
+				         o_string.compare(argv[i]) == 0) {
+					overwrite_cicp = true;
 				}
 				else if (color_primaries_string.compare(argv[i]) == 0) {
 					expected_state = ExpectedState::ColorPrimaries;
@@ -323,7 +332,7 @@ namespace CICP_Inserter {
 		}
 		std::string png_file_path(argv[argc - 1]);
 
-		return CommandLineParameters(std::move(color_primaries), std::move(transfer_function), std::move(matrix_coefficients), std::move(video_full_range_flag), std::move(png_file_path));
+		return CommandLineParameters(std::move(overwrite_cicp), std::move(color_primaries), std::move(transfer_function), std::move(matrix_coefficients), std::move(video_full_range_flag), std::move(png_file_path));
 	}
 
 } // namespace CICP_Inserter

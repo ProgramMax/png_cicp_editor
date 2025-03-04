@@ -20,7 +20,7 @@ namespace CICP_Inserter {
 	};
 	using GetInsertionIndexError = ErrorWithCode<GetInsertionIndexErrorCode>;
 
-	std::expected<size_t, GetInsertionIndexError> get_insertion_index(const std::span<char>& file_contents, const std::vector<size_t>& chunk_indices) noexcept;
+	std::expected<std::vector<std::span<char>>, GetInsertionIndexError> get_split_buffer_across_cicp_insertion_point(const std::span<char>& file_contents, const std::vector<size_t>& chunk_indices, bool overwrite_cicp) noexcept;
 
 } // namespace CICP_Inserter
 

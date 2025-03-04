@@ -42,9 +42,9 @@ int main(int argc, char const* argv[]) noexcept {
 
 
 	// Find insertion index for cICP chunk
-	auto insertion_index = CICP_Inserter::get_insertion_index(file_contents.value(), chunk_indices.value());
-	if (!insertion_index.has_value()) {
-		print_error(insertion_index.error());
+	auto split_buffer= CICP_Inserter::get_split_buffer_across_cicp_insertion_point(file_contents.value(), chunk_indices.value(), command_line_parameters->overwrite_cicp_);
+	if (!split_buffer.has_value()) {
+		print_error(split_buffer.error());
 		return 1;
 	}
 
@@ -55,11 +55,9 @@ int main(int argc, char const* argv[]) noexcept {
 
 	// Prepare file before & after buffers for write
 	std::vector<std::span<char>> buffers;
-	auto file_contents_start = file_contents.value().data();
-	auto insertion_index_value = insertion_index.value();
-	buffers.push_back({ file_contents_start, file_contents_start + insertion_index_value });
+	buffers.push_back({ split_buffer.value()[0] });
 	buffers.push_back({ cicp_buffer });
-	buffers.push_back({ file_contents_start + insertion_index_value, file_contents.value().size() - insertion_index_value });
+	buffers.push_back({ split_buffer.value()[1] });
 
 
 	// Write the file with cICP inserted

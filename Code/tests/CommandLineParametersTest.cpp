@@ -10,12 +10,14 @@
 
 namespace {
 
-	static constinit char const* preset  = "--preset";
-	static constinit char const* narrow  = "--narrow";
-	static constinit char const* full    = "--full";
-	static constinit char const* p_string = "-p";
-	static constinit char const* n_string = "-n";
-	static constinit char const* f_string = "-f";
+	static constinit char const* preset    = "--preset";
+	static constinit char const* narrow    = "--narrow";
+	static constinit char const* full      = "--full";
+	static constinit char const* overwrite = "--overwrite";
+	static constinit char const* p_string  = "-p";
+	static constinit char const* n_string  = "-n";
+	static constinit char const* f_string  = "-f";
+	static constinit char const* o_string  = "-o";
 
 	static constinit char const* color_primaries       = "--color_primaries";
 	static constinit char const* transfer_function     = "--transfer_function";
@@ -51,6 +53,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -65,6 +68,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 8);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -79,6 +83,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -93,6 +98,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 14);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -107,6 +113,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 15);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -121,6 +128,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 16);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -135,6 +143,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 18);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -149,6 +158,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 11);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 17);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -163,6 +173,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 12);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -177,6 +188,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 12);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 16);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -191,6 +203,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -205,6 +218,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 42);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -219,6 +233,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 42);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -233,6 +248,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 42);
@@ -247,6 +263,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 0);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -261,6 +278,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 42);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 43);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 44);
@@ -275,6 +293,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 42);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -289,6 +308,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -303,6 +323,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -317,6 +338,7 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
@@ -331,6 +353,37 @@ namespace CICP_Inserter {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
+			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb --overwrite returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 5;
+			char const* argv[argc] = { program_name, preset, "srgb", overwrite, test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == true);
+			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb -o returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 5;
+			char const* argv[argc] = { program_name, preset, "srgb", o_string, test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == true);
 			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
 			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
 			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);

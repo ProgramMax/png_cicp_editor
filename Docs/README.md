@@ -32,8 +32,9 @@ It simply updates the file (with all existing data unchanged) to be in a given c
 | display-p3     | Display P3                                                               |
 | p3-d65-pq      | P3-D65 PQ                                                                |
 
-You can also specify individual CICP values.
-Example usage: `cicp_inserter.exe --color_primaries 1 --transfer_function 2 --matrix_coefficients 3 --video_full_range_flag 1 C:\images\test.png`
+You can also specify individual CICP values. For example, to label an RGB image decoded from a SECAM video:
+
+ `cicp_inserter.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 secam-test.png`
 
 [![Build and test](https://github.com/ProgramMax/cicp_inserter/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/ProgramMax/cicp_inserter/actions/workflows/build-and-test.yaml)
 

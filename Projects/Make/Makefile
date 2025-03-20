@@ -1,8 +1,11 @@
 # You can specify values like:
 # make target FOO=bar
 # This can be used to override CXX with different compilers. For example:
-# make Build/cicp_inserter CXX=clang++
+# $ make Build/cicp_inserter CXX=clang++
+# or to make debug builds:
+# $ make DEBUG=true
 
+DEBUG = false
 
 IS_64_BIT = false
 ifeq ($(shell getconf LONG_BIT), 64)
@@ -79,7 +82,13 @@ else
 	TARGET_BIT_FLAG = -m32
 endif
 
-CPP_FLAGS += $(INCLUDE_PATHS_FLAGS) -std=c++23 $(TARGET_BIT_FLAG)
+ifeq ($(DEBUG), true)
+	BUILD_FLAGS = -g
+else
+	BUILD_FLAGS = -O2
+endif
+
+CPP_FLAGS += $(INCLUDE_PATHS_FLAGS) -std=c++23 $(BUILD_FLAGS) $(TARGET_BIT_FLAG)
 LINKER_FLAGS += $(LIBRARY_PATH_FLAGS)
 
 # Clang exposes an older version of concepts, which prevents

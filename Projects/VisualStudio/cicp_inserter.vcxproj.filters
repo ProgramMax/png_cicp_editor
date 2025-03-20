@@ -36,6 +36,12 @@
     <None Include="..\..\.gitignore" />
     <None Include="..\..\AUTHORS" />
     <None Include="..\..\LICENSE" />
+    <None Include="..\..\Code\cicp_inserter\StateMachine.inl">
+      <Filter>Code</Filter>
+    </None>
+    <None Include="..\..\Code\cicp_inserter\SparseArray.inl">
+      <Filter>Code</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Code\cicp_inserter\CommandLineParameters.cpp">
@@ -83,6 +89,12 @@
       <Filter>Code</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Code\cicp_inserter\CICPCreator.hpp">
+      <Filter>Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\cicp_inserter\StateMachine.hpp">
+      <Filter>Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\cicp_inserter\SparseArray.hpp">
       <Filter>Code</Filter>
     </ClInclude>
   </ItemGroup>

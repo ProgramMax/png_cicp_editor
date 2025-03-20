@@ -67,6 +67,8 @@ TEST_CXX_SRCS = \
 	../../Code/tests/ErrorTest.cpp \
 	../../Code/tests/FileReaderTest.cpp \
 	../../Code/tests/FileWriterTest.cpp \
+	../../Code/tests/SparseArrayTest.cpp \
+	../../Code/tests/StateMachineTest.cpp \
 	../../Code/tests/PNGParserTest.cpp \
 	../../Dependencies/max/Code/max/Testing/CoutResultPolicy.cpp
 TEST_CXX_OBJS = $(patsubst ../../%.cpp,Build/Objects/%.o,$(TEST_CXX_SRCS))

@@ -24,6 +24,8 @@
     <None Include="..\..\Dependencies\max\LICENSE">
       <Filter>Dependencies\max</Filter>
     </None>
+    <None Include="..\..\Code\cicp_inserter\SparseArray.inl" />
+    <None Include="..\..\Code\cicp_inserter\StateMachine.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.cpp">
@@ -44,6 +46,8 @@
     <ClCompile Include="..\..\Code\tests\ErrorTest.cpp" />
     <ClCompile Include="..\..\Code\tests\CICPCreatorTest.cpp" />
     <ClCompile Include="..\..\Code\cicp_inserter\CICPCreator.cpp" />
+    <ClCompile Include="..\..\Code\tests\SparseArrayTest.cpp" />
+    <ClCompile Include="..\..\Code\tests\StateMachineTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.hpp">
@@ -69,5 +73,9 @@
     <ClInclude Include="..\..\Code\tests\ErrorTest.hpp" />
     <ClInclude Include="..\..\Code\tests\CICPCreatorTest.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\CICPCreator.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\SparseArray.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\StateMachine.hpp" />
+    <ClInclude Include="..\..\Code\tests\SparseArrayTest.hpp" />
+    <ClInclude Include="..\..\Code\tests\StateMachineTest.hpp" />
   </ItemGroup>
 </Project>

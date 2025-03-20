@@ -1,0 +1,61 @@
+// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef CICP_INSERTER_STATEMACHINE_HPP
+#define CICP_INSERTER_STATEMACHINE_HPP
+
+#include <concepts>
+#include <expected>
+#include <vector>
+
+#include "Error.hpp"
+#include "SparseArray.hpp"
+
+namespace CICP_Inserter {
+
+	enum class TransitionErrorCode {
+		StateNotInStateMachine,
+		NoTransitionMatchedPredicate,
+
+		// TODO: The state machine shouldn't know about errors from within the transitions.
+		// However, designing a proper system like that is very complex.
+		// Each handler would adds its error values to the grand error enum at compile time
+		// and reference it.
+		// I'm not even sure how to add enum values at compile time, let alone use their names.
+		// Perhaps enums are the wrong mechanic, since the rest is already known at compile-time.
+		// In any case, for now I'm just adding transition error codes here so they can propogate out.
+		ValueOutsideRange,
+	};
+	using TransitionError = ErrorWithCode<TransitionErrorCode>;
+
+	// TODO: I don't think you can make a concept that enforces a parameter pack
+	/*
+	template<typename T, typename... PredicateParameterTypes>
+	concept TransitionConcept = requires(T a, PredicateParameterTypes... parameters) {
+		{ a.template predicate_and_action_<PredicateParameterTypes...>(std::forward<decltype(parameters)>(parameters)...) } -> std::convertible_to<std::expected<bool, TransitionError>>;
+		{ a.transition_to_ };
+	};
+	*/
+
+	template<typename StateType, typename TransitionType>
+	//template<typename StateType, TransitionConcept TransitionType>
+	class StateMachine {
+	public:
+
+		StateMachine(StateType start_state, SparseArray<StateType, std::vector<TransitionType>> graph) noexcept;
+
+
+		template <typename... PredicateParameterTypes>
+		std::expected<void, TransitionError> Transition(PredicateParameterTypes... parameters) noexcept;
+
+		StateType state_;
+		SparseArray<StateType, std::vector<TransitionType>> graph_;
+
+	};
+
+} // namespace CICP_Inserter
+
+#include "StateMachine.inl"
+
+#endif // #ifndef CICP_INSERTED_STATEMACHINE_HPP

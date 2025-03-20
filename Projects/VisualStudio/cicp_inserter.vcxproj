@@ -24,6 +24,8 @@
     <None Include="..\..\.github\workflows\build-and-test.yaml" />
     <None Include="..\..\.gitignore" />
     <None Include="..\..\AUTHORS" />
+    <None Include="..\..\Code\cicp_inserter\SparseArray.inl" />
+    <None Include="..\..\Code\cicp_inserter\StateMachine.inl" />
     <None Include="..\..\Docs\code_of_conduct.md" />
     <None Include="..\..\Docs\README.md" />
     <None Include="..\..\LICENSE" />
@@ -46,6 +48,8 @@
     <ClInclude Include="..\..\Code\cicp_inserter\FileReader.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\FileWriter.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\PNGParser.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\SparseArray.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\StateMachine.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

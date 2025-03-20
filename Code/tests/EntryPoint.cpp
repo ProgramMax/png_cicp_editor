@@ -9,6 +9,8 @@
 #include "FileReaderTest.hpp"
 #include "FileWriterTest.hpp"
 #include "PNGParserTest.hpp"
+#include "SparseArrayTest.hpp"
+#include "StateMachineTest.hpp"
 
 int main() {
 	CICP_Inserter::RunCICPCreatorTestSuite();
@@ -18,6 +20,8 @@ int main() {
 	CICP_Inserter::RunFileReaderTestSuite();
 	CICP_Inserter::RunFileWriterTestSuite();
 	CICP_Inserter::RunPNGParserTestSuite();
+	CICP_Inserter::RunSparseArrayTestSuite();
+	CICP_Inserter::RunStateMachineTestSuite();
 
 	return 0;
 }

@@ -152,6 +152,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\Code\cicp_inserter\SparseArray.inl" />
+    <None Include="..\..\Code\cicp_inserter\StateMachine.inl" />
     <None Include="..\..\Dependencies\max\AUTHORS" />
     <None Include="..\..\Dependencies\max\Code\max\Testing\Test.inl" />
     <None Include="..\..\Dependencies\max\Code\max\Testing\TestSuite.inl" />
@@ -173,6 +175,8 @@
     <ClCompile Include="..\..\Code\tests\FileReaderTest.cpp" />
     <ClCompile Include="..\..\Code\tests\FileWriterTest.cpp" />
     <ClCompile Include="..\..\Code\tests\PNGParserTest.cpp" />
+    <ClCompile Include="..\..\Code\tests\SparseArrayTest.cpp" />
+    <ClCompile Include="..\..\Code\tests\StateMachineTest.cpp" />
     <ClCompile Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +187,8 @@
     <ClInclude Include="..\..\Code\cicp_inserter\FileReader.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\FileWriter.hpp" />
     <ClInclude Include="..\..\Code\cicp_inserter\PNGParser.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\SparseArray.hpp" />
+    <ClInclude Include="..\..\Code\cicp_inserter\StateMachine.hpp" />
     <ClInclude Include="..\..\Code\tests\CICPCreatorTest.hpp" />
     <ClInclude Include="..\..\Code\tests\CICPInserterTest.hpp" />
     <ClInclude Include="..\..\Code\tests\CommandLineParametersTest.hpp" />
@@ -190,6 +196,8 @@
     <ClInclude Include="..\..\Code\tests\FileReaderTest.hpp" />
     <ClInclude Include="..\..\Code\tests\FileWriterTest.hpp" />
     <ClInclude Include="..\..\Code\tests\PNGParserTest.hpp" />
+    <ClInclude Include="..\..\Code\tests\SparseArrayTest.hpp" />
+    <ClInclude Include="..\..\Code\tests\StateMachineTest.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\Test.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\TestSuite.hpp" />

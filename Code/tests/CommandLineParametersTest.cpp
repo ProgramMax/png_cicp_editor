@@ -1,4 +1,4 @@
-// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -24,12 +24,12 @@ namespace {
 	static constinit char const* matrix_coefficients   = "--matrix_coefficients";
 	static constinit char const* video_full_range_flag = "--video_full_range_flag";
 
-	static constinit char const* program_name    = "png_cicp_editer.exe";
+	static constinit char const* program_name    = "png_cicp_editor.exe";
 	static constinit char const* test_image_path = "C:\\test\\image.png";
 
 } // anonymous namespace
 
-namespace PNG_CICP_Editer {
+namespace PNG_CICP_Editor {
 
 	void RunCommandLineParametersTestSuite()
 	{
@@ -448,4 +448,4 @@ namespace PNG_CICP_Editer {
 		CommandLineParametersTestSuite.RunTests();
 	}
 
-} // namespace PNG_CICP_Editer
+} // namespace PNG_CICP_Editor

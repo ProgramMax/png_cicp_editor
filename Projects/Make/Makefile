@@ -1,7 +1,7 @@
 # You can specify values like:
 # make target FOO=bar
 # This can be used to override CXX with different compilers. For example:
-# $ make Build/cicp_inserter CXX=clang++
+# $ make Build/png_cicp_editor CXX=clang++
 # or to make debug builds:
 # $ make DEBUG=true
 
@@ -30,21 +30,21 @@ ifeq (1, $(32_BIT))
 	IS_64_BIT = false
 endif
 
-PROGRAM = Build/cicp_inserter
+PROGRAM = Build/png_cicp_editor
 
 CXX_SRCS = \
-	../../Code/cicp_inserter/CICPCreator.cpp \
-	../../Code/cicp_inserter/CICPInserter.cpp \
-	../../Code/cicp_inserter/CommandLineParameters.cpp \
-	../../Code/cicp_inserter/EntryPoint.cpp \
-	../../Code/cicp_inserter/Error.cpp \
-	../../Code/cicp_inserter/FileReader.cpp \
-	../../Code/cicp_inserter/FileWriter.cpp \
-	../../Code/cicp_inserter/PNGParser.cpp
+	../../Code/png_cicp_editor/CICPCreator.cpp \
+	../../Code/png_cicp_editor/CICPInserter.cpp \
+	../../Code/png_cicp_editor/CommandLineParameters.cpp \
+	../../Code/png_cicp_editor/EntryPoint.cpp \
+	../../Code/png_cicp_editor/Error.cpp \
+	../../Code/png_cicp_editor/FileReader.cpp \
+	../../Code/png_cicp_editor/FileWriter.cpp \
+	../../Code/png_cicp_editor/PNGParser.cpp
 CXX_OBJS = $(patsubst ../../%.cpp,Build/Objects/%.o,$(CXX_SRCS))
 
 INCLUDE_PATHS = \
-	../../Code/cicp_inserter \
+	../../Code/png_cicp_editor \
 	../../Dependencies/max/Code
 INCLUDE_PATHS_FLAGS = $(foreach d, $(INCLUDE_PATHS), -I$d)
 
@@ -56,13 +56,13 @@ LIBRARY_PATHS_FLAGS = $(foreach d, $(LIBRARY_PATHS), -L$d)
 TEST_PROGRAM = Build/tests
 
 TEST_CXX_SRCS = \
-	../../Code/cicp_inserter/CICPCreator.cpp \
-	../../Code/cicp_inserter/CICPInserter.cpp \
-	../../Code/cicp_inserter/CommandLineParameters.cpp \
-	../../Code/cicp_inserter/Error.cpp \
-	../../Code/cicp_inserter/FileReader.cpp \
-	../../Code/cicp_inserter/FileWriter.cpp \
-	../../Code/cicp_inserter/PNGParser.cpp \
+	../../Code/png_cicp_editor/CICPCreator.cpp \
+	../../Code/png_cicp_editor/CICPInserter.cpp \
+	../../Code/png_cicp_editor/CommandLineParameters.cpp \
+	../../Code/png_cicp_editor/Error.cpp \
+	../../Code/png_cicp_editor/FileReader.cpp \
+	../../Code/png_cicp_editor/FileWriter.cpp \
+	../../Code/png_cicp_editor/PNGParser.cpp \
 	../../Code/tests/CICPCreatorTest.cpp \
 	../../Code/tests/CICPInserterTest.cpp \
 	../../Code/tests/CommandLineParametersTest.cpp \

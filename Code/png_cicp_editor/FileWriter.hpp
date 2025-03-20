@@ -1,9 +1,9 @@
-// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef PNG_CICP_EDITER_FILEWRITER_HPP
-#define PNG_CICP_EDITER_FILEWRITER_HPP
+#ifndef PNG_CICP_EDITOR_FILEWRITER_HPP
+#define PNG_CICP_EDITOR_FILEWRITER_HPP
 
 #include <expected>
 #include <span>
@@ -13,7 +13,7 @@
 
 #include "Error.hpp"
 
-namespace PNG_CICP_Editer {
+namespace PNG_CICP_Editor {
 
 	enum class WriteFileErrorCode {
 		CannotOpenFile,
@@ -23,6 +23,6 @@ namespace PNG_CICP_Editer {
 
 	std::expected<void, WriteFileError> write_file(const std::string& file_path, std::vector<std::span<char>> buffers) noexcept;
 
-} // namespace PNG_CICP_Editer
+} // namespace PNG_CICP_Editor
 
-#endif // #ifndef PNG_CICP_EDITER_FILEWRITER_HPP
+#endif // #ifndef PNG_CICP_EDITOR_FILEWRITER_HPP

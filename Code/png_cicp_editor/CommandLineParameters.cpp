@@ -1,4 +1,4 @@
-// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -24,7 +24,7 @@ namespace {
 	static constinit char const* newline                = "\n";
 
 	void print_version() noexcept {
-		std::cout << "png_cicp_editer version 2.2" << std::endl;
+		std::cout << "png_cicp_editor version 2.2" << std::endl;
 	}
 
 	void print_help() noexcept {
@@ -35,7 +35,7 @@ CICP is an efficient way to specify color space.
 It is standardized in ITU-T H.273, which can be found here:
 https://www.itu.int/rec/T-REC-H.273
 
-Example usage: png_cicp_editer.exe --preset display-p3 C:\images\test.png
+Example usage: png_cicp_editor.exe --preset display-p3 C:\images\test.png
 
 Presets:
 	bt.709          Rec. ITU-R BT.709-6
@@ -50,10 +50,10 @@ Presets:
 	p3-d65-pq       P3-D65 PQ
 
 You can also specify individual CICP values. For example, to label an RGB image decoded from a SECAM video:
-Example usage: png_cicp_editer.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 C:\images\test.png
+Example usage: png_cicp_editor.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 C:\images\test.png
 
 These can be mixed to override defaults. Values specified later override prior values.
-Example usage: png_cicp_editer.exe --preset display-p3 --video_full_range_flag 0 C:\images\test.png
+Example usage: png_cicp_editor.exe --preset display-p3 --video_full_range_flag 0 C:\images\test.png
 
 General flags:
 	-h --help             Show help information (what you are viewing now)
@@ -77,7 +77,7 @@ PNG puts further restrictions on which values are valid.
 		UnrecognizedParameter,
 		ValueOutsideRange,
 	};
-	using ReadNumericValueError = PNG_CICP_Editer::ErrorWithCode<ReadNumericValueErrorCode>;
+	using ReadNumericValueError = PNG_CICP_Editor::ErrorWithCode<ReadNumericValueErrorCode>;
 
 	std::expected<uint8_t, ReadNumericValueError> read_numeric_value(char const* parameter) noexcept {
 		static constinit int base = 10;
@@ -94,25 +94,25 @@ PNG puts further restrictions on which values are valid.
 		return static_cast<uint8_t>(value);
 	}
 
-	PNG_CICP_Editer::ParseCommandLineParametersError convert_error(ReadNumericValueError error) noexcept {
-		PNG_CICP_Editer::ParseCommandLineParametersErrorCode new_error_code;
+	PNG_CICP_Editor::ParseCommandLineParametersError convert_error(ReadNumericValueError error) noexcept {
+		PNG_CICP_Editor::ParseCommandLineParametersErrorCode new_error_code;
 		switch (error.error_code_) {
 		case ReadNumericValueErrorCode::UnrecognizedParameter:
-			new_error_code = PNG_CICP_Editer::ParseCommandLineParametersErrorCode::UnrecognizedParameter;
+			new_error_code = PNG_CICP_Editor::ParseCommandLineParametersErrorCode::UnrecognizedParameter;
 			break;
 		case ReadNumericValueErrorCode::ValueOutsideRange:
-			new_error_code = PNG_CICP_Editer::ParseCommandLineParametersErrorCode::ValueOutsideRange;
+			new_error_code = PNG_CICP_Editor::ParseCommandLineParametersErrorCode::ValueOutsideRange;
 			break;
 		default:
 			std::unreachable();
 		}
 
-		return PNG_CICP_Editer::ParseCommandLineParametersError{ std::move(new_error_code), std::move(error.output_messages_) };
+		return PNG_CICP_Editor::ParseCommandLineParametersError{ std::move(new_error_code), std::move(error.output_messages_) };
 	}
 
 } // anonymous namespace
 
-namespace PNG_CICP_Editer {
+namespace PNG_CICP_Editor {
 
 	CommandLineParameters::CommandLineParameters(bool overwrite_cicp, uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag, std::string png_file_path) noexcept
 		: overwrite_cicp_(std::move(overwrite_cicp))
@@ -533,4 +533,4 @@ namespace PNG_CICP_Editer {
 		return CommandLineParameters(std::move(overwrite_cicp), std::move(color_primaries), std::move(transfer_function), std::move(matrix_coefficients), std::move(video_full_range_flag), std::move(png_file_path));
 	}
 
-} // namespace PNG_CICP_Editer
+} // namespace PNG_CICP_Editor

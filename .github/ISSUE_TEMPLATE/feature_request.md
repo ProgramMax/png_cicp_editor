@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for png_cicp_editer
+about: Suggest an idea for png_cicp_editor
 title: ''
 labels: ''
 assignees: ''

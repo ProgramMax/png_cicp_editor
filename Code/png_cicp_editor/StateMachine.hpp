@@ -1,9 +1,9 @@
-// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef PNG_CICP_EDITER_STATEMACHINE_HPP
-#define PNG_CICP_EDITER_STATEMACHINE_HPP
+#ifndef PNG_CICP_EDITOR_STATEMACHINE_HPP
+#define PNG_CICP_EDITOR_STATEMACHINE_HPP
 
 #include <concepts>
 #include <expected>
@@ -12,7 +12,7 @@
 #include "Error.hpp"
 #include "SparseArray.hpp"
 
-namespace PNG_CICP_Editer {
+namespace PNG_CICP_Editor {
 
 	enum class TransitionErrorCode {
 		StateNotInStateMachine,
@@ -54,8 +54,8 @@ namespace PNG_CICP_Editer {
 
 	};
 
-} // namespace PNG_CICP_Editer
+} // namespace PNG_CICP_Editor
 
 #include "StateMachine.inl"
 
-#endif // #ifndef PNG_CICP_EDITED_STATEMACHINE_HPP
+#endif // #ifndef PNG_CICP_EDITOR_STATEMACHINE_HPP

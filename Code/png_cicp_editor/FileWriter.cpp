@@ -1,4 +1,4 @@
-// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -19,7 +19,7 @@ namespace {
 
 } // anonymous namespace
 
-namespace PNG_CICP_Editer {
+namespace PNG_CICP_Editor {
 
 	std::expected<void, WriteFileError> write_file(const std::string& file_path, std::vector<std::span<char>> buffers) noexcept {
 		// TODO: Do I really need filesystem here?
@@ -45,4 +45,4 @@ namespace PNG_CICP_Editer {
 		return std::expected<void, WriteFileError>{};
 	}
 
-} // namespace PNG_CICP_Editer
+} // namespace PNG_CICP_Editor

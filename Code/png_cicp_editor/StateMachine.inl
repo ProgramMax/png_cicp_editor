@@ -1,10 +1,10 @@
-// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 #include <utility>
 
-namespace PNG_CICP_Editer {
+namespace PNG_CICP_Editor {
 
 	template<typename StateType, typename TransitionType>
 	//template<typename StateType, TransitionConcept TransitionType>
@@ -42,4 +42,4 @@ namespace PNG_CICP_Editer {
 		return std::unexpected{ TransitionError{ TransitionErrorCode::StateNotInStateMachine, {} } };
 	}
 
-} // namespace PNG_CICP_Editer
+} // namespace PNG_CICP_Editor

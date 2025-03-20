@@ -1,4 +1,4 @@
-// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -13,15 +13,15 @@
 #include "StateMachineTest.hpp"
 
 int main() {
-	PNG_CICP_Editer::RunCICPCreatorTestSuite();
-	PNG_CICP_Editer::RunCICPInserterTestSuite();
-	PNG_CICP_Editer::RunCommandLineParametersTestSuite();
-	PNG_CICP_Editer::RunErrorTestSuite();
-	PNG_CICP_Editer::RunFileReaderTestSuite();
-	PNG_CICP_Editer::RunFileWriterTestSuite();
-	PNG_CICP_Editer::RunPNGParserTestSuite();
-	PNG_CICP_Editer::RunSparseArrayTestSuite();
-	PNG_CICP_Editer::RunStateMachineTestSuite();
+	PNG_CICP_Editor::RunCICPCreatorTestSuite();
+	PNG_CICP_Editor::RunCICPInserterTestSuite();
+	PNG_CICP_Editor::RunCommandLineParametersTestSuite();
+	PNG_CICP_Editor::RunErrorTestSuite();
+	PNG_CICP_Editor::RunFileReaderTestSuite();
+	PNG_CICP_Editor::RunFileWriterTestSuite();
+	PNG_CICP_Editor::RunPNGParserTestSuite();
+	PNG_CICP_Editor::RunSparseArrayTestSuite();
+	PNG_CICP_Editor::RunStateMachineTestSuite();
 
 	return 0;
 }

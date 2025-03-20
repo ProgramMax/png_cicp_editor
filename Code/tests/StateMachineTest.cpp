@@ -1,4 +1,4 @@
-// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -19,12 +19,12 @@ namespace {
 	public:
 
 		Transition(int transition_to) noexcept : transition_to_(std::move(transition_to)) {}
-		std::expected<bool, PNG_CICP_Editer::TransitionError> predicate_and_action_() const noexcept { return true; }
+		std::expected<bool, PNG_CICP_Editor::TransitionError> predicate_and_action_() const noexcept { return true; }
 		int transition_to_;
 
 	};
 
-	auto test_graph = PNG_CICP_Editer::SparseArray<int, std::vector<Transition>>{
+	auto test_graph = PNG_CICP_Editor::SparseArray<int, std::vector<Transition>>{
 		{
 			{ 1, { Transition{ 2 } } },
 			{ 2, { Transition{ 1 } } }
@@ -33,7 +33,7 @@ namespace {
 
 } // anonymous namespace
 
-namespace PNG_CICP_Editer {
+namespace PNG_CICP_Editor {
 
 	void RunStateMachineTestSuite()
 	{
@@ -71,4 +71,4 @@ namespace PNG_CICP_Editer {
 		StateMachineTestSuite.RunTests();
 	}
 
-} // namespace PNG_CICP_Editer
+} // namespace PNG_CICP_Editor

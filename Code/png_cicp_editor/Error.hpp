@@ -1,15 +1,15 @@
-// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CICP_INSERTER_ERROR_HPP
-#define CICP_INSERTER_ERROR_HPP
+#ifndef PNG_CICP_EDITOR_ERROR_HPP
+#define PNG_CICP_EDITOR_ERROR_HPP
 
 #include <string_view>
 #include <utility>
 #include <vector>
 
-namespace CICP_Inserter {
+namespace PNG_CICP_Editor {
 
 	class Error {
 	public:
@@ -35,6 +35,6 @@ namespace CICP_Inserter {
 
 	};
 
-} // namespace CICP_Inserter
+} // namespace PNG_CICP_Editor
 
-#endif // #ifndef CICP_INSERTER_ERROR_HPP
+#endif // #ifndef PNG_CICP_EDITOR_ERROR_HPP

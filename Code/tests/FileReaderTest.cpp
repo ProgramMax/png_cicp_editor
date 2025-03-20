@@ -1,4 +1,4 @@
-// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -14,7 +14,7 @@ namespace {
 
 } // anonymous namespace
 
-namespace CICP_Inserter {
+namespace PNG_CICP_Editor {
 
 	void RunFileReaderTestSuite()
 	{
@@ -33,4 +33,4 @@ namespace CICP_Inserter {
 		FileReaderTestSuite.RunTests();
 	}
 
-} // namespace CICP_Inserter
+} // namespace PNG_CICP_Editor

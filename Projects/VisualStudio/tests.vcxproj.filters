@@ -24,8 +24,8 @@
     <None Include="..\..\Dependencies\max\LICENSE">
       <Filter>Dependencies\max</Filter>
     </None>
-    <None Include="..\..\Code\cicp_inserter\SparseArray.inl" />
-    <None Include="..\..\Code\cicp_inserter\StateMachine.inl" />
+    <None Include="..\..\Code\png_cicp_editor\SparseArray.inl" />
+    <None Include="..\..\Code\png_cicp_editor\StateMachine.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.cpp">
@@ -33,21 +33,21 @@
     </ClCompile>
     <ClCompile Include="..\..\Code\tests\CommandLineParametersTest.cpp" />
     <ClCompile Include="..\..\Code\tests\EntryPoint.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\CommandLineParameters.cpp" />
     <ClCompile Include="..\..\Code\tests\FileReaderTest.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\FileReader.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\PNGParser.cpp" />
     <ClCompile Include="..\..\Code\tests\PNGParserTest.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\CICPInserter.cpp" />
     <ClCompile Include="..\..\Code\tests\CICPInserterTest.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\FileWriter.cpp" />
     <ClCompile Include="..\..\Code\tests\FileWriterTest.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\Error.cpp" />
     <ClCompile Include="..\..\Code\tests\ErrorTest.cpp" />
     <ClCompile Include="..\..\Code\tests\CICPCreatorTest.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\CICPCreator.cpp" />
     <ClCompile Include="..\..\Code\tests\SparseArrayTest.cpp" />
     <ClCompile Include="..\..\Code\tests\StateMachineTest.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CICPCreator.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CICPInserter.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CommandLineParameters.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\Error.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\FileReader.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\FileWriter.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\PNGParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.hpp">
@@ -60,22 +60,22 @@
       <Filter>Dependencies\max\Testing</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Code\tests\CommandLineParametersTest.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp" />
     <ClInclude Include="..\..\Code\tests\FileReaderTest.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\FileReader.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\PNGParser.hpp" />
     <ClInclude Include="..\..\Code\tests\PNGParserTest.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\CICPInserter.hpp" />
     <ClInclude Include="..\..\Code\tests\CICPInserterTest.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\FileWriter.hpp" />
     <ClInclude Include="..\..\Code\tests\FileWriterTest.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\Error.hpp" />
     <ClInclude Include="..\..\Code\tests\ErrorTest.hpp" />
     <ClInclude Include="..\..\Code\tests\CICPCreatorTest.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\CICPCreator.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\SparseArray.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\StateMachine.hpp" />
     <ClInclude Include="..\..\Code\tests\SparseArrayTest.hpp" />
     <ClInclude Include="..\..\Code\tests\StateMachineTest.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CICPCreator.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CICPInserter.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CommandLineParameters.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\Error.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\FileReader.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\FileWriter.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\PNGParser.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\SparseArray.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\StateMachine.hpp" />
   </ItemGroup>
 </Project>

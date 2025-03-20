@@ -24,32 +24,32 @@
     <None Include="..\..\.github\workflows\build-and-test.yaml" />
     <None Include="..\..\.gitignore" />
     <None Include="..\..\AUTHORS" />
-    <None Include="..\..\Code\cicp_inserter\SparseArray.inl" />
-    <None Include="..\..\Code\cicp_inserter\StateMachine.inl" />
+    <None Include="..\..\Code\png_cicp_editor\SparseArray.inl" />
+    <None Include="..\..\Code\png_cicp_editor\StateMachine.inl" />
     <None Include="..\..\Docs\code_of_conduct.md" />
     <None Include="..\..\Docs\README.md" />
     <None Include="..\..\LICENSE" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Code\cicp_inserter\CICPCreator.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\CICPInserter.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\CommandLineParameters.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\EntryPoint.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\Error.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\FileReader.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\FileWriter.cpp" />
-    <ClCompile Include="..\..\Code\cicp_inserter\PNGParser.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CICPCreator.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CICPInserter.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CommandLineParameters.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\EntryPoint.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\Error.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\FileReader.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\FileWriter.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\PNGParser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Code\cicp_inserter\CICPCreator.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\CICPInserter.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\CommandLineParameters.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\Error.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\FileReader.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\FileWriter.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\PNGParser.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\SparseArray.hpp" />
-    <ClInclude Include="..\..\Code\cicp_inserter\StateMachine.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CICPCreator.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CICPInserter.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CommandLineParameters.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\Error.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\FileReader.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\FileWriter.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\PNGParser.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\SparseArray.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\StateMachine.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

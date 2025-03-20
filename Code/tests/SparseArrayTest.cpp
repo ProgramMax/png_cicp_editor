@@ -1,4 +1,4 @@
-// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editor Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,7 +8,7 @@
 #include <max/Testing/TestSuite.hpp>
 #include <max/Testing/CoutResultPolicy.hpp>
 
-namespace CICP_Inserter {
+namespace PNG_CICP_Editor {
 
 	void RunSparseArrayTestSuite()
 	{
@@ -82,4 +82,4 @@ namespace CICP_Inserter {
 		SparseArrayTestSuite.RunTests();
 	}
 
-} // namespace CICP_Inserter
+} // namespace PNG_CICP_Editor

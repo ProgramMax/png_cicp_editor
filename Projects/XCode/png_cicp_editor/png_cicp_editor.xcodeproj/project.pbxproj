@@ -30,26 +30,26 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8674B6432D8BE4E00084039B /* SparseArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SparseArray.hpp; path = ../../../Code/cicp_inserter/SparseArray.hpp; sourceTree = "<absolute>"; };
-		8674B6442D8BE4E00084039B /* SparseArray.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SparseArray.inl; path = ../../../Code/cicp_inserter/SparseArray.inl; sourceTree = "<absolute>"; };
-		8674B6452D8BE4E00084039B /* StateMachine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = StateMachine.hpp; path = ../../../Code/cicp_inserter/StateMachine.hpp; sourceTree = "<absolute>"; };
-		8674B6462D8BE4E00084039B /* StateMachine.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = StateMachine.inl; path = ../../../Code/cicp_inserter/StateMachine.inl; sourceTree = "<absolute>"; };
-		86FEEDF62D73CC1D00165D7F /* cicp_inserter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cicp_inserter; sourceTree = BUILT_PRODUCTS_DIR; };
-		86FEEE2C2D73CCF000165D7F /* CICPCreator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICPCreator.hpp; path = ../../../Code/cicp_inserter/CICPCreator.hpp; sourceTree = "<absolute>"; };
-		86FEEE2D2D73CCF000165D7F /* CICPCreator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICPCreator.cpp; path = ../../../Code/cicp_inserter/CICPCreator.cpp; sourceTree = "<absolute>"; };
-		86FEEE2E2D73CCF000165D7F /* CICPInserter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICPInserter.hpp; path = ../../../Code/cicp_inserter/CICPInserter.hpp; sourceTree = "<absolute>"; };
-		86FEEE2F2D73CCF000165D7F /* CICPInserter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICPInserter.cpp; path = ../../../Code/cicp_inserter/CICPInserter.cpp; sourceTree = "<absolute>"; };
-		86FEEE302D73CCF000165D7F /* CommandLineParameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CommandLineParameters.hpp; path = ../../../Code/cicp_inserter/CommandLineParameters.hpp; sourceTree = "<absolute>"; };
-		86FEEE312D73CCF000165D7F /* CommandLineParameters.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CommandLineParameters.cpp; path = ../../../Code/cicp_inserter/CommandLineParameters.cpp; sourceTree = "<absolute>"; };
-		86FEEE322D73CCF000165D7F /* EntryPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = EntryPoint.cpp; path = ../../../Code/cicp_inserter/EntryPoint.cpp; sourceTree = "<absolute>"; };
-		86FEEE332D73CCF000165D7F /* Error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Error.hpp; path = ../../../Code/cicp_inserter/Error.hpp; sourceTree = "<absolute>"; };
-		86FEEE342D73CCF000165D7F /* Error.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Error.cpp; path = ../../../Code/cicp_inserter/Error.cpp; sourceTree = "<absolute>"; };
-		86FEEE352D73CCF000165D7F /* FileReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FileReader.hpp; path = ../../../Code/cicp_inserter/FileReader.hpp; sourceTree = "<absolute>"; };
-		86FEEE362D73CCF000165D7F /* FileReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileReader.cpp; path = ../../../Code/cicp_inserter/FileReader.cpp; sourceTree = "<absolute>"; };
-		86FEEE372D73CCF000165D7F /* FileWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FileWriter.hpp; path = ../../../Code/cicp_inserter/FileWriter.hpp; sourceTree = "<absolute>"; };
-		86FEEE382D73CCF000165D7F /* FileWriter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileWriter.cpp; path = ../../../Code/cicp_inserter/FileWriter.cpp; sourceTree = "<absolute>"; };
-		86FEEE392D73CCF000165D7F /* PNGParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PNGParser.hpp; path = ../../../Code/cicp_inserter/PNGParser.hpp; sourceTree = "<absolute>"; };
-		86FEEE3A2D73CCF000165D7F /* PNGParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PNGParser.cpp; path = ../../../Code/cicp_inserter/PNGParser.cpp; sourceTree = "<absolute>"; };
+		8674B6432D8BE4E00084039B /* SparseArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SparseArray.hpp; path = ../../../Code/png_cicp_editor/SparseArray.hpp; sourceTree = "<absolute>"; };
+		8674B6442D8BE4E00084039B /* SparseArray.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SparseArray.inl; path = ../../../Code/png_cicp_editor/SparseArray.inl; sourceTree = "<absolute>"; };
+		8674B6452D8BE4E00084039B /* StateMachine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = StateMachine.hpp; path = ../../../Code/png_cicp_editor/StateMachine.hpp; sourceTree = "<absolute>"; };
+		8674B6462D8BE4E00084039B /* StateMachine.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = StateMachine.inl; path = ../../../Code/png_cicp_editor/StateMachine.inl; sourceTree = "<absolute>"; };
+		86FEEDF62D73CC1D00165D7F /* png_cicp_editor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = png_cicp_editor; sourceTree = BUILT_PRODUCTS_DIR; };
+		86FEEE2C2D73CCF000165D7F /* CICPCreator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICPCreator.hpp; path = ../../../Code/png_cicp_editor/CICPCreator.hpp; sourceTree = "<absolute>"; };
+		86FEEE2D2D73CCF000165D7F /* CICPCreator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICPCreator.cpp; path = ../../../Code/png_cicp_editor/CICPCreator.cpp; sourceTree = "<absolute>"; };
+		86FEEE2E2D73CCF000165D7F /* CICPInserter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICPInserter.hpp; path = ../../../Code/png_cicp_editor/CICPInserter.hpp; sourceTree = "<absolute>"; };
+		86FEEE2F2D73CCF000165D7F /* CICPInserter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICPInserter.cpp; path = ../../../Code/png_cicp_editor/CICPInserter.cpp; sourceTree = "<absolute>"; };
+		86FEEE302D73CCF000165D7F /* CommandLineParameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CommandLineParameters.hpp; path = ../../../Code/png_cicp_editor/CommandLineParameters.hpp; sourceTree = "<absolute>"; };
+		86FEEE312D73CCF000165D7F /* CommandLineParameters.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CommandLineParameters.cpp; path = ../../../Code/png_cicp_editor/CommandLineParameters.cpp; sourceTree = "<absolute>"; };
+		86FEEE322D73CCF000165D7F /* EntryPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = EntryPoint.cpp; path = ../../../Code/png_cicp_editor/EntryPoint.cpp; sourceTree = "<absolute>"; };
+		86FEEE332D73CCF000165D7F /* Error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Error.hpp; path = ../../../Code/png_cicp_editor/Error.hpp; sourceTree = "<absolute>"; };
+		86FEEE342D73CCF000165D7F /* Error.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Error.cpp; path = ../../../Code/png_cicp_editor/Error.cpp; sourceTree = "<absolute>"; };
+		86FEEE352D73CCF000165D7F /* FileReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FileReader.hpp; path = ../../../Code/png_cicp_editor/FileReader.hpp; sourceTree = "<absolute>"; };
+		86FEEE362D73CCF000165D7F /* FileReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileReader.cpp; path = ../../../Code/png_cicp_editor/FileReader.cpp; sourceTree = "<absolute>"; };
+		86FEEE372D73CCF000165D7F /* FileWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FileWriter.hpp; path = ../../../Code/png_cicp_editor/FileWriter.hpp; sourceTree = "<absolute>"; };
+		86FEEE382D73CCF000165D7F /* FileWriter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileWriter.cpp; path = ../../../Code/png_cicp_editor/FileWriter.cpp; sourceTree = "<absolute>"; };
+		86FEEE392D73CCF000165D7F /* PNGParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PNGParser.hpp; path = ../../../Code/png_cicp_editor/PNGParser.hpp; sourceTree = "<absolute>"; };
+		86FEEE3A2D73CCF000165D7F /* PNGParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PNGParser.cpp; path = ../../../Code/png_cicp_editor/PNGParser.cpp; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +92,7 @@
 		86FEEDF72D73CC1D00165D7F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				86FEEDF62D73CC1D00165D7F /* cicp_inserter */,
+				86FEEDF62D73CC1D00165D7F /* png_cicp_editor */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		86FEEDF52D73CC1D00165D7F /* cicp_inserter */ = {
+		86FEEDF52D73CC1D00165D7F /* png_cicp_editor */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 86FEEDFD2D73CC1D00165D7F /* Build configuration list for PBXNativeTarget "cicp_inserter" */;
+			buildConfigurationList = 86FEEDFD2D73CC1D00165D7F /* Build configuration list for PBXNativeTarget "png_cicp_editor" */;
 			buildPhases = (
 				86FEEDF22D73CC1D00165D7F /* Sources */,
 				86FEEDF32D73CC1D00165D7F /* Frameworks */,
@@ -112,11 +112,11 @@
 			);
 			dependencies = (
 			);
-			name = cicp_inserter;
+			name = png_cicp_editor;
 			packageProductDependencies = (
 			);
-			productName = cicp_inserter;
-			productReference = 86FEEDF62D73CC1D00165D7F /* cicp_inserter */;
+			productName = png_cicp_editor;
+			productReference = 86FEEDF62D73CC1D00165D7F /* png_cicp_editor */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -133,7 +133,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 86FEEDF12D73CC1D00165D7F /* Build configuration list for PBXProject "cicp_inserter" */;
+			buildConfigurationList = 86FEEDF12D73CC1D00165D7F /* Build configuration list for PBXProject "png_cicp_editor" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -147,7 +147,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				86FEEDF52D73CC1D00165D7F /* cicp_inserter */,
+				86FEEDF52D73CC1D00165D7F /* png_cicp_editor */,
 			);
 		};
 /* End PBXProject section */
@@ -290,7 +290,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = ../../../Code/cicp_inserter;
+				HEADER_SEARCH_PATHS = ../../../Code/png_cicp_editor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -299,7 +299,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = ../../../Code/cicp_inserter;
+				HEADER_SEARCH_PATHS = ../../../Code/png_cicp_editor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -307,7 +307,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		86FEEDF12D73CC1D00165D7F /* Build configuration list for PBXProject "cicp_inserter" */ = {
+		86FEEDF12D73CC1D00165D7F /* Build configuration list for PBXProject "png_cicp_editor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				86FEEDFB2D73CC1D00165D7F /* Debug */,
@@ -316,7 +316,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		86FEEDFD2D73CC1D00165D7F /* Build configuration list for PBXNativeTarget "cicp_inserter" */ = {
+		86FEEDFD2D73CC1D00165D7F /* Build configuration list for PBXNativeTarget "png_cicp_editor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				86FEEDFE2D73CC1D00165D7F /* Debug */,

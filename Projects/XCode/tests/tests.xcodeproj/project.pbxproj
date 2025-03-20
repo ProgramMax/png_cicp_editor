@@ -40,10 +40,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8674B6472D8BE5450084039B /* SparseArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SparseArray.hpp; path = ../../../Code/cicp_inserter/SparseArray.hpp; sourceTree = "<absolute>"; };
-		8674B6482D8BE5450084039B /* SparseArray.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SparseArray.inl; path = ../../../Code/cicp_inserter/SparseArray.inl; sourceTree = "<absolute>"; };
-		8674B6492D8BE5450084039B /* StateMachine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = StateMachine.hpp; path = ../../../Code/cicp_inserter/StateMachine.hpp; sourceTree = "<absolute>"; };
-		8674B64A2D8BE5450084039B /* StateMachine.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = StateMachine.inl; path = ../../../Code/cicp_inserter/StateMachine.inl; sourceTree = "<absolute>"; };
+		8674B6472D8BE5450084039B /* SparseArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SparseArray.hpp; path = ../../../Code/png_cicp_editor/SparseArray.hpp; sourceTree = "<absolute>"; };
+		8674B6482D8BE5450084039B /* SparseArray.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SparseArray.inl; path = ../../../Code/png_cicp_editor/SparseArray.inl; sourceTree = "<absolute>"; };
+		8674B6492D8BE5450084039B /* StateMachine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = StateMachine.hpp; path = ../../../Code/png_cicp_editor/StateMachine.hpp; sourceTree = "<absolute>"; };
+		8674B64A2D8BE5450084039B /* StateMachine.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = StateMachine.inl; path = ../../../Code/png_cicp_editor/StateMachine.inl; sourceTree = "<absolute>"; };
 		8674B64B2D8BE5780084039B /* SparseArrayTest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SparseArrayTest.hpp; path = ../../../Code/tests/SparseArrayTest.hpp; sourceTree = "<absolute>"; };
 		8674B64C2D8BE5780084039B /* SparseArrayTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SparseArrayTest.cpp; path = ../../../Code/tests/SparseArrayTest.cpp; sourceTree = "<absolute>"; };
 		8674B64D2D8BE5780084039B /* StateMachineTest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = StateMachineTest.hpp; path = ../../../Code/tests/StateMachineTest.hpp; sourceTree = "<absolute>"; };
@@ -64,20 +64,20 @@
 		86FEEE0C2D73CC5C00165D7F /* FileWriterTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileWriterTest.cpp; path = ../../../Code/tests/FileWriterTest.cpp; sourceTree = "<absolute>"; };
 		86FEEE0D2D73CC5C00165D7F /* PNGParserTest.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PNGParserTest.hpp; path = ../../../Code/tests/PNGParserTest.hpp; sourceTree = "<absolute>"; };
 		86FEEE0E2D73CC5C00165D7F /* PNGParserTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PNGParserTest.cpp; path = ../../../Code/tests/PNGParserTest.cpp; sourceTree = "<absolute>"; };
-		86FEEE172D73CC7400165D7F /* CICPCreator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICPCreator.hpp; path = ../../../Code/cicp_inserter/CICPCreator.hpp; sourceTree = "<absolute>"; };
-		86FEEE182D73CC7400165D7F /* CICPCreator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICPCreator.cpp; path = ../../../Code/cicp_inserter/CICPCreator.cpp; sourceTree = "<absolute>"; };
-		86FEEE192D73CC7400165D7F /* CICPInserter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICPInserter.hpp; path = ../../../Code/cicp_inserter/CICPInserter.hpp; sourceTree = "<absolute>"; };
-		86FEEE1A2D73CC7400165D7F /* CICPInserter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICPInserter.cpp; path = ../../../Code/cicp_inserter/CICPInserter.cpp; sourceTree = "<absolute>"; };
-		86FEEE1B2D73CC7400165D7F /* CommandLineParameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CommandLineParameters.hpp; path = ../../../Code/cicp_inserter/CommandLineParameters.hpp; sourceTree = "<absolute>"; };
-		86FEEE1C2D73CC7400165D7F /* CommandLineParameters.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CommandLineParameters.cpp; path = ../../../Code/cicp_inserter/CommandLineParameters.cpp; sourceTree = "<absolute>"; };
-		86FEEE202D73CC8A00165D7F /* Error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Error.hpp; path = ../../../Code/cicp_inserter/Error.hpp; sourceTree = "<absolute>"; };
-		86FEEE212D73CC8A00165D7F /* Error.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Error.cpp; path = ../../../Code/cicp_inserter/Error.cpp; sourceTree = "<absolute>"; };
-		86FEEE222D73CC8A00165D7F /* FileReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FileReader.hpp; path = ../../../Code/cicp_inserter/FileReader.hpp; sourceTree = "<absolute>"; };
-		86FEEE232D73CC8A00165D7F /* FileReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileReader.cpp; path = ../../../Code/cicp_inserter/FileReader.cpp; sourceTree = "<absolute>"; };
-		86FEEE242D73CC8A00165D7F /* FileWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FileWriter.hpp; path = ../../../Code/cicp_inserter/FileWriter.hpp; sourceTree = "<absolute>"; };
-		86FEEE252D73CC8A00165D7F /* FileWriter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileWriter.cpp; path = ../../../Code/cicp_inserter/FileWriter.cpp; sourceTree = "<absolute>"; };
-		86FEEE262D73CC8A00165D7F /* PNGParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PNGParser.hpp; path = ../../../Code/cicp_inserter/PNGParser.hpp; sourceTree = "<absolute>"; };
-		86FEEE272D73CC8A00165D7F /* PNGParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PNGParser.cpp; path = ../../../Code/cicp_inserter/PNGParser.cpp; sourceTree = "<absolute>"; };
+		86FEEE172D73CC7400165D7F /* CICPCreator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICPCreator.hpp; path = ../../../Code/png_cicp_editor/CICPCreator.hpp; sourceTree = "<absolute>"; };
+		86FEEE182D73CC7400165D7F /* CICPCreator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICPCreator.cpp; path = ../../../Code/png_cicp_editor/CICPCreator.cpp; sourceTree = "<absolute>"; };
+		86FEEE192D73CC7400165D7F /* CICPInserter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICPInserter.hpp; path = ../../../Code/png_cicp_editor/CICPInserter.hpp; sourceTree = "<absolute>"; };
+		86FEEE1A2D73CC7400165D7F /* CICPInserter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICPInserter.cpp; path = ../../../Code/png_cicp_editor/CICPInserter.cpp; sourceTree = "<absolute>"; };
+		86FEEE1B2D73CC7400165D7F /* CommandLineParameters.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CommandLineParameters.hpp; path = ../../../Code/png_cicp_editor/CommandLineParameters.hpp; sourceTree = "<absolute>"; };
+		86FEEE1C2D73CC7400165D7F /* CommandLineParameters.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CommandLineParameters.cpp; path = ../../../Code/png_cicp_editor/CommandLineParameters.cpp; sourceTree = "<absolute>"; };
+		86FEEE202D73CC8A00165D7F /* Error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Error.hpp; path = ../../../Code/png_cicp_editor/Error.hpp; sourceTree = "<absolute>"; };
+		86FEEE212D73CC8A00165D7F /* Error.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Error.cpp; path = ../../../Code/png_cicp_editor/Error.cpp; sourceTree = "<absolute>"; };
+		86FEEE222D73CC8A00165D7F /* FileReader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FileReader.hpp; path = ../../../Code/png_cicp_editor/FileReader.hpp; sourceTree = "<absolute>"; };
+		86FEEE232D73CC8A00165D7F /* FileReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileReader.cpp; path = ../../../Code/png_cicp_editor/FileReader.cpp; sourceTree = "<absolute>"; };
+		86FEEE242D73CC8A00165D7F /* FileWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FileWriter.hpp; path = ../../../Code/png_cicp_editor/FileWriter.hpp; sourceTree = "<absolute>"; };
+		86FEEE252D73CC8A00165D7F /* FileWriter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileWriter.cpp; path = ../../../Code/png_cicp_editor/FileWriter.cpp; sourceTree = "<absolute>"; };
+		86FEEE262D73CC8A00165D7F /* PNGParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PNGParser.hpp; path = ../../../Code/png_cicp_editor/PNGParser.hpp; sourceTree = "<absolute>"; };
+		86FEEE272D73CC8A00165D7F /* PNGParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PNGParser.cpp; path = ../../../Code/png_cicp_editor/PNGParser.cpp; sourceTree = "<absolute>"; };
 		86FEEE462D73CDEE00165D7F /* CoutResultPolicy.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CoutResultPolicy.hpp; path = ../../../Dependencies/max/Code/max/Testing/CoutResultPolicy.hpp; sourceTree = "<absolute>"; };
 		86FEEE472D73CDEE00165D7F /* CoutResultPolicy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CoutResultPolicy.cpp; path = ../../../Dependencies/max/Code/max/Testing/CoutResultPolicy.cpp; sourceTree = "<absolute>"; };
 		86FEEE482D73CDEE00165D7F /* Test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Test.hpp; path = ../../../Dependencies/max/Code/max/Testing/Test.hpp; sourceTree = "<absolute>"; };
@@ -384,7 +384,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
-					../../../Code/cicp_inserter,
+					../../../Code/png_cicp_editor,
 					../../../Dependencies/max/Code,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -397,7 +397,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
-					../../../Code/cicp_inserter,
+					../../../Code/png_cicp_editor,
 					../../../Dependencies/max/Code,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:cicp_inserter/cicp_inserter.xcodeproj">
+      location = "group:png_cicp_editor/png_cicp_editor.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:tests/tests.xcodeproj">

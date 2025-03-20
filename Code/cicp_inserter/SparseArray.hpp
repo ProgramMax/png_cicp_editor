@@ -1,15 +1,15 @@
-// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CICP_INSERTER_SPARSEARRAY_HPP
-#define CICP_INSERTER_SPARSEARRAY_HPP
+#ifndef PNG_CICP_EDITER_SPARSEARRAY_HPP
+#define PNG_CICP_EDITER_SPARSEARRAY_HPP
 
 #include <optional>
 #include <utility>
 #include <vector>
 
-namespace CICP_Inserter {
+namespace PNG_CICP_Editer {
 
 	template<typename IndexType, typename T>
 	class SparseArray {
@@ -30,8 +30,8 @@ namespace CICP_Inserter {
 
 	};
 
-} // namespace CICP_Inserter
+} // namespace PNG_CICP_Editer
 
 #include "SparseArray.inl"
 
-#endif // #ifndef CICP_INSERTED_SPARSEARRAY_HPP
+#endif // #ifndef PNG_CICP_EDITED_SPARSEARRAY_HPP

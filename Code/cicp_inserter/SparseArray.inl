@@ -1,10 +1,10 @@
-// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 #include <utility>
 
-namespace CICP_Inserter {
+namespace PNG_CICP_Editer {
 
 	template<typename IndexType, typename T>
 	constexpr SparseArray<IndexType, T>::SparseArray(std::vector<std::pair<IndexType, T>> array) noexcept
@@ -43,4 +43,4 @@ namespace CICP_Inserter {
 		return array_.cend();
 	}
 
-} // namespace CICP_Inserter
+} // namespace PNG_CICP_Editer

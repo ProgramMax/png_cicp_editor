@@ -1,6 +1,6 @@
-# cicp_inserter
+# png_cicp_editer
 
-cicp_inserter allows for easy insertion of CICP data into a PNG file.
+png_cicp_editer allows for easy insertion of CICP data into a PNG file.
 CICP is an efficient way to specify explicit color space.
 It is described in Recommendation ITU-T H.273, which can be found here:
 https://www.itu.int/rec/T-REC-H.273
@@ -8,10 +8,10 @@ https://www.itu.int/rec/T-REC-H.273
 
 A typical instructions for compiling on MacOS and Linux looks like this:
 1. cd into cd_inserter code directory
-2. `clang++ -std=c++23 -arch arm64 -o cicp_inserter *.cpp`
+2. `clang++ -std=c++23 -arch arm64 -o png_cicp_editer *.cpp`
 
 A typical use case looks like this:
-`cicp_inserter.exe --preset display-p3 C:\images\test.png`
+`png_cicp_editer.exe --preset display-p3 C:\images\test.png`
 This command updates the file to use Display P3.
 > [!WARNING]
 > This updates the existing file. Meaning any bugs or errors might clobber your file.
@@ -34,19 +34,19 @@ It simply updates the file (with all existing data unchanged) to be in a given c
 
 You can also specify individual CICP values. For example, to label an RGB image decoded from a SECAM video:
 
- `cicp_inserter.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 secam-test.png`
+ `png_cicp_editer.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 secam-test.png`
 
-[![Build and test](https://github.com/ProgramMax/cicp_inserter/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/ProgramMax/cicp_inserter/actions/workflows/build-and-test.yaml)
+[![Build and test](https://github.com/ProgramMax/png_cicp_editer/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/ProgramMax/png_cicp_editer/actions/workflows/build-and-test.yaml)
 
-If cicp_inserter is missing a feature you need, submit a [feature request](https://github.com/ProgramMax/cicp_inserter/issues/new?assignees=&labels=&template=feature_request.md&title=).
+If png_cicp_editer is missing a feature you need, submit a [feature request](https://github.com/ProgramMax/png_cicp_editer/issues/new?assignees=&labels=&template=feature_request.md&title=).
 
 ## Dependencies
 
-cicp_inserter has no dependencies beyond the C and C++ standard libraries. However, the tests depend on [max](https://github.com/ProgramMax/max), which also has a [BSD 3-Clause license](https://github.com/ProgramMax/max/blob/master/LICENSE).
-You can find some parts of max under [Dependencies/max](https://github.com/ProgramMax/cicp_inserter/blob/master/Dependencies/max).
+png_cicp_editer has no dependencies beyond the C and C++ standard libraries. However, the tests depend on [max](https://github.com/ProgramMax/max), which also has a [BSD 3-Clause license](https://github.com/ProgramMax/max/blob/master/LICENSE).
+You can find some parts of max under [Dependencies/max](https://github.com/ProgramMax/png_cicp_editer/blob/master/Dependencies/max).
 
 ## Engage
 
-* **Community:** We have a welcoming community which follows the [Code of Conduct](https://github.com/ProgramMax/cicp_inserter/blob/master/Docs/code_of_conduct.md).
-* **Contribute:** We accept pull requests. Take a look at some [good first tasks](https://github.com/ProgramMax/cicp_inserter/issues?q=is%3Aissue+is%3Aopen+label%3A"good+first+issue").
-* **Support:** You can [report bugs](https://github.com/ProgramMax/cicp_inserter/issues/new?assignees=&labels=&template=bug_report.md&title=) and [request changes](https://github.com/ProgramMax/cicp_inserter/issues/new?assignees=&labels=&template=feature_request.md&title=) using GitHub issues.
+* **Community:** We have a welcoming community which follows the [Code of Conduct](https://github.com/ProgramMax/png_cicp_editer/blob/master/Docs/code_of_conduct.md).
+* **Contribute:** We accept pull requests. Take a look at some [good first tasks](https://github.com/ProgramMax/png_cicp_editer/issues?q=is%3Aissue+is%3Aopen+label%3A"good+first+issue").
+* **Support:** You can [report bugs](https://github.com/ProgramMax/png_cicp_editer/issues/new?assignees=&labels=&template=bug_report.md&title=) and [request changes](https://github.com/ProgramMax/png_cicp_editer/issues/new?assignees=&labels=&template=feature_request.md&title=) using GitHub issues.

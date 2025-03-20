@@ -1,4 +1,4 @@
-// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,7 +8,7 @@
 #include <max/Testing/TestSuite.hpp>
 #include <max/Testing/CoutResultPolicy.hpp>
 
-namespace CICP_Inserter {
+namespace PNG_CICP_Editer {
 
 	void RunCICPCreatorTestSuite()
 	{
@@ -53,4 +53,4 @@ namespace CICP_Inserter {
 		CICPCreatorTestSuite.RunTests();
 	}
 
-} // namespace CICP_Inserter
+} // namespace PNG_CICP_Editer

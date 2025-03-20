@@ -28,7 +28,7 @@ A clear and concise description of what actually happened.
 **Platform (please complete the following information if applicable):**
  - OS: [e.g. iOS]
  - Compiler & version: [e.g. Clang v7.0.1]
- - maxGUI commit SHA:
+ - png_cicp_editor commit SHA:
 
 **Additional context**
 Add any other context about the problem here.

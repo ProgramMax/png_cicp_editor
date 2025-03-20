@@ -1,9 +1,9 @@
-// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CICP_INSERTER_COMMANDLINEPARAMETERS_HPP
-#define CICP_INSERTER_COMMANDLINEPARAMETERS_HPP
+#ifndef PNG_CICP_EDITER_COMMANDLINEPARAMETERS_HPP
+#define PNG_CICP_EDITER_COMMANDLINEPARAMETERS_HPP
 
 #include <cstdint>
 #include <expected>
@@ -13,7 +13,7 @@
 
 #include "Error.hpp"
 
-namespace CICP_Inserter {
+namespace PNG_CICP_Editer {
 
 	class CommandLineParameters {
 	public:
@@ -39,6 +39,6 @@ namespace CICP_Inserter {
 
 	std::expected<CommandLineParameters, ParseCommandLineParametersError> parse_command_line_parameters(int argc, char const* argv[]) noexcept;
 
-} // namespace CICP_Inserter
+} // namespace PNG_CICP_Editer
 
-#endif // #ifndef CICP_INSERTED_COMMANDLINEPARAMETERS_HPP
+#endif // #ifndef PNG_CICP_EDITER_COMMANDLINEPARAMETERS_HPP

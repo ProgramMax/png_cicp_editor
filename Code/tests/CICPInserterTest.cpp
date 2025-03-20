@@ -1,4 +1,4 @@
-// Copyright 2025, The cicp_inserter Contributors. All rights reserved.
+// Copyright 2025, The png_cicp_editer Contributors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -36,7 +36,7 @@ namespace {
 
 } // anonymous namespace
 
-namespace CICP_Inserter {
+namespace PNG_CICP_Editer {
 
 	void RunCICPInserterTestSuite()
 	{
@@ -53,7 +53,7 @@ namespace CICP_Inserter {
 		});
 
 		CICPInserterTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "get_split_buffer_across_cicp_insertion_point splits correctly", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
-			auto split_buffer = CICP_Inserter::get_split_buffer_across_cicp_insertion_point(png_contents, chunk_indices, false);
+			auto split_buffer = get_split_buffer_across_cicp_insertion_point(png_contents, chunk_indices, false);
 			CurrentTest.MAX_TESTING_ASSERT(split_buffer.has_value());
 
 			CurrentTest.MAX_TESTING_ASSERT(split_buffer.value().size() == 2);
@@ -65,7 +65,7 @@ namespace CICP_Inserter {
 		});
 
 		CICPInserterTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "get_split_buffer_across_cicp_insertion_point handles no PLTE chunk", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
-			auto split_buffer = CICP_Inserter::get_split_buffer_across_cicp_insertion_point(png_contents, chunk_indices, false);
+			auto split_buffer = get_split_buffer_across_cicp_insertion_point(png_contents, chunk_indices, false);
 			CurrentTest.MAX_TESTING_ASSERT(split_buffer.has_value());
 
 			CurrentTest.MAX_TESTING_ASSERT(split_buffer.value().size() == 2);
@@ -77,7 +77,7 @@ namespace CICP_Inserter {
 		});
 
 		CICPInserterTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "get_split_buffer_across_cicp_insertion_point errors if a cICP already exists", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
-			auto split_buffer = CICP_Inserter::get_split_buffer_across_cicp_insertion_point(cicp_png_contents, cicp_chunk_indices, false);
+			auto split_buffer = get_split_buffer_across_cicp_insertion_point(cicp_png_contents, cicp_chunk_indices, false);
 
 			CurrentTest.MAX_TESTING_ASSERT(!split_buffer.has_value());
 			CurrentTest.MAX_TESTING_ASSERT(split_buffer.error().error_code_ == GetInsertionIndexErrorCode::CICPChunkAlreadyExists);
@@ -85,7 +85,7 @@ namespace CICP_Inserter {
 		});
 
 		CICPInserterTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "get_split_buffer_across_cicp_insertion_point splits correctly when overwriting cICP", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
-			auto split_buffer = CICP_Inserter::get_split_buffer_across_cicp_insertion_point(cicp_png_contents, cicp_chunk_indices, true);
+			auto split_buffer = get_split_buffer_across_cicp_insertion_point(cicp_png_contents, cicp_chunk_indices, true);
 			CurrentTest.MAX_TESTING_ASSERT(split_buffer.has_value());
 
 			CurrentTest.MAX_TESTING_ASSERT(split_buffer.value().size() == 2);
@@ -98,7 +98,7 @@ namespace CICP_Inserter {
 
 
 		CICPInserterTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "get_split_buffer_across_cicp_insertion_point errors with no PLTE and IDAT chunks", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
-			auto split_buffer = CICP_Inserter::get_split_buffer_across_cicp_insertion_point(empty_png_contents, empty_chunk_indices, false);
+			auto split_buffer = get_split_buffer_across_cicp_insertion_point(empty_png_contents, empty_chunk_indices, false);
 
 			CurrentTest.MAX_TESTING_ASSERT(!split_buffer.has_value());
 			CurrentTest.MAX_TESTING_ASSERT(split_buffer.error().error_code_ == GetInsertionIndexErrorCode::CouldNotFindInsertionPoint);
@@ -106,7 +106,7 @@ namespace CICP_Inserter {
 		});
 
 		CICPInserterTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "get_split_buffer_across_cicp_insertion_point errors when overwriting a cICP which is the final chunk", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
-			auto split_buffer = CICP_Inserter::get_split_buffer_across_cicp_insertion_point(last_chunk_cicp_png_contents, last_chunk_cicp_chunk_indices, true);
+			auto split_buffer = get_split_buffer_across_cicp_insertion_point(last_chunk_cicp_png_contents, last_chunk_cicp_chunk_indices, true);
 
 			CurrentTest.MAX_TESTING_ASSERT(!split_buffer.has_value());
 			CurrentTest.MAX_TESTING_ASSERT(split_buffer.error().error_code_ == GetInsertionIndexErrorCode::CouldNotFindInsertionPoint);
@@ -116,4 +116,4 @@ namespace CICP_Inserter {
 		CICPInserterTestSuite.RunTests();
 	}
 
-} // namespace CICP_Inserter
+} // namespace PNG_CICP_Editer

@@ -26,11 +26,11 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Update NuGet packages
-      run: nuget restore .\Projects\VisualStudio\cicp_inserter.sln
+      run: nuget restore .\Projects\VisualStudio\png_cicp_editer.sln
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild /m /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} .\Projects\VisualStudio\cicp_inserter.sln
+      run: msbuild /m /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} .\Projects\VisualStudio\png_cicp_editer.sln
 
     - name: Test
       run: ${{ github.workspace }}\Projects\VisualStudio\tests\${{ matrix.platform }}\${{ matrix.configuration }}\tests.exe

@@ -26,6 +26,8 @@
     <None Include="..\..\AUTHORS" />
     <None Include="..\..\Code\png_cicp_editor\SparseArray.inl" />
     <None Include="..\..\Code\png_cicp_editor\StateMachine.inl" />
+    <None Include="..\..\Dependencies\max\AUTHORS" />
+    <None Include="..\..\Dependencies\max\LICENSE" />
     <None Include="..\..\Docs\code_of_conduct.md" />
     <None Include="..\..\Docs\README.md" />
     <None Include="..\..\LICENSE" />
@@ -50,6 +52,19 @@
     <ClInclude Include="..\..\Code\png_cicp_editor\PNGParser.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\SparseArray.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\StateMachine.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Compiler.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Compiler\Clang.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Compiler\GCC.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Compiler\VC.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\Android.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\Linux.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\MacOS.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\Win32.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\StandardLibrary.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\CurrentVersionNamespace.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Macros.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -106,18 +121,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\$(MSBuildProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\$(MSBuildProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IncludePath>$(ProjectDir)..\..\Dependencies\max\Code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\$(MSBuildProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\$(MSBuildProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IncludePath>$(ProjectDir)..\..\Dependencies\max\Code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)\$(MSBuildProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\$(MSBuildProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IncludePath>$(ProjectDir)..\..\Dependencies\max\Code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)\$(MSBuildProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\$(MSBuildProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
+    <IncludePath>$(ProjectDir)..\..\Dependencies\max\Code;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

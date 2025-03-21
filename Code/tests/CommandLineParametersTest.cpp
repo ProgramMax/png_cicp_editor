@@ -36,7 +36,7 @@ namespace PNG_CICP_Editor {
 		max::Testing::CoutResultPolicy ResultPolicy;
 		auto CommandLineParametersTestSuite = max::Testing::TestSuite< max::Testing::CoutResultPolicy >{ "CommandLineParameters test suite", std::move(ResultPolicy) };
 
-		// TODO: Add tests for --version & --help
+		// TODO: Add tests for -v, --version, -h, --help, & --license
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "ParseCommandLineParametersError ctor assigns members", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			auto error = ParseCommandLineParametersError{ ParseCommandLineParametersErrorCode::UnrecognizedParameter, { preset } };

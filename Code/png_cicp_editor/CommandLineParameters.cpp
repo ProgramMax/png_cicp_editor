@@ -10,6 +10,8 @@
 #include <string_view>
 #include <utility>
 
+#include <max/Compiling/Configuration.hpp>
+
 #include "StateMachine.hpp"
 #include "SparseArray.hpp"
 
@@ -28,6 +30,16 @@ namespace {
 	}
 
 	void print_help() noexcept {
+		#if defined(MAX_PLATFORM_WINDOWS)
+			static constinit auto program_name = std::string_view{ "png_cicp_editor.exe" };
+			static constinit auto file_path = std::string_view{ R"(C:\images\test.png)" };
+		#elif defined(MAX_PLATFORM_LINUX) || defined(MAX_PLATFORM_MACOS)
+			static constinit auto program_name = std::string_view{ "png_cicp_editor" };
+			static constinit auto file_path = std::string_view{ R"(/images/test.png)" };
+		#else
+			static_assert( false, "Unknown platform" );
+		#endif
+
 		print_version();
 		std::cout <<
 R"(This program allows you to insert CICP data into a PNG file.
@@ -35,7 +47,7 @@ CICP is an efficient way to specify color space.
 It is standardized in ITU-T H.273, which can be found here:
 https://www.itu.int/rec/T-REC-H.273
 
-Example usage: png_cicp_editor.exe --preset display-p3 C:\images\test.png
+Example usage: )" << program_name << R"( --preset display-p3 )" << file_path << R"(
 
 Presets:
 	bt.709          Rec. ITU-R BT.709-6
@@ -50,14 +62,15 @@ Presets:
 	p3-d65-pq       P3-D65 PQ
 
 You can also specify individual CICP values. For example, to label an RGB image decoded from a SECAM video:
-Example usage: png_cicp_editor.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 C:\images\test.png
+Example usage: )" << program_name << R"( --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 )" << file_path << R"(
 
 These can be mixed to override defaults. Values specified later override prior values.
-Example usage: png_cicp_editor.exe --preset display-p3 --video_full_range_flag 0 C:\images\test.png
+Example usage: )" << program_name << R"( --preset display-p3 --video_full_range_flag 0 )" << file_path << R"(
 
 General flags:
 	-h --help             Show help information (what you are viewing now)
 	-v --version          Show version information
+	   --license          Show license information
 	-p --preset [value]   Use [value]'s CICP values
 	-n --narrow           Use narrow range (--video_full_range_flag 0)
 	-f --full             Use full range (--video_full_range_flag 1)
@@ -70,6 +83,70 @@ Specific flags to match CICP parameter names from ITU-T H.273 (experts only):
 	   --video_full_range_flag [value]
 Note: Specific flags use values from ITU-T H.273. Not all values are valid.
 PNG puts further restrictions on which values are valid.
+)" << std::endl;
+	}
+
+	void print_license() noexcept {
+		std::cout << R"(Copyright 2025, The png_cicp_editor Contributors
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+    * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+    * Neither the name of png_cicp_editor nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+png_cicp_editor depends on max:
+
+Copyright 2015, The max Contributors
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+    * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+    * Neither the name of max nor the names of its contributors may be
+used to endorse or promote products derived from this software without
+specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 )" << std::endl;
 	}
 
@@ -179,6 +256,17 @@ namespace PNG_CICP_Editor {
 					return false;
 				}
 				print_help();
+				return true;
+			},
+			ParserStates::Done
+		};
+		auto license_flag_matched_transition = Transition{
+			[](char const* string) -> Transition::PredicateAndActionResultType {
+				static const std::string_view license_string = "--license";
+				if (license_string.compare(string) != 0) {
+					return false;
+				}
+				print_license();
 				return true;
 			},
 			ParserStates::Done
@@ -457,6 +545,7 @@ namespace PNG_CICP_Editor {
 		auto action_found_transitions = TransitionsType{
 			std::move(version_flag_matched_transition),
 			std::move(help_flag_matched_transition),
+			std::move(license_flag_matched_transition),
 			// The following transitions are reused in the flag found transitions
 			preset_flag_matched_transition,
 			narrow_flag_matched_transition,

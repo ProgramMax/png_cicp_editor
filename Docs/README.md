@@ -13,10 +13,6 @@ A typical instructions for compiling on MacOS and Linux looks like this:
 A typical use case looks like this:
 `png_cicp_editor.exe --preset display-p3 C:\images\test.png`
 This command updates the file to use Display P3.
-> [!WARNING]
-> This updates the existing file. Meaning any bugs or errors might clobber your file.
-It does not update or alter any color values.
-It simply updates the file (with all existing data unchanged) to be in a given color space.
 
 
 | Preset         | Specification                                                            |

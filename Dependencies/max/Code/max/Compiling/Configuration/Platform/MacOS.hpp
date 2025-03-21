@@ -19,10 +19,14 @@
 	#define MAX_32BIT_WORD_SIZE
 	#define MAX_PPC
 	#define MAX_BIG_ENDIAN
-#elif #defined( __ppc64__ )
+#elif defined( __ppc64__ )
 	#define MAX_64BIT_WORD_SIZE
 	#define MAX_PPC64
 	#define MAX_BIG_ENDIAN
+#elif defined( __arm64__ )
+    #define MAX_64BIT_WORD_SIZE
+    #define MAX_ARM64
+    #define MAX_LITTLE_ENDIAN
 #else
 	static_assert( false, "Unknown platform" );
 #endif

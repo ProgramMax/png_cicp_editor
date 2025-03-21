@@ -34,6 +34,19 @@
 		8674B6442D8BE4E00084039B /* SparseArray.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SparseArray.inl; path = ../../../Code/png_cicp_editor/SparseArray.inl; sourceTree = "<absolute>"; };
 		8674B6452D8BE4E00084039B /* StateMachine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = StateMachine.hpp; path = ../../../Code/png_cicp_editor/StateMachine.hpp; sourceTree = "<absolute>"; };
 		8674B6462D8BE4E00084039B /* StateMachine.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = StateMachine.inl; path = ../../../Code/png_cicp_editor/StateMachine.inl; sourceTree = "<absolute>"; };
+		86E65CF52D8D82A3000A0737 /* Compiler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Compiler.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/Compiler.hpp; sourceTree = "<absolute>"; };
+		86E65CF62D8D82A3000A0737 /* Platform.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Platform.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/Platform.hpp; sourceTree = "<absolute>"; };
+		86E65CF72D8D82A3000A0737 /* StandardLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = StandardLibrary.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/StandardLibrary.hpp; sourceTree = "<absolute>"; };
+		86E65CFA2D8D82D4000A0737 /* Clang.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Clang.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/Compiler/Clang.hpp; sourceTree = "<absolute>"; };
+		86E65CFB2D8D82D4000A0737 /* GCC.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GCC.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/Compiler/GCC.hpp; sourceTree = "<absolute>"; };
+		86E65CFC2D8D82D4000A0737 /* VC.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = VC.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/Compiler/VC.hpp; sourceTree = "<absolute>"; };
+		86E65CFD2D8D82F5000A0737 /* Android.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Android.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/Platform/Android.hpp; sourceTree = "<absolute>"; };
+		86E65CFE2D8D82F5000A0737 /* Linux.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Linux.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/Platform/Linux.hpp; sourceTree = "<absolute>"; };
+		86E65CFF2D8D82F5000A0737 /* MacOS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = MacOS.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/Platform/MacOS.hpp; sourceTree = "<absolute>"; };
+		86E65D002D8D82F5000A0737 /* Win32.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Win32.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration/Platform/Win32.hpp; sourceTree = "<absolute>"; };
+		86E65D012D8D8313000A0737 /* Configuration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Configuration.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Configuration.hpp; sourceTree = "<absolute>"; };
+		86E65D022D8D8313000A0737 /* CurrentVersionNamespace.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CurrentVersionNamespace.hpp; path = ../../../Dependencies/max/Code/max/Compiling/CurrentVersionNamespace.hpp; sourceTree = "<absolute>"; };
+		86E65D032D8D8313000A0737 /* Macros.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Macros.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Macros.hpp; sourceTree = "<absolute>"; };
 		86FEEDF62D73CC1D00165D7F /* png_cicp_editor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = png_cicp_editor; sourceTree = BUILT_PRODUCTS_DIR; };
 		86FEEE2C2D73CCF000165D7F /* CICPCreator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICPCreator.hpp; path = ../../../Code/png_cicp_editor/CICPCreator.hpp; sourceTree = "<absolute>"; };
 		86FEEE2D2D73CCF000165D7F /* CICPCreator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICPCreator.cpp; path = ../../../Code/png_cicp_editor/CICPCreator.cpp; sourceTree = "<absolute>"; };
@@ -63,9 +76,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		86E65CF12D8D8253000A0737 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				86E65CF22D8D8261000A0737 /* max */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		86E65CF22D8D8261000A0737 /* max */ = {
+			isa = PBXGroup;
+			children = (
+				86E65CF32D8D826C000A0737 /* Compiling */,
+			);
+			path = max;
+			sourceTree = "<group>";
+		};
+		86E65CF32D8D826C000A0737 /* Compiling */ = {
+			isa = PBXGroup;
+			children = (
+				86E65CF42D8D8273000A0737 /* Configuration */,
+				86E65D012D8D8313000A0737 /* Configuration.hpp */,
+				86E65D022D8D8313000A0737 /* CurrentVersionNamespace.hpp */,
+				86E65D032D8D8313000A0737 /* Macros.hpp */,
+			);
+			path = Compiling;
+			sourceTree = "<group>";
+		};
+		86E65CF42D8D8273000A0737 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				86E65CF82D8D82A6000A0737 /* Compiler */,
+				86E65CF92D8D82AE000A0737 /* Platform */,
+				86E65CF52D8D82A3000A0737 /* Compiler.hpp */,
+				86E65CF62D8D82A3000A0737 /* Platform.hpp */,
+				86E65CF72D8D82A3000A0737 /* StandardLibrary.hpp */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		86E65CF82D8D82A6000A0737 /* Compiler */ = {
+			isa = PBXGroup;
+			children = (
+				86E65CFA2D8D82D4000A0737 /* Clang.hpp */,
+				86E65CFB2D8D82D4000A0737 /* GCC.hpp */,
+				86E65CFC2D8D82D4000A0737 /* VC.hpp */,
+			);
+			path = Compiler;
+			sourceTree = "<group>";
+		};
+		86E65CF92D8D82AE000A0737 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				86E65CFD2D8D82F5000A0737 /* Android.hpp */,
+				86E65CFE2D8D82F5000A0737 /* Linux.hpp */,
+				86E65CFF2D8D82F5000A0737 /* MacOS.hpp */,
+				86E65D002D8D82F5000A0737 /* Win32.hpp */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
 		86FEEDED2D73CC1D00165D7F = {
 			isa = PBXGroup;
 			children = (
+				86E65CF12D8D8253000A0737 /* Dependencies */,
 				86FEEE2C2D73CCF000165D7F /* CICPCreator.hpp */,
 				86FEEE2D2D73CCF000165D7F /* CICPCreator.cpp */,
 				86FEEE2E2D73CCF000165D7F /* CICPInserter.hpp */,

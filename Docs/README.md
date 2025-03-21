@@ -42,7 +42,7 @@ If png_cicp_editor is missing a feature you need, submit a [feature request](htt
 
 ## Dependencies
 
-png_cicp_editor has no dependencies beyond the C and C++ standard libraries. However, the tests depend on [max](https://github.com/ProgramMax/max), which also has a [BSD 3-Clause license](https://github.com/ProgramMax/max/blob/master/LICENSE).
+png_cicp_editor and its tests depend on [max](https://github.com/ProgramMax/max), which also has a [BSD 3-Clause license](https://github.com/ProgramMax/max/blob/master/LICENSE).
 You can find some parts of max under [Dependencies/max](https://github.com/ProgramMax/png_cicp_editor/blob/master/Dependencies/max).
 
 ## Engage

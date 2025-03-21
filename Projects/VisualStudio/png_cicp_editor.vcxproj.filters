@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\Code\png_cicp_editor\CICPCreator.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CICPInserter.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CommandLineParameters.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\EntryPoint.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\Error.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\FileReader.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\FileWriter.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\PNGParser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Code\png_cicp_editor\CICPCreator.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CICPInserter.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CommandLineParameters.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\Error.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\FileReader.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\FileWriter.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\PNGParser.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\SparseArray.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\StateMachine.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration.hpp">
+      <Filter>Dependencies\max\Compiling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\CurrentVersionNamespace.hpp">
+      <Filter>Dependencies\max\Compiling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Macros.hpp">
+      <Filter>Dependencies\max\Compiling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Compiler.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\StandardLibrary.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\Android.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\Linux.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\MacOS.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\Win32.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Compiler\Clang.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Compiler\GCC.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Compiler\VC.hpp">
+      <Filter>Dependencies\max\Compiling\Configuration\Compiler</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\.github\ISSUE_TEMPLATE\bug_report.md" />
+    <None Include="..\..\.github\ISSUE_TEMPLATE\feature_request.md" />
+    <None Include="..\..\.github\workflows\build-and-test.yaml" />
+    <None Include="..\..\.gitignore" />
+    <None Include="..\..\AUTHORS" />
+    <None Include="..\..\Code\png_cicp_editor\SparseArray.inl" />
+    <None Include="..\..\Code\png_cicp_editor\StateMachine.inl" />
+    <None Include="..\..\Docs\code_of_conduct.md" />
+    <None Include="..\..\Docs\README.md" />
+    <None Include="..\..\LICENSE" />
+    <None Include="..\..\Dependencies\max\AUTHORS">
+      <Filter>Dependencies\max</Filter>
+    </None>
+    <None Include="..\..\Dependencies\max\LICENSE">
+      <Filter>Dependencies\max</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Dependencies">
+      <UniqueIdentifier>{9491087b-ba77-42aa-b90e-b4f4bda5a415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\max">
+      <UniqueIdentifier>{ab47c8e2-c480-43d8-95ab-627d57d2016a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\max\Compiling">
+      <UniqueIdentifier>{813b2f64-8891-48ee-a59d-946977fa04df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\max\Compiling\Configuration">
+      <UniqueIdentifier>{4a6257d8-62e5-4226-a464-b8731de52f6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\max\Compiling\Configuration\Compiler">
+      <UniqueIdentifier>{d518904b-b99f-4351-a11e-e5ffb072538e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\max\Compiling\Configuration\Platform">
+      <UniqueIdentifier>{c077ab64-27ce-490a-8b2d-fe11fbe50f61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

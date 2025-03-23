@@ -6,14 +6,13 @@
 
 #include <cstdlib>
 #include <functional>
-#include <iostream>
 #include <string_view>
 #include <utility>
 
-#include <max/Compiling/Configuration.hpp>
-
 #include "StateMachine.hpp"
 #include "SparseArray.hpp"
+
+#include <max/Compiling/Unreachable.hpp>
 
 namespace {
 
@@ -24,135 +23,6 @@ namespace {
 
 	// utility
 	static constinit char const* newline                = "\n";
-
-	void print_version() noexcept {
-		std::cout << "png_cicp_editor version 2.2" << std::endl;
-	}
-
-	void print_help() noexcept {
-		#if defined(MAX_PLATFORM_WINDOWS)
-			static constinit auto program_name = std::string_view{ "png_cicp_editor.exe" };
-			static constinit auto file_path = std::string_view{ R"(C:\images\test.png)" };
-		#elif defined(MAX_PLATFORM_LINUX) || defined(MAX_PLATFORM_MACOS)
-			static constinit auto program_name = std::string_view{ "png_cicp_editor" };
-			static constinit auto file_path = std::string_view{ R"(/images/test.png)" };
-		#else
-			static_assert( false, "Unknown platform" );
-		#endif
-
-		print_version();
-		std::cout <<
-R"(This program enabled CICP editing within a PNG file.
-CICP is an efficient way to specify color space.
-It is standardized in ITU-T H.273, which can be found here:
-https://www.itu.int/rec/T-REC-H.273
-
-Example usage: )" << program_name << R"( add --preset display-p3 )" << file_path << R"(
-
-Presets:
-	bt.709          Rec. ITU-R BT.709-6
-	srgb-linear     linear-light sRGB
-	srgb            IEC 61966-2-1 sRGB
-	bt.2020-10-bit  Rec. ITU-R BT.2020-2 (10-bit system)
-	bt.2020-12-bit  Rec. ITU-R BT.2020-2 (12-bit system)
-	bt.2100-pq      Rec. ITU-R BT.2100-2 perceptual quantization (PQ) system
-	bt.2100-hlg     Rec. ITU-R BT.2100-2 hybrid log-gamma (HLG) system
-	dci-p3          SMPTE RP 431-2 with SMPTE ST 428-1 D-Cinema Distribution Master (DCI-P3)
-	display-p3      Display P3
-	p3-d65-pq       P3-D65 PQ
-
-You can also specify individual CICP values. For example, to label an RGB image decoded from a SECAM video:
-Example usage: )" << program_name << R"( --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 )" << file_path << R"(
-
-These can be mixed to override defaults. Values specified later override prior values.
-Example usage: )" << program_name << R"( --preset display-p3 --video_full_range_flag 0 )" << file_path << R"(
-
-Actions:
-	-h --help             Show help information (what you are viewing now)
-	-v --version          Show version information
-	   --license          Show license information
-	add [flags]           Adds a new cICP chunk to the PNG file
-	overwrite [flags]     Adds a new or overwrites an existing cICP chunk
-	remove                Removes the cICP chunk from the PNG file
-
-General flags:
-	-p --preset [value]   Use [value]'s CICP values
-	-n --narrow           Use narrow range (--video_full_range_flag 0)
-	-f --full             Use full range (--video_full_range_flag 1)
-
-Specific flags to match CICP parameter names from ITU-T H.273 (experts only):
-	   --color_primaries [value]
-	   --transfer_function [value]
-	   --matrix_coefficients [value]
-	   --video_full_range_flag [value]
-Note: Specific flags use values from ITU-T H.273. Not all values are valid.
-PNG puts further restrictions on which values are valid.
-)" << std::endl;
-	}
-
-	void print_license() noexcept {
-		std::cout << R"(Copyright 2025, The png_cicp_editor Contributors
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-    * Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above
-copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the
-distribution.
-    * Neither the name of png_cicp_editor nor the names of its
-contributors may be used to endorse or promote products derived from
-this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
-png_cicp_editor depends on max:
-
-Copyright 2015, The max Contributors
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-    * Redistributions of source code must retain the above copyright
-notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above
-copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the
-distribution.
-    * Neither the name of max nor the names of its contributors may be
-used to endorse or promote products derived from this software without
-specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-)" << std::endl;
-	}
 
 	enum class ReadNumericValueErrorCode {
 		UnrecognizedParameter,
@@ -195,16 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace PNG_CICP_Editor {
 
-	CommandLineParameters::CommandLineParameters(bool overwrite_cicp, uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag, std::string png_file_path) noexcept
-		: overwrite_cicp_(std::move(overwrite_cicp))
-		, color_primaries_(std::move(color_primaries))
-		, transfer_function_(std::move(transfer_function))
-		, matrix_coefficients_(std::move(matrix_coefficients))
-		, video_full_range_flag_(std::move(video_full_range_flag))
-		, png_file_path_(std::move(png_file_path))
-	{}
-
-	std::expected<CommandLineParameters, ParseCommandLineParametersError> parse_command_line_parameters(int argc, char const* argv[]) noexcept {
+	std::expected<Action, ParseCommandLineParametersError> parse_command_line_parameters(int argc, char const* argv[]) noexcept {
 		enum class ParserStates {
 			ExpectingAction,
 			ExpectingFlag,
@@ -214,6 +75,7 @@ namespace PNG_CICP_Editor {
 			ExpectingMatrixCoefficientsValue,
 			ExpectingVideoFullRangeFlagValue,
 			ExpectingFlagOrFile,
+			ExpectingFile,
 			Done,
 		};
 		class Transition {
@@ -233,19 +95,12 @@ namespace PNG_CICP_Editor {
 
 		};
 
-		enum class Actions {
-			Version,
-			Help,
-			License,
-			Add,
-			Overwrite,
-		};
 		Actions action = Actions::Help;
 		uint8_t color_primaries = 0;
 		uint8_t transfer_function = 0;
 		uint8_t matrix_coefficients = 0;
 		uint8_t video_full_range_flag = 1;
-		char const* file_path = nullptr;
+		char const* file_path = "";
 
 
 		auto version_action_matched_transition = Transition{
@@ -307,6 +162,17 @@ namespace PNG_CICP_Editor {
 				return true;
 			},
 			ParserStates::ExpectingFlag
+		};
+		auto remove_action_matched_transition = Transition{
+			[&](char const* string) -> Transition::PredicateAndActionResultType {
+				static const std::string_view remove_string = "remove";
+				if (remove_string.compare(string) != 0) {
+					return false;
+				}
+				action = Actions::Remove;
+				return true;
+			},
+			ParserStates::ExpectingFile
 		};
 		auto preset_flag_matched_transition = Transition{
 			[](char const* string) -> Transition::PredicateAndActionResultType {
@@ -600,7 +466,8 @@ namespace PNG_CICP_Editor {
 			std::move(transfer_function_flag_matched_transition),
 			std::move(matrix_coefficients_flag_matched_transition),
 			std::move(video_full_range_flag_flag_matched_transition),
-			std::move(file_found_transition),
+			// Note: These are not moved because they are used below
+			file_found_transition,
 		};
 		auto preset_value_found_transitions = TransitionsType{
 			std::move(bt709_value_matched_transition),
@@ -618,6 +485,7 @@ namespace PNG_CICP_Editor {
 		auto transfer_function_found_transitions     = TransitionsType{ std::move(transfer_function_value_matched_transition) };
 		auto matrix_coefficients_found_transitions   = TransitionsType{ std::move(matrix_coefficients_value_matched_transition) };
 		auto video_full_range_flag_found_transitions = TransitionsType{ std::move(video_full_range_flag_value_matched_transition) };
+		auto file_found_transitions                  = TransitionsType{ std::move(file_found_transition) };
 
 		auto parser_state_machine = StateMachine<ParserStates, Transition>{ ParserStates::ExpectingAction, SparseArray<ParserStates, TransitionsType>{ {
 				{ ParserStates::ExpectingAction, action_found_transitions },
@@ -628,6 +496,7 @@ namespace PNG_CICP_Editor {
 				{ ParserStates::ExpectingTransferFunctionValue, transfer_function_found_transitions },
 				{ ParserStates::ExpectingMatrixCoefficientsValue, matrix_coefficients_found_transitions },
 				{ ParserStates::ExpectingVideoFullRangeFlagValue, video_full_range_flag_found_transitions },
+				{ ParserStates::ExpectingFile, file_found_transitions },
 		} } };
 
 		// Start at 1 because the first command line parameter is the program name.
@@ -654,9 +523,23 @@ namespace PNG_CICP_Editor {
 
 
 		// TODO: Test if a file path with a space and quotes ("C:\test images\test.png") is provided as one command line parameter
-		bool overwrite_cicp = (action == Actions::Overwrite);
 
-		return CommandLineParameters(std::move(overwrite_cicp), std::move(color_primaries), std::move(transfer_function), std::move(matrix_coefficients), std::move(video_full_range_flag), std::move(file_path));
+		switch (action) {
+		case Actions::Version:
+			return Action{ VersionAction{} };
+		case Actions::Help:
+			return Action{ HelpAction{} };
+		case Actions::License:
+			return Action{ LicenseAction{} };
+		case Actions::Add:
+			return Action{ AddAction{CICP{std::move(color_primaries), std::move(transfer_function), std::move(matrix_coefficients), std::move(video_full_range_flag)}, std::move(file_path)} };
+		case Actions::Overwrite:
+			return Action{ OverwriteAction{CICP{std::move(color_primaries), std::move(transfer_function), std::move(matrix_coefficients), std::move(video_full_range_flag)}, std::move(file_path)} };
+		case Actions::Remove:
+			return Action{ RemoveAction{std::move(file_path)} };
+		}
+		MAX_UNREACHABLE;
+
 	}
 
 } // namespace PNG_CICP_Editor

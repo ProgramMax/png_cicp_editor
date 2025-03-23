@@ -3,14 +3,11 @@
 // found in the LICENSE file.
 
 #include <iostream>
+#include <variant>
 
-#include "CICPCreator.hpp"
-#include "CICPInserter.hpp"
 #include "CommandLineParameters.hpp"
 #include "Error.hpp"
-#include "FileReader.hpp"
-#include "FileWriter.hpp"
-#include "PNGParser.hpp"
+
 
 int main(int argc, char const* argv[]) noexcept {
 	// Parse the command line parameters
@@ -24,49 +21,26 @@ int main(int argc, char const* argv[]) noexcept {
 		return 1;
 	}
 
-
-	// Read the file
-	auto file_contents = PNG_CICP_Editor::read_file(command_line_parameters->png_file_path_);
-	if (!file_contents.has_value()) {
-		print_error(file_contents.error());
-		return 1;
+	switch (command_line_parameters->action_type_) {
+	case PNG_CICP_Editor::Actions::Version:
+		command_line_parameters->action_.version_();
+		break;
+	case PNG_CICP_Editor::Actions::Help:
+		command_line_parameters->action_.help_();
+		break;
+	case PNG_CICP_Editor::Actions::License:
+		command_line_parameters->action_.license_();
+		break;
+	case PNG_CICP_Editor::Actions::Add:
+		command_line_parameters->action_.add_();
+		break;
+	case PNG_CICP_Editor::Actions::Overwrite:
+		command_line_parameters->action_.overwrite_();
+		break;
+	case PNG_CICP_Editor::Actions::Remove:
+		command_line_parameters->action_.remove_();
+		break;
 	}
-
-
-	// Get indicies of all chunks
-	auto chunk_indices = PNG_CICP_Editor::get_chunk_indices(file_contents.value());
-	if (!chunk_indices.has_value()) {
-		print_error(chunk_indices.error());
-		return 1;
-	}
-
-
-	// Find insertion index for cICP chunk
-	auto split_buffer= PNG_CICP_Editor::get_split_buffer_across_cicp_insertion_point(file_contents.value(), chunk_indices.value(), command_line_parameters->overwrite_cicp_);
-	if (!split_buffer.has_value()) {
-		print_error(split_buffer.error());
-		return 1;
-	}
-
-
-	// Prepare cICP buffer to write
-	auto cicp_buffer = PNG_CICP_Editor::create_cicp_buffer(command_line_parameters->color_primaries_, command_line_parameters->transfer_function_, command_line_parameters->matrix_coefficients_, command_line_parameters->video_full_range_flag_);
-
-
-	// Prepare file before & after buffers for write
-	std::vector<std::span<char>> buffers;
-	buffers.push_back({ split_buffer.value()[0] });
-	buffers.push_back({ cicp_buffer });
-	buffers.push_back({ split_buffer.value()[1] });
-
-
-	// Write the file with cICP inserted
-	auto write_result = PNG_CICP_Editor::write_file(command_line_parameters->png_file_path_, buffers);
-	if (!write_result.has_value()) {
-		print_error(write_result.error());
-		return 1;
-	}
-
 
 	return 0;
 }

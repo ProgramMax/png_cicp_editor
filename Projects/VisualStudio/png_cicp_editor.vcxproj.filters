@@ -9,6 +9,8 @@
     <ClCompile Include="..\..\Code\png_cicp_editor\FileReader.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\FileWriter.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\PNGParser.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CICP.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\Actions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Code\png_cicp_editor\CICPCreator.hpp" />
@@ -58,6 +60,11 @@
     </ClInclude>
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Compiler\VC.hpp">
       <Filter>Dependencies\max\Compiling\Configuration\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Code\png_cicp_editor\CICP.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\Actions.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Unreachable.hpp">
+      <Filter>Dependencies\max\Compiling</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

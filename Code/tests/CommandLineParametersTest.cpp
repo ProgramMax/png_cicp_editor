@@ -10,8 +10,15 @@
 
 namespace {
 
+	// actions
+	static constinit char const* version   = "--version";
+	static constinit char const* v_string  = "-v";
+	static constinit char const* help      = "--help";
+	static constinit char const* h_string  = "-h";
+	static constinit char const* license   = "--license";
 	static constinit char const* add       = "add";
 	static constinit char const* overwrite = "overwrite";
+	static constinit char const* remove_string = "remove";
 
 	static constinit char const* preset    = "--preset";
 	static constinit char const* narrow    = "--narrow";
@@ -37,8 +44,6 @@ namespace PNG_CICP_Editor {
 		max::Testing::CoutResultPolicy ResultPolicy;
 		auto CommandLineParametersTestSuite = max::Testing::TestSuite< max::Testing::CoutResultPolicy >{ "CommandLineParameters test suite", std::move(ResultPolicy) };
 
-		// TODO: Add tests for -v, --version, -h, --help, & --license
-
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "ParseCommandLineParametersError ctor assigns members", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			auto error = ParseCommandLineParametersError{ ParseCommandLineParametersErrorCode::UnrecognizedParameter, { preset } };
 
@@ -48,18 +53,64 @@ namespace PNG_CICP_Editor {
 			}
 		});
 
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--version returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 2;
+			char const* argv[argc] = { program_name, version };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Version);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-v returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 2;
+			char const* argv[argc] = { program_name, v_string };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Version);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--help returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 2;
+			char const* argv[argc] = { program_name, help };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Help);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-h returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 2;
+			char const* argv[argc] = { program_name, h_string };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Help);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--license returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 2;
+			char const* argv[argc] = { program_name, license };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::License);
+			}
+		});
+
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.709 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
 			char const* argv[argc] = { program_name, add, preset, "bt.709", test_image_path };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -69,12 +120,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 8);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 8);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -84,12 +136,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -99,12 +152,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 14);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 9);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 14);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -114,12 +168,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 15);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 9);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 15);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -129,12 +184,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 16);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 9);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 16);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -144,12 +200,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 9);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 18);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 9);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 18);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -159,12 +216,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 11);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 17);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 11);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 17);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -174,12 +232,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 12);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 12);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -189,12 +248,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 12);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 16);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 12);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 16);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -204,12 +264,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -219,12 +280,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -234,12 +296,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -249,12 +312,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -264,12 +328,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -279,12 +344,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 43);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 44);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 45);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 43);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 44);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 45);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -294,12 +360,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -309,12 +376,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -324,12 +392,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -339,12 +408,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -354,12 +424,13 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == false);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
 			}
 		});
 
@@ -369,12 +440,25 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->overwrite_cicp_ == true);
-			CurrentTest.MAX_TESTING_ASSERT(result->color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->png_file_path_ == test_image_path);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Overwrite);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.file_path_ == test_image_path);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "remove return correct action and file path", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 3;
+			char const* argv[argc] = { program_name, remove_string, test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Remove);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.remove_.file_path_ == test_image_path);
 			}
 		});
 

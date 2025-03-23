@@ -11,23 +11,10 @@
 #include <utility>
 #include <vector>
 
+#include "Actions.hpp"
 #include "Error.hpp"
 
 namespace PNG_CICP_Editor {
-
-	class CommandLineParameters {
-	public:
-
-		CommandLineParameters(bool overwrite_cicp, uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag, std::string png_file_path) noexcept;
-
-		bool overwrite_cicp_;
-		uint8_t color_primaries_;
-		uint8_t transfer_function_;
-		uint8_t matrix_coefficients_;
-		uint8_t video_full_range_flag_;
-		std::string png_file_path_;
-
-	};
 
 	enum class ParseCommandLineParametersErrorCode {
 		UnrecognizedParameter,
@@ -37,7 +24,7 @@ namespace PNG_CICP_Editor {
 	};
 	using ParseCommandLineParametersError = ErrorWithCode<ParseCommandLineParametersErrorCode>;
 
-	std::expected<CommandLineParameters, ParseCommandLineParametersError> parse_command_line_parameters(int argc, char const* argv[]) noexcept;
+	std::expected<Action, ParseCommandLineParametersError> parse_command_line_parameters(int argc, char const* argv[]) noexcept;
 
 } // namespace PNG_CICP_Editor
 

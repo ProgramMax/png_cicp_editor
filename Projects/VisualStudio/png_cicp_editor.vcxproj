@@ -34,6 +34,8 @@
     <None Include="..\..\LICENSE" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Code\png_cicp_editor\Actions.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CICP.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\CICPCreator.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\CICPInserter.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\CommandLineParameters.cpp" />
@@ -44,6 +46,8 @@
     <ClCompile Include="..\..\Code\png_cicp_editor\PNGParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Code\png_cicp_editor\Actions.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CICP.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\CICPCreator.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\CICPInserter.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\CommandLineParameters.hpp" />
@@ -66,6 +70,7 @@
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\StandardLibrary.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\CurrentVersionNamespace.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Macros.hpp" />
+    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Unreachable.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

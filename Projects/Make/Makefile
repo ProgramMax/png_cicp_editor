@@ -112,18 +112,18 @@ endif
 all: $(PROGRAM) $(TEST_PROGRAM)
 
 $(PROGRAM): $(CXX_OBJS)
-	$(CXX) -g $(CXX_OBJS) $(LINKER_FLAGS) -o $(PROGRAM)
+	$(CXX) $(CXX_OBJS) $(LINKER_FLAGS) -o $(PROGRAM)
 
 $(CXX_OBJS): $(CXX_SRCS)
 	mkdir -p $(dir $@)
-	$(CXX) -g $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
+	$(CXX) $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
 
 $(TEST_PROGRAM): $(TEST_CXX_OBJS)
-	$(CXX) -g $(TEST_CXX_OBJS) $(LINKER_FLAGS) -o $(TEST_PROGRAM)
+	$(CXX) $(TEST_CXX_OBJS) $(LINKER_FLAGS) -o $(TEST_PROGRAM)
 
 $(TEST_CXX_OBJS): $(TEST_CXX_SRCS)
 	mkdir -p $(dir $@)
-	$(CXX) -g $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
+	$(CXX) $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
 
 .PHONY: clean
 distclean: clean

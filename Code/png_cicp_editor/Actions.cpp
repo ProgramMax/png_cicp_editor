@@ -149,7 +149,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 )" << std::endl;
 	}
 
-	AddAction::AddAction(CICP cicp, std::filesystem::path file_path) noexcept
+	AddAction::AddAction(CICP cicp, std::string file_path) noexcept
 		: cicp_(std::move(cicp))
 		, file_path_(std::move(file_path))
 	{}
@@ -157,7 +157,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	void AddAction::operator()() const noexcept {
 		// TODO: Return error values
 		// Read the file
-		auto file_contents = read_file(file_path_.c_str());
+		auto file_contents = read_file(file_path_);
 		if (!file_contents.has_value()) {
 			print_error(file_contents.error());
 			//return 1;
@@ -195,7 +195,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 		// Write the file with cICP inserted
-		auto write_result = PNG_CICP_Editor::write_file(file_path_.c_str(), buffers);
+		auto write_result = PNG_CICP_Editor::write_file(file_path_, buffers);
 		if (!write_result.has_value()) {
 			print_error(write_result.error());
 			//return 1;
@@ -203,7 +203,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		}
 	}
 
-	OverwriteAction::OverwriteAction(CICP cicp, std::filesystem::path file_path) noexcept
+	OverwriteAction::OverwriteAction(CICP cicp, std::string file_path) noexcept
 		: cicp_(std::move(cicp))
 		, file_path_(std::move(file_path))
 	{}
@@ -211,7 +211,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	void OverwriteAction::operator()() const noexcept {
 		// TODO: Return error values
 		// Read the file
-		auto file_contents = read_file(file_path_.c_str());
+		auto file_contents = read_file(file_path_);
 		if (!file_contents.has_value()) {
 			print_error(file_contents.error());
 			//return 1;
@@ -249,7 +249,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 		// Write the file with cICP inserted
-		auto write_result = PNG_CICP_Editor::write_file(file_path_.c_str(), buffers);
+		auto write_result = PNG_CICP_Editor::write_file(file_path_, buffers);
 		if (!write_result.has_value()) {
 			print_error(write_result.error());
 			//return 1;
@@ -257,7 +257,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		}
 	}
 
-	RemoveAction::RemoveAction(std::filesystem::path file_path) noexcept
+	RemoveAction::RemoveAction(std::string file_path) noexcept
 		: file_path_(std::move(file_path))
 	{}
 

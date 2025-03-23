@@ -4,7 +4,6 @@
 
 #include "FileReader.hpp"
 
-#include <filesystem>
 #include <fstream>
 #include <utility>
 
@@ -21,12 +20,10 @@ namespace {
 
 namespace PNG_CICP_Editor {
 
-	std::expected<std::vector<char>, ReadFileError> read_file(const std::filesystem::path& file_path) noexcept {
-		// TODO: Needed an owning string for the errors below
-		std::string file_path_string = file_path.string();
+	std::expected<std::vector<char>, ReadFileError> read_file(const std::string& file_path) noexcept {
 		auto png_file = std::ifstream{ file_path.c_str(), std::ios::binary | std::ios::ate };
 		if (!png_file.good()) {
-			return std::unexpected{ ReadFileError{ ReadFileErrorCode::CannotOpenFile, { cannot_open_file, file_path_string.c_str(), newline } } };
+			return std::unexpected{ ReadFileError{ ReadFileErrorCode::CannotOpenFile, { cannot_open_file, file_path.c_str(), newline } } };
 		}
 		auto file_size = png_file.tellg();
 		png_file.seekg(0, std::ios::beg);
@@ -34,7 +31,7 @@ namespace PNG_CICP_Editor {
 		auto buffer = std::vector<char>( file_size );
 		if (!png_file.read(buffer.data(), file_size))
 		{
-			return std::unexpected{ ReadFileError{ ReadFileErrorCode::CannotReadFile, { cannot_read_file, file_path_string.c_str(), newline } } };
+			return std::unexpected{ ReadFileError{ ReadFileErrorCode::CannotReadFile, { cannot_read_file, file_path.c_str(), newline } } };
 		}
 
 		png_file.close();

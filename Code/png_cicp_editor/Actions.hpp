@@ -5,7 +5,7 @@
 #ifndef PNG_CICP_EDITOR_ACTIONS_HPP
 #define PNG_CICP_EDITOR_ACTIONS_HPP
 
-#include <filesystem>
+#include <string>
 
 #include "CICP.hpp"
 
@@ -33,29 +33,29 @@ namespace PNG_CICP_Editor {
 	};
 
 	struct AddAction {
-		explicit AddAction(CICP cicp, std::filesystem::path file_path) noexcept;
+		explicit AddAction(CICP cicp, std::string file_path) noexcept;
 
 		void operator()() const noexcept;
 
 		CICP cicp_;
-		std::filesystem::path file_path_;
+		std::string file_path_;
 	};
 
 	struct OverwriteAction {
-		explicit OverwriteAction(CICP cicp, std::filesystem::path file_path) noexcept;
+		explicit OverwriteAction(CICP cicp, std::string file_path) noexcept;
 
 		void operator()() const noexcept;
 
 		CICP cicp_;
-		std::filesystem::path file_path_;
+		std::string file_path_;
 	};
 
 	struct RemoveAction {
-		explicit RemoveAction(std::filesystem::path file_path) noexcept;
+		explicit RemoveAction(std::string file_path) noexcept;
 
 		void operator()() const noexcept;
 
-		std::filesystem::path file_path_;
+		std::string file_path_;
 	};
 
 	struct Action {

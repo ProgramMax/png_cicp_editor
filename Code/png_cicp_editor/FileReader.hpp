@@ -6,7 +6,6 @@
 #define PNG_CICP_EDITOR_FILEREADER_HPP
 
 #include <expected>
-#include <filesystem>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -21,7 +20,7 @@ namespace PNG_CICP_Editor {
 	};
 	using ReadFileError = ErrorWithCode<ReadFileErrorCode>;
 
-	std::expected<std::vector<char>, ReadFileError> read_file(const std::filesystem::path& file_path) noexcept;
+	std::expected<std::vector<char>, ReadFileError> read_file(const std::string& file_path) noexcept;
 
 } // namespace PNG_CICP_Editor
 

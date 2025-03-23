@@ -6,7 +6,6 @@
 #define PNG_CICP_EDITOR_FILEWRITER_HPP
 
 #include <expected>
-#include <filesystem>
 #include <span>
 #include <string>
 #include <string_view>
@@ -22,7 +21,7 @@ namespace PNG_CICP_Editor {
 	};
 	using WriteFileError = ErrorWithCode<WriteFileErrorCode>;
 
-	std::expected<void, WriteFileError> write_file(const std::filesystem::path& file_path, std::vector<std::span<char>> buffers) noexcept;
+	std::expected<void, WriteFileError> write_file(const std::string& file_path, std::vector<std::span<char>> buffers) noexcept;
 
 } // namespace PNG_CICP_Editor
 

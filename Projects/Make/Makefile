@@ -33,6 +33,8 @@ endif
 PROGRAM = Build/png_cicp_editor
 
 CXX_SRCS = \
+	../../Code/png_cicp_editor/Actions.cpp \
+	../../Code/png_cicp_editor/CICP.cpp \
 	../../Code/png_cicp_editor/CICPCreator.cpp \
 	../../Code/png_cicp_editor/CICPInserter.cpp \
 	../../Code/png_cicp_editor/CommandLineParameters.cpp \
@@ -56,6 +58,8 @@ LIBRARY_PATHS_FLAGS = $(foreach d, $(LIBRARY_PATHS), -L$d)
 TEST_PROGRAM = Build/tests
 
 TEST_CXX_SRCS = \
+	../../Code/png_cicp_editor/Actions.cpp \
+	../../Code/png_cicp_editor/CICP.cpp \
 	../../Code/png_cicp_editor/CICPCreator.cpp \
 	../../Code/png_cicp_editor/CICPInserter.cpp \
 	../../Code/png_cicp_editor/CommandLineParameters.cpp \
@@ -63,6 +67,8 @@ TEST_CXX_SRCS = \
 	../../Code/png_cicp_editor/FileReader.cpp \
 	../../Code/png_cicp_editor/FileWriter.cpp \
 	../../Code/png_cicp_editor/PNGParser.cpp \
+	../../Code/tests/ActionsTest.cpp \
+	../../Code/tests/CICPTest.cpp \
 	../../Code/tests/CICPCreatorTest.cpp \
 	../../Code/tests/CICPInserterTest.cpp \
 	../../Code/tests/CommandLineParametersTest.cpp \

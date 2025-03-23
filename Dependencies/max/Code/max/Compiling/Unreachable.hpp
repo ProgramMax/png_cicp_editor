@@ -7,6 +7,8 @@
 
 #include <max/Compiling/Configuration/Compiler.hpp>
 
+#include <exception>
+
 #if defined( NDEBUG )
 	#if defined( MAX_COMPILER_VC )
 		#define MAX_UNREACHABLE __assume( 0 )

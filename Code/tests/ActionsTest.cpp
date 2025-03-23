@@ -4,7 +4,7 @@
 
 #include "ActionsTest.hpp"
 
-#include <filesystem>
+#include <string>
 
 #include <Actions.hpp>
 #include <CICP.hpp>
@@ -15,7 +15,7 @@
 namespace {
 
 	auto cicp = PNG_CICP_Editor::CICP{ 1, 2, 3, 4 };
-	auto file_path = std::filesystem::path{ R"(C:\images\test.png)" };
+	auto file_path = std::string{ R"(C:\images\test.png)" };
 
 } // Anonymous namespace
 

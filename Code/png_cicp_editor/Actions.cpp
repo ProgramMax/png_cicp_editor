@@ -57,10 +57,10 @@ Presets:
 	p3-d65-pq       P3-D65 PQ
 
 You can also specify individual CICP values. For example, to label an RGB image decoded from a SECAM video:
-Example usage: )" << program_name << R"( --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 )" << file_path << R"(
+Example usage: )" << program_name << R"( add --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 )" << file_path << R"(
 
 These can be mixed to override defaults. Values specified later override prior values.
-Example usage: )" << program_name << R"( --preset display-p3 --video_full_range_flag 0 )" << file_path << R"(
+Example usage: )" << program_name << R"( add --preset display-p3 --video_full_range_flag 0 )" << file_path << R"(
 
 Actions:
 	-h --help             Show help information (what you are viewing now)

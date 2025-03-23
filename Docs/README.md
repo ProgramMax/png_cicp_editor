@@ -1,6 +1,7 @@
 # png_cicp_editor
 
 PNG is an image file format.
+
 CICP is an efficient (4 bytes), industry standard ([Recommendation ITU-T H.273](https://www.itu.int/rec/T-REC-H.273)) way to specify color space.
 
 This tool enables CICP editing within a PNG file.
@@ -10,7 +11,7 @@ This tool enables CICP editing within a PNG file.
 ## Usage
 
 A typical use case looks like this:
-`png_cicp_editor.exe --preset display-p3 C:\images\test.png`
+```png_cicp_editor.exe --preset display-p3 C:\images\test.png```
 This command updates the file to use Display P3.
 
 | Preset         | Specification                                                            |
@@ -27,8 +28,7 @@ This command updates the file to use Display P3.
 | p3-d65-pq      | P3-D65 PQ                                                                |
 
 You can also specify individual CICP values. For example, to label an RGB image decoded from a SECAM video:
-
- `png_cicp_editor.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 secam-test.png`
+```png_cicp_editor.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 secam-test.png```
 
  
 ## Engage

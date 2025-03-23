@@ -1,19 +1,17 @@
 # png_cicp_editor
 
-png_cicp_editor allows for easy insertion of CICP data into a PNG file.
-CICP is an efficient way to specify explicit color space.
-It is described in Recommendation ITU-T H.273, which can be found here:
-https://www.itu.int/rec/T-REC-H.273
+PNG is an image file format.
+CICP is an efficient (4 bytes), industry standard ([Recommendation ITU-T H.273](https://www.itu.int/rec/T-REC-H.273)) way to specify color space.
 
+This tool enables CICP editing within a PNG file.
 
-A typical instructions for compiling on MacOS and Linux looks like this:
-1. cd into cd_inserter code directory
-2. `clang++ -std=c++23 -arch arm64 -o png_cicp_editor *.cpp`
+[![Build and test](https://github.com/ProgramMax/png_cicp_editor/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/ProgramMax/png_cicp_editor/actions/workflows/build-and-test.yaml)
+
+## Usage
 
 A typical use case looks like this:
 `png_cicp_editor.exe --preset display-p3 C:\images\test.png`
 This command updates the file to use Display P3.
-
 
 | Preset         | Specification                                                            |
 |----------------|--------------------------------------------------------------------------|
@@ -32,17 +30,18 @@ You can also specify individual CICP values. For example, to label an RGB image 
 
  `png_cicp_editor.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 secam-test.png`
 
-[![Build and test](https://github.com/ProgramMax/png_cicp_editor/actions/workflows/build-and-test.yaml/badge.svg)](https://github.com/ProgramMax/png_cicp_editor/actions/workflows/build-and-test.yaml)
-
-If png_cicp_editor is missing a feature you need, submit a [feature request](https://github.com/ProgramMax/png_cicp_editor/issues/new?assignees=&labels=&template=feature_request.md&title=).
-
-## Dependencies
-
-png_cicp_editor and its tests depend on [max](https://github.com/ProgramMax/max), which also has a [BSD 3-Clause license](https://github.com/ProgramMax/max/blob/master/LICENSE).
-You can find some parts of max under [Dependencies/max](https://github.com/ProgramMax/png_cicp_editor/blob/master/Dependencies/max).
-
+ 
 ## Engage
 
 * **Community:** We have a welcoming community which follows the [Code of Conduct](https://github.com/ProgramMax/png_cicp_editor/blob/master/Docs/code_of_conduct.md).
 * **Contribute:** We accept pull requests. Take a look at some [good first tasks](https://github.com/ProgramMax/png_cicp_editor/issues?q=is%3Aissue+is%3Aopen+label%3A"good+first+issue").
 * **Support:** You can [report bugs](https://github.com/ProgramMax/png_cicp_editor/issues/new?assignees=&labels=&template=bug_report.md&title=) and [request changes](https://github.com/ProgramMax/png_cicp_editor/issues/new?assignees=&labels=&template=feature_request.md&title=) using GitHub issues.
+
+## Building
+
+Refer to [Building](building.md).
+
+## Dependencies
+
+png_cicp_editor and its tests depend on [max](https://github.com/ProgramMax/max), which also has a [BSD 3-Clause license](https://github.com/ProgramMax/max/blob/master/LICENSE).
+You can find some parts of max under [Dependencies/max](https://github.com/ProgramMax/png_cicp_editor/blob/master/Dependencies/max).

@@ -61,21 +61,34 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\.github\ISSUE_TEMPLATE\bug_report.md" />
-    <None Include="..\..\.github\ISSUE_TEMPLATE\feature_request.md" />
-    <None Include="..\..\.github\workflows\build-and-test.yaml" />
     <None Include="..\..\.gitignore" />
     <None Include="..\..\AUTHORS" />
     <None Include="..\..\Code\png_cicp_editor\SparseArray.inl" />
     <None Include="..\..\Code\png_cicp_editor\StateMachine.inl" />
-    <None Include="..\..\Docs\code_of_conduct.md" />
-    <None Include="..\..\Docs\README.md" />
     <None Include="..\..\LICENSE" />
     <None Include="..\..\Dependencies\max\AUTHORS">
       <Filter>Dependencies\max</Filter>
     </None>
     <None Include="..\..\Dependencies\max\LICENSE">
       <Filter>Dependencies\max</Filter>
+    </None>
+    <None Include="..\..\Docs\building.md">
+      <Filter>Docs</Filter>
+    </None>
+    <None Include="..\..\Docs\code_of_conduct.md">
+      <Filter>Docs</Filter>
+    </None>
+    <None Include="..\..\Docs\README.md">
+      <Filter>Docs</Filter>
+    </None>
+    <None Include="..\..\.github\ISSUE_TEMPLATE\bug_report.md">
+      <Filter>.github\ISSUE_TEMPLATE</Filter>
+    </None>
+    <None Include="..\..\.github\ISSUE_TEMPLATE\feature_request.md">
+      <Filter>.github\ISSUE_TEMPLATE</Filter>
+    </None>
+    <None Include="..\..\.github\workflows\build-and-test.yaml">
+      <Filter>.github\workflows</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +109,18 @@
     </Filter>
     <Filter Include="Dependencies\max\Compiling\Configuration\Platform">
       <UniqueIdentifier>{c077ab64-27ce-490a-8b2d-fe11fbe50f61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Docs">
+      <UniqueIdentifier>{564176d4-b0a5-446b-908c-e9070918704b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".github">
+      <UniqueIdentifier>{effbd925-3fe1-4e5e-9b05-4a2ca8aeb308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".github\ISSUE_TEMPLATE">
+      <UniqueIdentifier>{f5895d29-0eb2-43e6-904f-1c5b5ceb236f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".github\workflows">
+      <UniqueIdentifier>{98e1203a-09d1-452c-b423-b44d7189b0c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -28,6 +28,7 @@
     <None Include="..\..\Code\png_cicp_editor\StateMachine.inl" />
     <None Include="..\..\Dependencies\max\AUTHORS" />
     <None Include="..\..\Dependencies\max\LICENSE" />
+    <None Include="..\..\Docs\building.md" />
     <None Include="..\..\Docs\code_of_conduct.md" />
     <None Include="..\..\Docs\README.md" />
     <None Include="..\..\LICENSE" />

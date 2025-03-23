@@ -35,8 +35,6 @@ namespace PNG_CICP_Editor {
 	struct AddAction {
 		explicit AddAction(CICP cicp, std::filesystem::path file_path) noexcept;
 
-		~AddAction() noexcept = default;
-
 		void operator()() const noexcept;
 
 		CICP cicp_;
@@ -46,8 +44,6 @@ namespace PNG_CICP_Editor {
 	struct OverwriteAction {
 		explicit OverwriteAction(CICP cicp, std::filesystem::path file_path) noexcept;
 
-		~OverwriteAction() noexcept = default;
-
 		void operator()() const noexcept;
 
 		CICP cicp_;
@@ -56,8 +52,6 @@ namespace PNG_CICP_Editor {
 
 	struct RemoveAction {
 		explicit RemoveAction(std::filesystem::path file_path) noexcept;
-
-		~RemoveAction() noexcept = default;
 
 		void operator()() const noexcept;
 

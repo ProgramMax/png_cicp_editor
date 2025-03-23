@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "ActionsTest.hpp"
+#include "CICPTest.hpp"
 #include "CICPCreatorTest.hpp"
 #include "CICPInserterTest.hpp"
 #include "CommandLineParametersTest.hpp"
@@ -13,6 +15,8 @@
 #include "StateMachineTest.hpp"
 
 int main() {
+	PNG_CICP_Editor::RunActionsTestSuite();
+	PNG_CICP_Editor::RunCICPTestSuite();
 	PNG_CICP_Editor::RunCICPCreatorTestSuite();
 	PNG_CICP_Editor::RunCICPInserterTestSuite();
 	PNG_CICP_Editor::RunCommandLineParametersTestSuite();

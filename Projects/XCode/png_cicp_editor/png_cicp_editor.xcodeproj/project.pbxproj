@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		863973072D90697300701CBD /* Actions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 863973042D90697300701CBD /* Actions.cpp */; };
+		863973082D90697300701CBD /* CICP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 863973062D90697300701CBD /* CICP.cpp */; };
 		86FEEE3B2D73CCF000165D7F /* FileWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86FEEE382D73CCF000165D7F /* FileWriter.cpp */; };
 		86FEEE3C2D73CCF000165D7F /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86FEEE342D73CCF000165D7F /* Error.cpp */; };
 		86FEEE3D2D73CCF000165D7F /* CICPCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86FEEE2D2D73CCF000165D7F /* CICPCreator.cpp */; };
@@ -30,6 +32,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		863973022D90694E00701CBD /* Unreachable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Unreachable.hpp; path = ../../../Dependencies/max/Code/max/Compiling/Unreachable.hpp; sourceTree = "<absolute>"; };
+		863973032D90697300701CBD /* Actions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Actions.hpp; path = ../../../Code/png_cicp_editor/Actions.hpp; sourceTree = "<absolute>"; };
+		863973042D90697300701CBD /* Actions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Actions.cpp; path = ../../../Code/png_cicp_editor/Actions.cpp; sourceTree = "<absolute>"; };
+		863973052D90697300701CBD /* CICP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CICP.hpp; path = ../../../Code/png_cicp_editor/CICP.hpp; sourceTree = "<absolute>"; };
+		863973062D90697300701CBD /* CICP.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CICP.cpp; path = ../../../Code/png_cicp_editor/CICP.cpp; sourceTree = "<absolute>"; };
 		8674B6432D8BE4E00084039B /* SparseArray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SparseArray.hpp; path = ../../../Code/png_cicp_editor/SparseArray.hpp; sourceTree = "<absolute>"; };
 		8674B6442D8BE4E00084039B /* SparseArray.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = SparseArray.inl; path = ../../../Code/png_cicp_editor/SparseArray.inl; sourceTree = "<absolute>"; };
 		8674B6452D8BE4E00084039B /* StateMachine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = StateMachine.hpp; path = ../../../Code/png_cicp_editor/StateMachine.hpp; sourceTree = "<absolute>"; };
@@ -99,6 +106,7 @@
 				86E65D012D8D8313000A0737 /* Configuration.hpp */,
 				86E65D022D8D8313000A0737 /* CurrentVersionNamespace.hpp */,
 				86E65D032D8D8313000A0737 /* Macros.hpp */,
+				863973022D90694E00701CBD /* Unreachable.hpp */,
 			);
 			path = Compiling;
 			sourceTree = "<group>";
@@ -140,6 +148,10 @@
 			isa = PBXGroup;
 			children = (
 				86E65CF12D8D8253000A0737 /* Dependencies */,
+				863973032D90697300701CBD /* Actions.hpp */,
+				863973042D90697300701CBD /* Actions.cpp */,
+				863973052D90697300701CBD /* CICP.hpp */,
+				863973062D90697300701CBD /* CICP.cpp */,
 				86FEEE2C2D73CCF000165D7F /* CICPCreator.hpp */,
 				86FEEE2D2D73CCF000165D7F /* CICPCreator.cpp */,
 				86FEEE2E2D73CCF000165D7F /* CICPInserter.hpp */,
@@ -238,6 +250,8 @@
 				86FEEE3F2D73CCF000165D7F /* FileReader.cpp in Sources */,
 				86FEEE402D73CCF000165D7F /* CommandLineParameters.cpp in Sources */,
 				86FEEE412D73CCF000165D7F /* CICPInserter.cpp in Sources */,
+				863973072D90697300701CBD /* Actions.cpp in Sources */,
+				863973082D90697300701CBD /* CICP.cpp in Sources */,
 				86FEEE422D73CCF000165D7F /* PNGParser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

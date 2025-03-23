@@ -4,7 +4,6 @@
 
 #include "FileReader.hpp"
 
-#include <filesystem>
 #include <fstream>
 #include <utility>
 
@@ -22,14 +21,9 @@ namespace {
 namespace PNG_CICP_Editor {
 
 	std::expected<std::vector<char>, ReadFileError> read_file(const std::string& file_path) noexcept {
-		// TODO: Do I really need filesystem here?
-		// The parameter should be a filesystem::path.
-		// Here, we just use it to open the file. Which could also take a string parameter. So this gains nothing.
-		const std::filesystem::path png_file_path(file_path);
-
-		auto png_file = std::ifstream{ png_file_path, std::ios::binary | std::ios::ate };
+		auto png_file = std::ifstream{ file_path.c_str(), std::ios::binary | std::ios::ate };
 		if (!png_file.good()) {
-			return std::unexpected{ ReadFileError{ ReadFileErrorCode::CannotOpenFile, { cannot_open_file, file_path, newline } } };
+			return std::unexpected{ ReadFileError{ ReadFileErrorCode::CannotOpenFile, { cannot_open_file, file_path.c_str(), newline } } };
 		}
 		auto file_size = png_file.tellg();
 		png_file.seekg(0, std::ios::beg);
@@ -37,7 +31,7 @@ namespace PNG_CICP_Editor {
 		auto buffer = std::vector<char>( file_size );
 		if (!png_file.read(buffer.data(), file_size))
 		{
-			return std::unexpected{ ReadFileError{ ReadFileErrorCode::CannotReadFile, { cannot_read_file, file_path, newline } } };
+			return std::unexpected{ ReadFileError{ ReadFileErrorCode::CannotReadFile, { cannot_read_file, file_path.c_str(), newline } } };
 		}
 
 		png_file.close();

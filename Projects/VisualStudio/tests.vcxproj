@@ -164,6 +164,8 @@
     <None Include="..\..\Dependencies\max\LICENSE" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Code\png_cicp_editor\Actions.cpp" />
+    <ClCompile Include="..\..\Code\png_cicp_editor\CICP.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\CICPCreator.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\CICPInserter.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\CommandLineParameters.cpp" />
@@ -171,8 +173,10 @@
     <ClCompile Include="..\..\Code\png_cicp_editor\FileReader.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\FileWriter.cpp" />
     <ClCompile Include="..\..\Code\png_cicp_editor\PNGParser.cpp" />
+    <ClCompile Include="..\..\Code\tests\ActionsTest.cpp" />
     <ClCompile Include="..\..\Code\tests\CICPCreatorTest.cpp" />
     <ClCompile Include="..\..\Code\tests\CICPInserterTest.cpp" />
+    <ClCompile Include="..\..\Code\tests\CICPTest.cpp" />
     <ClCompile Include="..\..\Code\tests\CommandLineParametersTest.cpp" />
     <ClCompile Include="..\..\Code\tests\EntryPoint.cpp" />
     <ClCompile Include="..\..\Code\tests\ErrorTest.cpp" />
@@ -184,6 +188,8 @@
     <ClCompile Include="..\..\Dependencies\max\Code\max\Testing\CoutResultPolicy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Code\png_cicp_editor\Actions.hpp" />
+    <ClInclude Include="..\..\Code\png_cicp_editor\CICP.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\CICPCreator.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\CICPInserter.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\CommandLineParameters.hpp" />
@@ -193,8 +199,10 @@
     <ClInclude Include="..\..\Code\png_cicp_editor\PNGParser.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\SparseArray.hpp" />
     <ClInclude Include="..\..\Code\png_cicp_editor\StateMachine.hpp" />
+    <ClInclude Include="..\..\Code\tests\ActionsTest.hpp" />
     <ClInclude Include="..\..\Code\tests\CICPCreatorTest.hpp" />
     <ClInclude Include="..\..\Code\tests\CICPInserterTest.hpp" />
+    <ClInclude Include="..\..\Code\tests\CICPTest.hpp" />
     <ClInclude Include="..\..\Code\tests\CommandLineParametersTest.hpp" />
     <ClInclude Include="..\..\Code\tests\ErrorTest.hpp" />
     <ClInclude Include="..\..\Code\tests\FileReaderTest.hpp" />

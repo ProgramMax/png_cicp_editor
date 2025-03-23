@@ -12,7 +12,7 @@ This tool enables CICP editing within a PNG file.
 
 A typical use case looks like this:
 
-`png_cicp_editor.exe --preset display-p3 C:\images\test.png`
+`png_cicp_editor.exe add --preset display-p3 C:\images\test.png`
 
 This command updates the file to use Display P3.
 
@@ -31,7 +31,7 @@ This command updates the file to use Display P3.
 
 You can also specify individual CICP values. For example, to label an RGB image decoded from a SECAM video:
 
-`png_cicp_editor.exe --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 secam-test.png`
+`png_cicp_editor.exe add --color_primaries 5 --transfer_function 4 --matrix_coefficients 0 --video_full_range_flag 1 secam-test.png`
 
  
 ## Engage

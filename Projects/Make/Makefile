@@ -33,6 +33,8 @@ endif
 PROGRAM = Build/png_cicp_editor
 
 CXX_SRCS = \
+	../../Code/png_cicp_editor/Actions.cpp \
+	../../Code/png_cicp_editor/CICP.cpp \
 	../../Code/png_cicp_editor/CICPCreator.cpp \
 	../../Code/png_cicp_editor/CICPInserter.cpp \
 	../../Code/png_cicp_editor/CommandLineParameters.cpp \
@@ -56,6 +58,8 @@ LIBRARY_PATHS_FLAGS = $(foreach d, $(LIBRARY_PATHS), -L$d)
 TEST_PROGRAM = Build/tests
 
 TEST_CXX_SRCS = \
+	../../Code/png_cicp_editor/Actions.cpp \
+	../../Code/png_cicp_editor/CICP.cpp \
 	../../Code/png_cicp_editor/CICPCreator.cpp \
 	../../Code/png_cicp_editor/CICPInserter.cpp \
 	../../Code/png_cicp_editor/CommandLineParameters.cpp \
@@ -63,6 +67,8 @@ TEST_CXX_SRCS = \
 	../../Code/png_cicp_editor/FileReader.cpp \
 	../../Code/png_cicp_editor/FileWriter.cpp \
 	../../Code/png_cicp_editor/PNGParser.cpp \
+	../../Code/tests/ActionsTest.cpp \
+	../../Code/tests/CICPTest.cpp \
 	../../Code/tests/CICPCreatorTest.cpp \
 	../../Code/tests/CICPInserterTest.cpp \
 	../../Code/tests/CommandLineParametersTest.cpp \
@@ -106,18 +112,18 @@ endif
 all: $(PROGRAM) $(TEST_PROGRAM)
 
 $(PROGRAM): $(CXX_OBJS)
-	$(CXX) -g $(CXX_OBJS) $(LINKER_FLAGS) -o $(PROGRAM)
+	$(CXX) $(CXX_OBJS) $(LINKER_FLAGS) -o $(PROGRAM)
 
 $(CXX_OBJS): $(CXX_SRCS)
 	mkdir -p $(dir $@)
-	$(CXX) -g $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
+	$(CXX) $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
 
 $(TEST_PROGRAM): $(TEST_CXX_OBJS)
-	$(CXX) -g $(TEST_CXX_OBJS) $(LINKER_FLAGS) -o $(TEST_PROGRAM)
+	$(CXX) $(TEST_CXX_OBJS) $(LINKER_FLAGS) -o $(TEST_PROGRAM)
 
 $(TEST_CXX_OBJS): $(TEST_CXX_SRCS)
 	mkdir -p $(dir $@)
-	$(CXX) -g $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
+	$(CXX) $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
 
 .PHONY: clean
 distclean: clean

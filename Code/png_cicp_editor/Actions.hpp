@@ -70,6 +70,11 @@ namespace PNG_CICP_Editor {
 		Action(const Action& rhs) noexcept;
 		Action(Action&& rhs) noexcept;
 
+		~Action() noexcept;
+
+		Action& operator =(const Action& rhs) noexcept;
+		Action& operator =(Action&& rhs) noexcept;
+
 		Actions action_type_;
 		union A {
 			VersionAction version_;
@@ -79,7 +84,7 @@ namespace PNG_CICP_Editor {
 			OverwriteAction overwrite_;
 			RemoveAction remove_;
 
-			~A() noexcept {}
+			~A() noexcept;
 		} action_;
 	};
 

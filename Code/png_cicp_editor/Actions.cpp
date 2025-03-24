@@ -268,9 +268,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	Action::Action(VersionAction version) noexcept
 		: action_type_(Actions::Version)
 		, action_{.version_ = std::move(version)}
-	{
-		action_.version_ = std::move(version);
-	}
+	{}
 
 	Action::Action(HelpAction help) noexcept
 		: action_type_(Actions::Help)
@@ -298,7 +296,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	{}
 
 	Action::Action(const Action& rhs) noexcept
-		: action_type_(rhs.action_type_)
+		: action_type_(std::move(rhs.action_type_))
 		, action_{.version_{}}
 	{
 		switch (action_type_) {
@@ -347,6 +345,91 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			action_.remove_ = std::move(rhs.action_.remove_);
 			break;
 		}
+	}
+
+
+	Action::~Action() noexcept {
+		switch (action_type_) {
+		case Actions::Version:
+			(&action_.version_)->~VersionAction();
+			break;
+		case Actions::Help:
+			(&action_.help_)->~HelpAction();
+			break;
+		case Actions::License:
+			(&action_.license_)->~LicenseAction();
+			break;
+		case Actions::Add:
+			(&action_.add_)->~AddAction();
+			break;
+		case Actions::Overwrite:
+			(&action_.overwrite_)->~OverwriteAction();
+			break;
+		case Actions::Remove:
+			(&action_.remove_)->~RemoveAction();
+			break;
+		}
+	}
+
+	Action& Action::operator =(const Action& rhs) noexcept {
+		this->~Action();
+
+		action_type_ = rhs.action_type_;
+
+		switch (rhs.action_type_) {
+		case Actions::Version:
+			action_.version_ = rhs.action_.version_;
+			break;
+		case Actions::Help:
+			action_.help_ = rhs.action_.help_;
+			break;
+		case Actions::License:
+			action_.license_ = rhs.action_.license_;
+			break;
+		case Actions::Add:
+			action_.add_ = rhs.action_.add_;
+			break;
+		case Actions::Overwrite:
+			action_.overwrite_ = rhs.action_.overwrite_;
+			break;
+		case Actions::Remove:
+			action_.remove_ = rhs.action_.remove_;
+			break;
+		}
+
+		return *this;
+	}
+
+	Action& Action::operator =(Action&& rhs) noexcept {
+		this->~Action();
+
+		action_type_ = std::move(rhs.action_type_);
+
+		switch (rhs.action_type_) {
+		case Actions::Version:
+			action_.version_ = std::move(rhs.action_.version_);
+			break;
+		case Actions::Help:
+			action_.help_ = std::move(rhs.action_.help_);
+			break;
+		case Actions::License:
+			action_.license_ = std::move(rhs.action_.license_);
+			break;
+		case Actions::Add:
+			action_.add_ = std::move(rhs.action_.add_);
+			break;
+		case Actions::Overwrite:
+			action_.overwrite_ = std::move(rhs.action_.overwrite_);
+			break;
+		case Actions::Remove:
+			action_.remove_ = std::move(rhs.action_.remove_);
+			break;
+		}
+
+		return *this;
+	}
+
+	Action::A::~A() noexcept {
 	}
 
 } // namespace PNG_CICP_Editor

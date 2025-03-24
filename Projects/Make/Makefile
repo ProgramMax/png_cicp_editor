@@ -33,17 +33,20 @@ endif
 PROGRAM = Build/png_cicp_editor
 
 CXX_SRCS = \
+	../../Code/png_cicp_editor/EntryPoint.cpp
+CXX_OBJS = $(patsubst ../../%.cpp,Build/Objects/%.o,$(CXX_SRCS))
+
+SHARED_CXX_SRCS = \
 	../../Code/png_cicp_editor/Actions.cpp \
 	../../Code/png_cicp_editor/CICP.cpp \
 	../../Code/png_cicp_editor/CICPCreator.cpp \
 	../../Code/png_cicp_editor/CICPInserter.cpp \
 	../../Code/png_cicp_editor/CommandLineParameters.cpp \
-	../../Code/png_cicp_editor/EntryPoint.cpp \
 	../../Code/png_cicp_editor/Error.cpp \
 	../../Code/png_cicp_editor/FileReader.cpp \
 	../../Code/png_cicp_editor/FileWriter.cpp \
 	../../Code/png_cicp_editor/PNGParser.cpp
-CXX_OBJS = $(patsubst ../../%.cpp,Build/Objects/%.o,$(CXX_SRCS))
+SHARED_CXX_OBJS = $(patsubst ../../%.cpp,Build/Objects/%.o,$(SHARED_CXX_SRCS))
 
 INCLUDE_PATHS = \
 	../../Code/png_cicp_editor \
@@ -58,15 +61,6 @@ LIBRARY_PATHS_FLAGS = $(foreach d, $(LIBRARY_PATHS), -L$d)
 TEST_PROGRAM = Build/tests
 
 TEST_CXX_SRCS = \
-	../../Code/png_cicp_editor/Actions.cpp \
-	../../Code/png_cicp_editor/CICP.cpp \
-	../../Code/png_cicp_editor/CICPCreator.cpp \
-	../../Code/png_cicp_editor/CICPInserter.cpp \
-	../../Code/png_cicp_editor/CommandLineParameters.cpp \
-	../../Code/png_cicp_editor/Error.cpp \
-	../../Code/png_cicp_editor/FileReader.cpp \
-	../../Code/png_cicp_editor/FileWriter.cpp \
-	../../Code/png_cicp_editor/PNGParser.cpp \
 	../../Code/tests/ActionsTest.cpp \
 	../../Code/tests/CICPTest.cpp \
 	../../Code/tests/CICPCreatorTest.cpp \
@@ -111,15 +105,19 @@ endif
 
 all: $(PROGRAM) $(TEST_PROGRAM)
 
-$(PROGRAM): $(CXX_OBJS)
-	$(CXX) $(CXX_OBJS) $(LINKER_FLAGS) -o $(PROGRAM)
+$(PROGRAM): $(CXX_OBJS) $(SHARED_CXX_OBJS)
+	$(CXX) $(CXX_OBJS) $(SHARED_CXX_OBJS) $(LINKER_FLAGS) -o $(PROGRAM)
 
 $(CXX_OBJS): $(CXX_SRCS)
 	mkdir -p $(dir $@)
 	$(CXX) $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
 
-$(TEST_PROGRAM): $(TEST_CXX_OBJS)
-	$(CXX) $(TEST_CXX_OBJS) $(LINKER_FLAGS) -o $(TEST_PROGRAM)
+$(SHARED_CXX_OBJS): $(SHARED_CXX_SRCS)
+	mkdir -p $(dir $@)
+	$(CXX) $(CPP_FLAGS) -c $(patsubst Build/Objects/%.o,../../%.cpp,$@) -o $@
+
+$(TEST_PROGRAM): $(SHARED_CXX_OBJS) $(TEST_CXX_OBJS)
+	$(CXX) $(SHARED_CXX_OBJS) $(TEST_CXX_OBJS) $(LINKER_FLAGS) -o $(TEST_PROGRAM)
 
 $(TEST_CXX_OBJS): $(TEST_CXX_SRCS)
 	mkdir -p $(dir $@)
@@ -128,6 +126,6 @@ $(TEST_CXX_OBJS): $(TEST_CXX_SRCS)
 .PHONY: clean
 distclean: clean
 clean:
-	for file in $(PROGRAM) $(CXX_OBJS) $(TEST_PROGRAM) $(TEST_CXX_OBJS) ; do \
+	for file in $(PROGRAM) $(CXX_OBJS) $(SHARED_CXX_OBJS) $(TEST_PROGRAM) $(TEST_CXX_OBJS) ; do \
 		rm $${file} ; \
 	done

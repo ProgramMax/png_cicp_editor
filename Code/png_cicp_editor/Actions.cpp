@@ -429,7 +429,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		return *this;
 	}
 
-	Action::A::~A() noexcept = default;
-
+	Action::A::~A() noexcept {
+	}
 
 } // namespace PNG_CICP_Editor

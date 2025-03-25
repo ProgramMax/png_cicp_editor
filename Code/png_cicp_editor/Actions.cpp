@@ -327,22 +327,22 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	{
 		switch (action_type_) {
 		case Actions::Version:
-			action_.version_ = std::move(rhs.action_.version_);
+			new (&action_.version_) VersionAction(std::move(rhs.action_.version_));
 			break;
 		case Actions::Help:
-			action_.help_ = std::move(rhs.action_.help_);
+			new (&action_.help_) HelpAction(std::move(rhs.action_.help_));
 			break;
 		case Actions::License:
-			action_.license_ = std::move(rhs.action_.license_);
+			new (&action_.license_) LicenseAction(std::move(rhs.action_.license_));
 			break;
 		case Actions::Add:
-			action_.add_ = std::move(rhs.action_.add_);
+			new (&action_.add_) AddAction(std::move(rhs.action_.add_));
 			break;
 		case Actions::Overwrite:
-			action_.overwrite_ = std::move(rhs.action_.overwrite_);
+			new (&action_.overwrite_) OverwriteAction(std::move(rhs.action_.overwrite_));
 			break;
 		case Actions::Remove:
-			action_.remove_ = std::move(rhs.action_.remove_);
+			new (&action_.remove_) RemoveAction(std::move(rhs.action_.remove_));
 			break;
 		}
 	}

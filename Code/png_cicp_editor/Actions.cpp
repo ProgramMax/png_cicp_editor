@@ -174,7 +174,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		}
 
 
-		// Find insertion index for cICP chunk
+		// Find overwrite index for cICP chunk
 		auto split_buffer = get_split_buffer_across_cicp_insertion_point(file_contents.value(), chunk_indices.value(), /*overwrite_cicp*/ false);
 		if (!split_buffer.has_value()) {
 			print_error(split_buffer.error());
@@ -228,7 +228,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		}
 
 
-		// Find insertion index for cICP chunk
+		// Find overwrite index for cICP chunk
 		auto split_buffer = get_split_buffer_across_cicp_insertion_point(file_contents.value(), chunk_indices.value(), /*overwrite_cicp*/ true);
 		if (!split_buffer.has_value()) {
 			print_error(split_buffer.error());
@@ -262,7 +262,71 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	{}
 
 	void RemoveAction::operator()() const noexcept {
-		std::cerr << "Remove not yet implemented" << std::endl;
+		// TODO: Return error values
+		// Read the file
+		auto file_contents = read_file(file_path_);
+		if (!file_contents.has_value()) {
+			print_error(file_contents.error());
+			//return 1;
+			return;
+		}
+
+
+		// Get indicies of all chunks
+		auto chunk_indices = get_chunk_indices(file_contents.value());
+		if (!chunk_indices.has_value()) {
+			print_error(chunk_indices.error());
+			//return 1;
+			return;
+		}
+
+
+		// TODO: Right now, this only removes the first cICP chunk found
+		// There might incorrectly be multiple.
+		auto cicp_index = size_t{ SIZE_MAX };
+		auto after_cicp_index = size_t{ SIZE_MAX };
+		auto chunk_count = chunk_indices->size();
+		for (size_t i = 0; i < chunk_count; i++) {
+			auto index = (*chunk_indices)[i];
+			if ((*file_contents)[index + 4] == 'c' &&
+				(*file_contents)[index + 5] == 'I' &&
+				(*file_contents)[index + 6] == 'C' &&
+				(*file_contents)[index + 7] == 'P') {
+				cicp_index = index;
+				// the cICP chunk may incorrectly be the last chunk in the file,
+				// so there is no chunk after it
+				if (i < chunk_count - 1) {
+					after_cicp_index = (*chunk_indices)[i + 1];
+				}
+				break;
+			}
+		}
+
+		if (cicp_index == SIZE_MAX) {
+			// no cICP chunk found
+			print_error( Error{ { "no cICP chunk found" } } );
+			return;
+		}
+		if (after_cicp_index == SIZE_MAX) {
+			// cICP was last chunk, which isn't allowed
+			print_error( Error{ { "Ill-formed file: cICP was the final chunk" } } );
+			return;
+		}
+
+		// Prepare file before & after buffers for write
+		auto file_contents_start = file_contents->data();
+		std::vector<std::span<char>> buffers;
+		buffers.push_back({ file_contents_start, file_contents_start + cicp_index });
+		buffers.push_back({ file_contents_start + after_cicp_index, file_contents->size() - after_cicp_index });
+
+
+		// Write the file with cICP inserted
+		auto write_result = PNG_CICP_Editor::write_file(file_path_, buffers);
+		if (!write_result.has_value()) {
+			print_error(write_result.error());
+			//return 1;
+			return;
+		}
 	}
 
 	Action::Action(VersionAction version) noexcept

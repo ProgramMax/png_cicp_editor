@@ -7,14 +7,12 @@
 namespace PNG_CICP_Editor {
 
 	template<typename StateType, typename TransitionType>
-	//template<typename StateType, TransitionConcept TransitionType>
-	StateMachine<StateType, TransitionType>::StateMachine(StateType start_state, SparseArray<StateType, std::vector<TransitionType>> graph) noexcept
-		: state_(std::move(start_state))
-		, graph_(std::move(graph))
+	constexpr StateMachine<StateType, TransitionType>::StateMachine(StateType start_state, SparseArray<StateType, std::vector<TransitionType>> graph) noexcept
+		: state_{std::move(start_state)}
+		, graph_{std::move(graph)}
 	{}
 
 	template<typename StateType, typename TransitionType>
-	//template<typename StateType, TransitionConcept TransitionType>
 	template<typename... PredicateParameterTypes>
 	std::expected<void, TransitionError> StateMachine<StateType, TransitionType>::Transition(PredicateParameterTypes... parameters) noexcept {
 		for (const auto& node_and_edges : graph_) {

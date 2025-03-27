@@ -3,10 +3,10 @@
 // found in the LICENSE file.
 
 #include "CommandLineParametersTest.hpp"
+
 #include <CommandLineParameters.hpp>
 #include <max/Testing/TestSuite.hpp>
 #include <max/Testing/CoutResultPolicy.hpp>
-#include <utility>
 
 namespace {
 

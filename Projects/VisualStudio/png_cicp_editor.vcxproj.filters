@@ -25,9 +25,6 @@
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration.hpp">
       <Filter>Dependencies\max\Compiling</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\CurrentVersionNamespace.hpp">
-      <Filter>Dependencies\max\Compiling</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Macros.hpp">
       <Filter>Dependencies\max\Compiling</Filter>
     </ClInclude>

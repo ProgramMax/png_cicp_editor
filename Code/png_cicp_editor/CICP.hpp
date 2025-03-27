@@ -6,7 +6,6 @@
 #define PNG_CICP_EDITOR_CICP_HPP
 
 #include <cstdint>
-//#include <cstdlib>
 
 namespace PNG_CICP_Editor {
 
@@ -16,10 +15,10 @@ namespace PNG_CICP_Editor {
 		bool operator ==(const CICP& rhs) noexcept;
 		bool operator !=(const CICP& rhs) noexcept;
 
-		uint8_t color_primaries_ = 0;
-		uint8_t transfer_function_ = 0;
-		uint8_t matrix_coefficients_ = 0;
-		uint8_t video_full_range_flag_ = 1;
+		uint8_t color_primaries_;
+		uint8_t transfer_function_;
+		uint8_t matrix_coefficients_;
+		uint8_t video_full_range_flag_;
 	};
 
 } // namespace PNG_CICP_Editor

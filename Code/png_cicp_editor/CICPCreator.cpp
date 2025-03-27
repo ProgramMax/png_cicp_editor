@@ -54,7 +54,7 @@ namespace {
 
 namespace PNG_CICP_Editor {
 
-	std::array<char, 16> create_cicp_buffer(uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag) noexcept {
+	std::array<char, 16> create_cicp_buffer(const CICP& cicp) noexcept {
 		std::array<char, 16> buffer;
 
 		// length
@@ -70,10 +70,10 @@ namespace PNG_CICP_Editor {
 		buffer[7] = 'P';
 
 		// chunk data
-		buffer[8] = color_primaries;
-		buffer[9] = transfer_function;
-		buffer[10] = matrix_coefficients;
-		buffer[11] = video_full_range_flag;
+		buffer[8] = cicp.color_primaries_;
+		buffer[9] = cicp.transfer_function_;
+		buffer[10] = cicp.matrix_coefficients_;
+		buffer[11] = cicp.video_full_range_flag_;
 
 		// crc
 		unsigned long calculated_crc = crc(&buffer[4], 8);

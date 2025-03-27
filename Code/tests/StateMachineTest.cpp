@@ -15,13 +15,12 @@
 
 namespace {
 
-	class Transition {
-	public:
-
-		Transition(int transition_to) noexcept : transition_to_(std::move(transition_to)) {}
+	struct Transition {
+		constexpr explicit Transition(int transition_to) noexcept
+			: transition_to_{ std::move(transition_to) }
+		{}
 		std::expected<bool, PNG_CICP_Editor::TransitionError> predicate_and_action_() const noexcept { return true; }
 		int transition_to_;
-
 	};
 
 	auto test_graph = PNG_CICP_Editor::SparseArray<int, std::vector<Transition>>{

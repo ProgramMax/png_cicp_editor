@@ -4,10 +4,12 @@
 
 #include "CommandLineParameters.hpp"
 
+#include <cstdint>
 #include <cstdlib>
 #include <functional>
 #include <string_view>
 #include <utility>
+#include <vector>
 
 #include "StateMachine.hpp"
 #include "SparseArray.hpp"
@@ -17,12 +19,12 @@
 namespace {
 
 	// error messages
-	static constinit char const* unrecognized_parameter = "Unrecognized command line parameter: ";
-	static constinit char const* value_outside_range    = "Value outside 0-255 range: ";
-	static constinit char const* expected_value         = "File path provided where a value was expected: ";
+	static constinit std::string_view unrecognized_parameter = "Unrecognized command line parameter: ";
+	static constinit std::string_view value_outside_range    = "Value outside 0-255 range: ";
+	static constinit std::string_view expected_value         = "File path provided where a value was expected: ";
 
 	// utility
-	static constinit char const* newline                = "\n";
+	static constinit std::string_view newline                = "\n";
 
 	enum class ReadNumericValueErrorCode {
 		UnrecognizedParameter,
@@ -95,11 +97,8 @@ namespace PNG_CICP_Editor {
 
 		};
 
-		Actions action = Actions::Help;
-		uint8_t color_primaries = 0;
-		uint8_t transfer_function = 0;
-		uint8_t matrix_coefficients = 0;
-		uint8_t video_full_range_flag = 1;
+		auto action = Actions::Help;
+		auto cicp = CICP{ /*color_primaires=*/0, /*transfer_function=*/0, /*matrix_coefficients=*/0, /*video_full_range_flag=*/1 };
 		char const* file_path = "";
 
 
@@ -111,7 +110,6 @@ namespace PNG_CICP_Editor {
 					return false;
 				}
 				action = Actions::Version;
-				//print_version();
 				return true;
 			},
 			ParserStates::Done
@@ -124,7 +122,6 @@ namespace PNG_CICP_Editor {
 					return false;
 				}
 				action = Actions::Help;
-				//print_help();
 				return true;
 			},
 			ParserStates::Done
@@ -136,7 +133,6 @@ namespace PNG_CICP_Editor {
 					return false;
 				}
 				action = Actions::License;
-				//print_license();
 				return true;
 			},
 			ParserStates::Done
@@ -217,7 +213,7 @@ namespace PNG_CICP_Editor {
 				if (narrow_string.compare(string) != 0 && n_string.compare(string) != 0) {
 					return false;
 				}
-				video_full_range_flag = 0;
+				cicp.video_full_range_flag_ = 0;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -229,7 +225,7 @@ namespace PNG_CICP_Editor {
 				if (full_string.compare(string) != 0 && f_string.compare(string) != 0) {
 					return false;
 				}
-				video_full_range_flag = 1;
+				cicp.video_full_range_flag_ = 1;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -247,8 +243,8 @@ namespace PNG_CICP_Editor {
 				if (bt709_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 1;
-				transfer_function = 1;
+				cicp.color_primaries_ = 1;
+				cicp.transfer_function_ = 1;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -259,8 +255,8 @@ namespace PNG_CICP_Editor {
 				if (linear_light_srgb_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 1;
-				transfer_function = 8;
+				cicp.color_primaries_ = 1;
+				cicp.transfer_function_ = 8;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -271,8 +267,8 @@ namespace PNG_CICP_Editor {
 				if (srgb_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 1;
-				transfer_function = 13;
+				cicp.color_primaries_ = 1;
+				cicp.transfer_function_ = 13;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -283,8 +279,8 @@ namespace PNG_CICP_Editor {
 				if (bt2020_10bit_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 9;
-				transfer_function = 14;
+				cicp.color_primaries_ = 9;
+				cicp.transfer_function_ = 14;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -295,8 +291,8 @@ namespace PNG_CICP_Editor {
 				if (bt2020_12bit_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 9;
-				transfer_function = 15;
+				cicp.color_primaries_ = 9;
+				cicp.transfer_function_ = 15;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -307,8 +303,8 @@ namespace PNG_CICP_Editor {
 				if (bt2100_pq_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 9;
-				transfer_function = 16;
+				cicp.color_primaries_ = 9;
+				cicp.transfer_function_ = 16;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -319,8 +315,8 @@ namespace PNG_CICP_Editor {
 				if (bt2100_hlg_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 9;
-				transfer_function = 18;
+				cicp.color_primaries_ = 9;
+				cicp.transfer_function_ = 18;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -331,8 +327,8 @@ namespace PNG_CICP_Editor {
 				if (dci_p3_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 11;
-				transfer_function = 17;
+				cicp.color_primaries_ = 11;
+				cicp.transfer_function_ = 17;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -343,8 +339,8 @@ namespace PNG_CICP_Editor {
 				if (display_p3_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 12;
-				transfer_function = 13;
+				cicp.color_primaries_ = 12;
+				cicp.transfer_function_ = 13;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -355,8 +351,8 @@ namespace PNG_CICP_Editor {
 				if (p3_d65_pq_string.compare(string) != 0) {
 					return false;
 				}
-				color_primaries = 12;
-				transfer_function = 16;
+				cicp.color_primaries_ = 12;
+				cicp.transfer_function_ = 16;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -375,7 +371,7 @@ namespace PNG_CICP_Editor {
 					return false;
 				}
 
-				color_primaries = *result;
+				cicp.color_primaries_ = *result;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -394,7 +390,7 @@ namespace PNG_CICP_Editor {
 					return false;
 				}
 
-				transfer_function = *result;
+				cicp.transfer_function_ = *result;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -413,7 +409,7 @@ namespace PNG_CICP_Editor {
 					return false;
 				}
 
-				matrix_coefficients = *result;
+				cicp.matrix_coefficients_ = *result;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -432,7 +428,7 @@ namespace PNG_CICP_Editor {
 					return false;
 				}
 
-				video_full_range_flag = *result;
+				cicp.video_full_range_flag_ = *result;
 				return true;
 			},
 			ParserStates::ExpectingFlagOrFile
@@ -532,11 +528,11 @@ namespace PNG_CICP_Editor {
 		case Actions::License:
 			return Action{ LicenseAction{} };
 		case Actions::Add:
-			return Action{ AddAction{CICP{std::move(color_primaries), std::move(transfer_function), std::move(matrix_coefficients), std::move(video_full_range_flag)}, std::move(file_path)} };
+			return Action{ AddAction{ std::move(cicp), std::move(file_path) } };
 		case Actions::Overwrite:
-			return Action{ OverwriteAction{CICP{std::move(color_primaries), std::move(transfer_function), std::move(matrix_coefficients), std::move(video_full_range_flag)}, std::move(file_path)} };
+			return Action{ OverwriteAction{ std::move(cicp), std::move(file_path) } };
 		case Actions::Remove:
-			return Action{ RemoveAction{std::move(file_path)} };
+			return Action{ RemoveAction{ std::move(file_path) } };
 		}
 		MAX_UNREACHABLE;
 

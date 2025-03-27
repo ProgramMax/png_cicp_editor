@@ -11,24 +11,19 @@
 
 namespace PNG_CICP_Editor {
 
-	class Error {
-	public:
-
+	struct Error {
 		explicit Error(std::vector<std::string_view> output_messages) noexcept;
 
 		std::vector<std::string_view> output_messages_;
-
 	};
 
 	void print_error(const Error& error) noexcept;
 
 	template<typename T>
-	class ErrorWithCode : public Error {
-	public:
-
+	struct ErrorWithCode : public Error {
 		explicit ErrorWithCode(T error_code, std::vector<std::string_view> output_messages) noexcept
-			: Error(std::move(output_messages))
-			, error_code_(std::move(error_code))
+			: Error{ std::move(output_messages) }
+			, error_code_{ std::move(error_code) }
 		{}
 
 		T error_code_;

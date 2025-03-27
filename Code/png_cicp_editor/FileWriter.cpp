@@ -5,6 +5,7 @@
 #include "FileWriter.hpp"
 
 #include <fstream>
+#include <string_view>
 #include <utility>
 
 namespace {

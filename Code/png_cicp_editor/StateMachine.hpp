@@ -29,21 +29,10 @@ namespace PNG_CICP_Editor {
 	};
 	using TransitionError = ErrorWithCode<TransitionErrorCode>;
 
-	// TODO: I don't think you can make a concept that enforces a parameter pack
-	/*
-	template<typename T, typename... PredicateParameterTypes>
-	concept TransitionConcept = requires(T a, PredicateParameterTypes... parameters) {
-		{ a.template predicate_and_action_<PredicateParameterTypes...>(std::forward<decltype(parameters)>(parameters)...) } -> std::convertible_to<std::expected<bool, TransitionError>>;
-		{ a.transition_to_ };
-	};
-	*/
-
 	template<typename StateType, typename TransitionType>
-	//template<typename StateType, TransitionConcept TransitionType>
-	class StateMachine {
-	public:
+	struct StateMachine {
 
-		StateMachine(StateType start_state, SparseArray<StateType, std::vector<TransitionType>> graph) noexcept;
+		explicit constexpr StateMachine(StateType start_state, SparseArray<StateType, std::vector<TransitionType>> graph) noexcept;
 
 
 		template <typename... PredicateParameterTypes>

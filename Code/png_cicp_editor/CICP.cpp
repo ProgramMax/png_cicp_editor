@@ -9,10 +9,10 @@
 namespace PNG_CICP_Editor {
 
 	CICP::CICP(uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag) noexcept
-		: color_primaries_(std::move(color_primaries))
-		, transfer_function_(std::move(transfer_function))
-		, matrix_coefficients_(std::move(matrix_coefficients))
-		, video_full_range_flag_(std::move(video_full_range_flag))
+		: color_primaries_{ std::move(color_primaries) }
+		, transfer_function_{ std::move(transfer_function) }
+		, matrix_coefficients_{ std::move(matrix_coefficients) }
+		, video_full_range_flag_{ std::move(video_full_range_flag) }
 	{}
 
 	bool CICP::operator ==(const CICP& rhs) noexcept {

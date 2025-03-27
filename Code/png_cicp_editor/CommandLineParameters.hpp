@@ -5,11 +5,7 @@
 #ifndef PNG_CICP_EDITOR_COMMANDLINEPARAMETERS_HPP
 #define PNG_CICP_EDITOR_COMMANDLINEPARAMETERS_HPP
 
-#include <cstdint>
 #include <expected>
-#include <string>
-#include <utility>
-#include <vector>
 
 #include "Actions.hpp"
 #include "Error.hpp"
@@ -20,7 +16,6 @@ namespace PNG_CICP_Editor {
 		UnrecognizedParameter,
 		ValueOutsideRange,
 		ExpectedValue,
-		NotActuallyAnError, // TODO: Find a good way to separate actions (--help, --version) from returning a CommandLineParameters and remove this
 	};
 	using ParseCommandLineParametersError = ErrorWithCode<ParseCommandLineParametersErrorCode>;
 

@@ -14,7 +14,7 @@ namespace PNG_CICP_Editor {
 
 	template<typename StateType, typename TransitionType>
 	template<typename... PredicateParameterTypes>
-	constexpr std::expected<void, TransitionError> StateMachine<StateType, TransitionType>::Transition(PredicateParameterTypes... parameters) noexcept {
+	std::expected<void, TransitionError> StateMachine<StateType, TransitionType>::Transition(PredicateParameterTypes... parameters) noexcept {
 		for (const auto& node_and_edges : graph_) {
 			// If current state found
 			if (node_and_edges.first == state_) {

@@ -36,7 +36,7 @@ namespace PNG_CICP_Editor {
 
 
 		template <typename... PredicateParameterTypes>
-		constexpr std::expected<void, TransitionError> Transition(PredicateParameterTypes... parameters) noexcept;
+		std::expected<void, TransitionError> Transition(PredicateParameterTypes... parameters) noexcept;
 
 		StateType state_;
 		SparseArray<StateType, std::vector<TransitionType>> graph_;

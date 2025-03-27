@@ -237,6 +237,30 @@ namespace PNG_CICP_Editor {
 			},
 			ParserStates::Done
 		};
+		auto bt601_pal_value_matched_transition = Transition{
+			[&](char const* string) -> Transition::PredicateAndActionResultType {
+				static const std::string_view bt601_pal_string = "bt.601-pal";
+				if (bt601_pal_string.compare(string) != 0) {
+					return false;
+				}
+				cicp.color_primaries_ = 5;
+				cicp.transfer_function_ = 6;
+				return true;
+			},
+			ParserStates::ExpectingFlagOrFile
+		};
+		auto bt601_ntsc_value_matched_transition = Transition{
+			[&](char const* string) -> Transition::PredicateAndActionResultType {
+				static const std::string_view bt601_ntsc_string = "bt.601-ntsc";
+				if (bt601_ntsc_string.compare(string) != 0) {
+					return false;
+				}
+				cicp.color_primaries_ = 6;
+				cicp.transfer_function_ = 6;
+				return true;
+			},
+			ParserStates::ExpectingFlagOrFile
+		};
 		auto bt709_value_matched_transition = Transition{
 			[&](char const* string) -> Transition::PredicateAndActionResultType {
 				static const std::string_view bt709_string = "bt.709";
@@ -466,6 +490,8 @@ namespace PNG_CICP_Editor {
 			file_found_transition,
 		};
 		auto preset_value_found_transitions = TransitionsType{
+			std::move(bt601_pal_value_matched_transition),
+			std::move(bt601_ntsc_value_matched_transition),
 			std::move(bt709_value_matched_transition),
 			std::move(linear_light_srgb_value_matched_transition),
 			std::move(srgb_value_matched_transition),

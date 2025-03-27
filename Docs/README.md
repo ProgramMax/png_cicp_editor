@@ -18,6 +18,8 @@ This command updates the file to use Display P3.
 
 | Preset         | Specification                                                            |
 |----------------|--------------------------------------------------------------------------|
+| bt.601-pal     | Rec. ITU-R BT.601 625-line 50 Hz (PAL)                                   |
+| bt.601-ntsc    | Rec. ITU-R BT.601 525-line 60 Hz (NTSC)                                  |
 | bt.709         | Rec. ITU-R BT.709-6                                                      |
 | srgb-linear    | linear-light sRGB                                                        |
 | srgb           | IEC 61966-2-1 sRGB                                                       |

@@ -98,6 +98,38 @@ namespace PNG_CICP_Editor {
 			}
 		});
 
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.601-pal returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 5;
+			char const* argv[argc] = { program_name, add, preset, "bt.601-pal", test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 5);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 6);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
+			}
+		});
+
+		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.601-ntsc returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
+			const int argc = 5;
+			char const* argv[argc] = { program_name, add, preset, "bt.601-ntsc", test_image_path };
+			auto result = parse_command_line_parameters(argc, argv);
+			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 6);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 6);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
+			}
+		});
+
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.709 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
 			char const* argv[argc] = { program_name, add, preset, "bt.709", test_image_path };

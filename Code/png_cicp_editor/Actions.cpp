@@ -54,7 +54,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace PNG_CICP_Editor {
 
 	void VersionAction::operator()() const noexcept {
-		std::cout << "png_cicp_editor version 2.2" << std::endl;
+		std::cout << "png_cicp_editor version 3.0" << std::endl;
 	}
 
 	void HelpAction::operator()() const noexcept {

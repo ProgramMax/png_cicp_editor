@@ -4,6 +4,7 @@
 
 #include "FileWriterTest.hpp"
 
+#include <string_view>
 #include <utility>
 
 #include <FileWriter.hpp>
@@ -12,7 +13,7 @@
 
 namespace {
 
-	static constinit char const* test_string = "test string";
+	static constinit std::string_view test_string = "test string";
 
 } // anonymous namespace
 

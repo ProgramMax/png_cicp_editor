@@ -68,7 +68,6 @@
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\MacOS.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\Platform\Win32.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Configuration\StandardLibrary.hpp" />
-    <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\CurrentVersionNamespace.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Macros.hpp" />
     <ClInclude Include="..\..\Dependencies\max\Code\max\Compiling\Unreachable.hpp" />
   </ItemGroup>

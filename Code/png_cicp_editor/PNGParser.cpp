@@ -16,7 +16,7 @@ namespace {
 	// utility
 	static const std::string_view png_header = "\x89PNG\x0d\x0a\x1a\x0a";
 
-	uint32_t read_32_bits(const std::span<char>& file_contents, size_t index) noexcept {
+	constexpr uint32_t read_32_bits(const std::span<char>& file_contents, size_t index) noexcept {
 		uint8_t first_byte  = file_contents[index + 0];
 		uint8_t second_byte = file_contents[index + 1];
 		uint8_t third_byte  = file_contents[index + 2];
@@ -47,6 +47,7 @@ namespace PNG_CICP_Editor {
 
 
 			uint32_t chunk_length = read_32_bits(file_contents, current_index);
+			// TODO: Check that chunk_length + 12 doesn't overflow
 			current_index += chunk_length + 12; // 12 comes from the chunk length, type, and crc data
 		}
 

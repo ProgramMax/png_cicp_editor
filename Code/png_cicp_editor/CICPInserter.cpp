@@ -21,7 +21,7 @@ namespace {
 	static constinit std::string_view newline = "\n";
 
 
-	std::array<char, 4> get_chunk_type(const std::span<char>& file_contents, size_t index) noexcept {
+	constexpr std::array<char, 4> get_chunk_type(const std::span<char>& file_contents, size_t index) noexcept {
 		return {
 			file_contents[index + 4],
 			file_contents[index + 5],

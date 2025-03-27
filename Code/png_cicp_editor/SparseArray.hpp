@@ -15,7 +15,7 @@ namespace PNG_CICP_Editor {
 	class SparseArray {
 	public:
 
-		explicit constexpr SparseArray(std::vector<std::pair<IndexType, T>> array) noexcept;
+		constexpr explicit SparseArray(std::vector<std::pair<IndexType, T>> array) noexcept;
 
 		constexpr const std::optional<T> operator[](IndexType index) const noexcept;
 

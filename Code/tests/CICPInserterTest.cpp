@@ -6,7 +6,7 @@
 
 #include <array>
 #include <span>
-#include <utility>
+#include <string_view>
 #include <vector>
 
 #include <CICPInserter.hpp>
@@ -32,7 +32,7 @@ namespace {
 	static auto last_chunk_cicp_chunk_indices = std::vector<size_t>{ 8, 33 };
 
 
-	static constinit char const* test_error_message = "test";
+	static constinit std::string_view test_error_message = "test";
 
 } // anonymous namespace
 

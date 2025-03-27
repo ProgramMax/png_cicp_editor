@@ -6,7 +6,7 @@
 
 #include <array>
 #include <span>
-#include <utility>
+#include <string_view>
 
 #include <PNGParser.hpp>
 #include <max/Testing/TestSuite.hpp>
@@ -16,7 +16,7 @@
 namespace {
 
 	// test
-	static constinit char const* test_string = "test string";
+	static constinit std::string_view test_string = "test string";
 
 	// file contents
 	// This is a 1x1 black PNG

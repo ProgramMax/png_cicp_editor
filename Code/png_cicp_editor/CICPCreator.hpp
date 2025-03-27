@@ -8,9 +8,11 @@
 #include <array>
 #include <cstdint>
 
+#include "CICP.hpp"
+
 namespace PNG_CICP_Editor {
 
-	std::array<char, 16> create_cicp_buffer(uint8_t color_primaries, uint8_t transfer_function, uint8_t matrix_coefficients, uint8_t video_full_range_flag) noexcept;
+	std::array<char, 16> create_cicp_buffer(const CICP& cicp) noexcept;
 
 } // namespace PNG_CICP_Editor
 

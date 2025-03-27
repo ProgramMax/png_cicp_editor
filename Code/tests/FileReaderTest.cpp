@@ -3,14 +3,18 @@
 // found in the LICENSE file.
 
 #include "FileReaderTest.hpp"
+
+#include <string_view>
+#include <utility>
+
 #include <FileReader.hpp>
 #include <max/Testing/TestSuite.hpp>
 #include <max/Testing/CoutResultPolicy.hpp>
-#include <utility>
+
 
 namespace {
 
-	static constinit char const* test_string = "test string";
+	static constinit std::string_view test_string = "test string";
 
 } // anonymous namespace
 

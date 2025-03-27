@@ -5,6 +5,8 @@
 #include "CICPCreatorTest.hpp"
 
 #include <CICPCreator.hpp>
+#include <CICP.hpp>
+
 #include <max/Testing/TestSuite.hpp>
 #include <max/Testing/CoutResultPolicy.hpp>
 
@@ -16,12 +18,9 @@ namespace PNG_CICP_Editor {
 		auto CICPCreatorTestSuite = max::Testing::TestSuite< max::Testing::CoutResultPolicy >{ "CICPCreator test suite", std::move(ResultPolicy) };
 
 		CICPCreatorTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "create_cicp_buffer works for sRGB", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
-			uint8_t color_primaries = 1;
-			uint8_t transfer_function = 13;
-			uint8_t matrix_coefficients = 1;
-			uint8_t video_full_range_flag = 1;
+			auto cicp = CICP{ /*color_primaries=*/1, /*transfer_function=*/13, /*matrix_coefficients=*/1, /*video_full_range_flag=*/1 };
 
-			auto buffer = create_cicp_buffer(color_primaries, transfer_function, matrix_coefficients, video_full_range_flag);
+			auto buffer = create_cicp_buffer(cicp);
 
 			// length
 			CurrentTest.MAX_TESTING_ASSERT(buffer[0] == 0);
@@ -36,10 +35,10 @@ namespace PNG_CICP_Editor {
 			CurrentTest.MAX_TESTING_ASSERT(buffer[7] == 'P');
 
 			// chunk data
-			CurrentTest.MAX_TESTING_ASSERT(buffer[8] == color_primaries);
-			CurrentTest.MAX_TESTING_ASSERT(buffer[9] == transfer_function);
-			CurrentTest.MAX_TESTING_ASSERT(buffer[10] == matrix_coefficients);
-			CurrentTest.MAX_TESTING_ASSERT(buffer[11] == video_full_range_flag);
+			CurrentTest.MAX_TESTING_ASSERT(buffer[8] == cicp.color_primaries_);
+			CurrentTest.MAX_TESTING_ASSERT(buffer[9] == cicp.transfer_function_);
+			CurrentTest.MAX_TESTING_ASSERT(buffer[10] == cicp.matrix_coefficients_);
+			CurrentTest.MAX_TESTING_ASSERT(buffer[11] == cicp.video_full_range_flag_);
 
 			// crc - 0x85720a73
 			// TODO: Fix this. The number is negative. Default char in VC is signed. The comparison fails as a result.

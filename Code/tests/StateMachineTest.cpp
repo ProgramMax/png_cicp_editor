@@ -19,7 +19,7 @@ namespace {
 		constexpr explicit Transition(int transition_to) noexcept
 			: transition_to_{ std::move(transition_to) }
 		{}
-		constexpr std::expected<bool, PNG_CICP_Editor::TransitionError> predicate_and_action_() const noexcept { return true; }
+		std::expected<bool, PNG_CICP_Editor::TransitionError> predicate_and_action_() const noexcept { return true; }
 		int transition_to_;
 	};
 

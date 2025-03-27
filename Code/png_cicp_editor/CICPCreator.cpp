@@ -12,7 +12,7 @@ namespace {
 	unsigned long crc_table[256];
 	int crc_table_computed = 0;
 
-	constexpr void make_crc_table() noexcept {
+	void make_crc_table() noexcept {
 		unsigned long c;
 		int n, k;
 
@@ -31,7 +31,7 @@ namespace {
 		crc_table_computed = 1;
 	}
 
-	constexpr unsigned long update_crc(unsigned long crc, char* buf, int len) noexcept {
+	unsigned long update_crc(unsigned long crc, char* buf, int len) noexcept {
 		unsigned long c = crc;
 		int n;
 

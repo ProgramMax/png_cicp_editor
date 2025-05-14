@@ -53,11 +53,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace PNG_CICP_Editor {
 
-	void VersionAction::operator()() const noexcept {
+	AddAction::AddAction(CICP cicp, std::string file_path) noexcept
+		: cicp_(std::move(cicp))
+		, file_path_(std::move(file_path))
+	{}
+
+	OverwriteAction::OverwriteAction(CICP cicp, std::string file_path) noexcept
+		: cicp_(std::move(cicp))
+		, file_path_(std::move(file_path))
+	{}
+
+	RemoveAction::RemoveAction(std::string file_path) noexcept
+		: file_path_(std::move(file_path))
+	{}
+
+	void ActionExecutor::operator()(const VersionAction&) const noexcept {
 		std::cout << "png_cicp_editor version 3.0" << std::endl;
 	}
 
-	void HelpAction::operator()() const noexcept {
+	void ActionExecutor::operator()(const HelpAction&) const noexcept {
 #if defined(MAX_PLATFORM_WINDOWS)
 		static constinit auto program_name = std::string_view{ "png_cicp_editor.exe" };
 		static constinit auto file_path = std::string_view{ R"(C:\images\test.png)" };
@@ -69,8 +83,7 @@ namespace PNG_CICP_Editor {
 #endif
 
 		// Print version
-		auto version_action = VersionAction{};
-		version_action();
+		operator()(VersionAction{});
 
 		std::cout <<
 			R"(This program enabled CICP editing within a PNG file.
@@ -123,7 +136,7 @@ PNG puts further restrictions on which values are valid.
 )" << std::endl;
 	}
 
-	void LicenseAction::operator()() const noexcept {
+	void ActionExecutor::operator()(const LicenseAction&) const noexcept {
 		static const auto png_cicp_editor_year = std::string_view{"2025"};
 		static const auto png_cicp_editor_copyright_holder = std::string_view{"The png_cicp_editor Contributors"};
 		print_bsd_3_clause_license(png_cicp_editor_year, png_cicp_editor_copyright_holder);
@@ -137,15 +150,12 @@ png_cicp_editor depends on max:
 		print_bsd_3_clause_license(max_year, max_copyright_holder);
 	}
 
-	AddAction::AddAction(CICP cicp, std::string file_path) noexcept
-		: cicp_(std::move(cicp))
-		, file_path_(std::move(file_path))
-	{}
 
-	void AddAction::operator()() const noexcept {
+
+	void ActionExecutor::operator()(const AddAction& action) const noexcept {
 		// TODO: Return error values
 		// Read the file
-		auto file_contents = read_file(file_path_);
+		auto file_contents = read_file(action.file_path_);
 		if (!file_contents.has_value()) {
 			print_error(file_contents.error());
 			//return 1;
@@ -172,7 +182,7 @@ png_cicp_editor depends on max:
 
 
 		// Prepare cICP buffer to write
-		auto cicp_buffer = create_cicp_buffer(cicp_);
+		auto cicp_buffer = create_cicp_buffer(action.cicp_);
 
 
 		// Prepare file before & after buffers for write
@@ -183,7 +193,7 @@ png_cicp_editor depends on max:
 
 
 		// Write the file with cICP inserted
-		auto write_result = PNG_CICP_Editor::write_file(file_path_, buffers);
+		auto write_result = PNG_CICP_Editor::write_file(action.file_path_, buffers);
 		if (!write_result.has_value()) {
 			print_error(write_result.error());
 			//return 1;
@@ -191,15 +201,10 @@ png_cicp_editor depends on max:
 		}
 	}
 
-	OverwriteAction::OverwriteAction(CICP cicp, std::string file_path) noexcept
-		: cicp_(std::move(cicp))
-		, file_path_(std::move(file_path))
-	{}
-
-	void OverwriteAction::operator()() const noexcept {
+	void ActionExecutor::operator()(const OverwriteAction& action) const noexcept {
 		// TODO: Return error values
 		// Read the file
-		auto file_contents = read_file(file_path_);
+		auto file_contents = read_file(action.file_path_);
 		if (!file_contents.has_value()) {
 			print_error(file_contents.error());
 			//return 1;
@@ -226,7 +231,7 @@ png_cicp_editor depends on max:
 
 
 		// Prepare cICP buffer to write
-		auto cicp_buffer = create_cicp_buffer(cicp_);
+		auto cicp_buffer = create_cicp_buffer(action.cicp_);
 
 
 		// Prepare file before & after buffers for write
@@ -237,7 +242,7 @@ png_cicp_editor depends on max:
 
 
 		// Write the file with cICP inserted
-		auto write_result = PNG_CICP_Editor::write_file(file_path_, buffers);
+		auto write_result = PNG_CICP_Editor::write_file(action.file_path_, buffers);
 		if (!write_result.has_value()) {
 			print_error(write_result.error());
 			//return 1;
@@ -245,14 +250,10 @@ png_cicp_editor depends on max:
 		}
 	}
 
-	RemoveAction::RemoveAction(std::string file_path) noexcept
-		: file_path_(std::move(file_path))
-	{}
-
-	void RemoveAction::operator()() const noexcept {
+	void ActionExecutor::operator()(const RemoveAction& action) const noexcept {
 		// TODO: Return error values
 		// Read the file
-		auto file_contents = read_file(file_path_);
+		auto file_contents = read_file(action.file_path_);
 		if (!file_contents.has_value()) {
 			print_error(file_contents.error());
 			//return 1;
@@ -309,179 +310,12 @@ png_cicp_editor depends on max:
 
 
 		// Write the file with cICP inserted
-		auto write_result = PNG_CICP_Editor::write_file(file_path_, buffers);
+		auto write_result = PNG_CICP_Editor::write_file(action.file_path_, buffers);
 		if (!write_result.has_value()) {
 			print_error(write_result.error());
 			//return 1;
 			return;
 		}
-	}
-
-	Action::Action(VersionAction version) noexcept
-		: action_type_(Actions::Version)
-		, action_{.version_ = std::move(version)}
-	{}
-
-	Action::Action(HelpAction help) noexcept
-		: action_type_(Actions::Help)
-		, action_{.help_ = std::move(help)}
-	{}
-
-	Action::Action(LicenseAction license) noexcept
-		: action_type_(Actions::License)
-		, action_{.license_ = std::move(license)}
-	{}
-
-	Action::Action(AddAction add) noexcept
-		: action_type_(Actions::Add)
-		, action_{.add_ = std::move(add)}
-	{}
-
-	Action::Action(OverwriteAction overwrite) noexcept
-		: action_type_(Actions::Overwrite)
-		, action_{.overwrite_ = std::move(overwrite)}
-	{}
-
-	Action::Action(RemoveAction remove) noexcept
-		: action_type_(Actions::Remove)
-		, action_{.remove_ = std::move(remove)}
-	{}
-
-	Action::Action(const Action& rhs) noexcept
-		: action_type_(rhs.action_type_)
-		, action_{.version_{}}
-	{
-		switch (action_type_) {
-		case Actions::Version:
-			action_.version_ = rhs.action_.version_;
-			break;
-		case Actions::Help:
-			action_.help_ = rhs.action_.help_;
-			break;
-		case Actions::License:
-			action_.license_ = rhs.action_.license_;
-			break;
-		case Actions::Add:
-			action_.add_ = rhs.action_.add_;
-			break;
-		case Actions::Overwrite:
-			action_.overwrite_ = rhs.action_.overwrite_;
-			break;
-		case Actions::Remove:
-			action_.remove_ = rhs.action_.remove_;
-			break;
-		}
-	}
-
-	Action::Action(Action&& rhs) noexcept
-		: action_type_(std::move(rhs.action_type_))
-		, action_{.version_{}}
-	{
-		switch (action_type_) {
-		case Actions::Version:
-			new (&action_.version_) VersionAction(std::move(rhs.action_.version_));
-			break;
-		case Actions::Help:
-			new (&action_.help_) HelpAction(std::move(rhs.action_.help_));
-			break;
-		case Actions::License:
-			new (&action_.license_) LicenseAction(std::move(rhs.action_.license_));
-			break;
-		case Actions::Add:
-			new (&action_.add_) AddAction(std::move(rhs.action_.add_));
-			break;
-		case Actions::Overwrite:
-			new (&action_.overwrite_) OverwriteAction(std::move(rhs.action_.overwrite_));
-			break;
-		case Actions::Remove:
-			new (&action_.remove_) RemoveAction(std::move(rhs.action_.remove_));
-			break;
-		}
-	}
-
-
-	Action::~Action() noexcept {
-		switch (action_type_) {
-		case Actions::Version:
-			(&action_.version_)->~VersionAction();
-			break;
-		case Actions::Help:
-			(&action_.help_)->~HelpAction();
-			break;
-		case Actions::License:
-			(&action_.license_)->~LicenseAction();
-			break;
-		case Actions::Add:
-			(&action_.add_)->~AddAction();
-			break;
-		case Actions::Overwrite:
-			(&action_.overwrite_)->~OverwriteAction();
-			break;
-		case Actions::Remove:
-			(&action_.remove_)->~RemoveAction();
-			break;
-		}
-	}
-
-	Action& Action::operator =(const Action& rhs) noexcept {
-		this->~Action();
-
-		action_type_ = rhs.action_type_;
-
-		switch (rhs.action_type_) {
-		case Actions::Version:
-			action_.version_ = rhs.action_.version_;
-			break;
-		case Actions::Help:
-			action_.help_ = rhs.action_.help_;
-			break;
-		case Actions::License:
-			action_.license_ = rhs.action_.license_;
-			break;
-		case Actions::Add:
-			action_.add_ = rhs.action_.add_;
-			break;
-		case Actions::Overwrite:
-			action_.overwrite_ = rhs.action_.overwrite_;
-			break;
-		case Actions::Remove:
-			action_.remove_ = rhs.action_.remove_;
-			break;
-		}
-
-		return *this;
-	}
-
-	Action& Action::operator =(Action&& rhs) noexcept {
-		this->~Action();
-
-		action_type_ = std::move(rhs.action_type_);
-
-		switch (rhs.action_type_) {
-		case Actions::Version:
-			action_.version_ = std::move(rhs.action_.version_);
-			break;
-		case Actions::Help:
-			action_.help_ = std::move(rhs.action_.help_);
-			break;
-		case Actions::License:
-			action_.license_ = std::move(rhs.action_.license_);
-			break;
-		case Actions::Add:
-			action_.add_ = std::move(rhs.action_.add_);
-			break;
-		case Actions::Overwrite:
-			action_.overwrite_ = std::move(rhs.action_.overwrite_);
-			break;
-		case Actions::Remove:
-			action_.remove_ = std::move(rhs.action_.remove_);
-			break;
-		}
-
-		return *this;
-	}
-
-	Action::A::~A() noexcept {
 	}
 
 } // namespace PNG_CICP_Editor

@@ -4,7 +4,6 @@
 
 #include "CommandLineParameters.hpp"
 
-#include <cstdint>
 #include <cstdlib>
 #include <functional>
 #include <string_view>
@@ -17,6 +16,15 @@
 #include <max/Compiling/Unreachable.hpp>
 
 namespace {
+
+	enum class Actions {
+		Version,
+		Help,
+		License,
+		Add,
+		Overwrite,
+		Remove,
+	};
 
 	// error messages
 	static constinit std::string_view unrecognized_parameter = "Unrecognized command line parameter: ";

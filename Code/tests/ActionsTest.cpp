@@ -26,8 +26,6 @@ namespace PNG_CICP_Editor {
 		max::Testing::CoutResultPolicy ResultPolicy;
 		auto ActionsTestSuite = max::Testing::TestSuite< max::Testing::CoutResultPolicy >{ "Actions test suite", std::move(ResultPolicy) };
 
-		// TODO: Test the operator()s work. Maybe mocks here?
-
 		ActionsTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "AddAction ctor assigns members", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			auto add_action = AddAction{ cicp, file_path };
 
@@ -50,6 +48,8 @@ namespace PNG_CICP_Editor {
 			CurrentTest.MAX_TESTING_ASSERT(remove_action.file_path_ == file_path);
 			}
 		});
+
+		// TODO: Add ActionExecutor tests.
 
 		ActionsTestSuite.RunTests();
 	}

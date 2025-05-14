@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "Actions.hpp"
 #include "CommandLineParameters.hpp"
 #include "Error.hpp"
-
 
 int main(int argc, char const* argv[]) noexcept {
 	// Parse the command line parameters
@@ -14,26 +14,7 @@ int main(int argc, char const* argv[]) noexcept {
 		return 1;
 	}
 
-	switch (command_line_parameters->action_type_) {
-	case PNG_CICP_Editor::Actions::Version:
-		command_line_parameters->action_.version_();
-		break;
-	case PNG_CICP_Editor::Actions::Help:
-		command_line_parameters->action_.help_();
-		break;
-	case PNG_CICP_Editor::Actions::License:
-		command_line_parameters->action_.license_();
-		break;
-	case PNG_CICP_Editor::Actions::Add:
-		command_line_parameters->action_.add_();
-		break;
-	case PNG_CICP_Editor::Actions::Overwrite:
-		command_line_parameters->action_.overwrite_();
-		break;
-	case PNG_CICP_Editor::Actions::Remove:
-		command_line_parameters->action_.remove_();
-		break;
-	}
+	std::visit(PNG_CICP_Editor::ActionExecutor(), *command_line_parameters);
 
 	return 0;
 }

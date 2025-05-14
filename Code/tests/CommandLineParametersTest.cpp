@@ -50,53 +50,72 @@ namespace PNG_CICP_Editor {
 			CurrentTest.MAX_TESTING_ASSERT(error.error_code_ == ParseCommandLineParametersErrorCode::UnrecognizedParameter);
 			CurrentTest.MAX_TESTING_ASSERT(error.output_messages_.size() == 1);
 			CurrentTest.MAX_TESTING_ASSERT(error.output_messages_[0] == preset);
-			}
-		});
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--version returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 2;
 			char const* argv[argc] = { program_name, version };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Version);
+			try {
+				std::get<VersionAction>(*result);
 			}
-		});
+			catch (const std::bad_variant_access&) {
+				CurrentTest.MAX_TESTING_ASSERT(false);
+			}
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-v returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 2;
 			char const* argv[argc] = { program_name, v_string };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Version);
+			try {
+				std::get<VersionAction>(*result);
 			}
-		});
+			catch (const std::bad_variant_access&) {
+				CurrentTest.MAX_TESTING_ASSERT(false);
+			}
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--help returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 2;
 			char const* argv[argc] = { program_name, help };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Help);
+			try {
+				std::get<HelpAction>(*result);
 			}
-		});
+			catch (const std::bad_variant_access&) {
+				CurrentTest.MAX_TESTING_ASSERT(false);
+			}
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-h returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 2;
 			char const* argv[argc] = { program_name, h_string };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Help);
+			try {
+				std::get<HelpAction>(*result);
 			}
-		});
+			catch (const std::bad_variant_access&) {
+				CurrentTest.MAX_TESTING_ASSERT(false);
+			}
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--license returns correct action", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 2;
 			char const* argv[argc] = { program_name, license };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::License);
+			try {
+				std::get<LicenseAction>(*result);
 			}
-		});
+			catch (const std::bad_variant_access&) {
+				CurrentTest.MAX_TESTING_ASSERT(false);
+			}
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.601-pal returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -104,15 +123,20 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			try {
+				auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 5);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 6);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
+				CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 5);
+				CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 6);
+				CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+				CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+				CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
 			}
-		});
+			catch (const std::bad_variant_access&) {
+				CurrentTest.MAX_TESTING_ASSERT(false);
+			}
+
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.601-ntsc returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -120,15 +144,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 6);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 6);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 6);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 6);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.709 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -136,15 +160,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset linear-light-srgb returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -152,15 +176,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 8);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 8);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset srgb returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -168,15 +192,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.2020-10-bit returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -184,15 +208,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 9);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 14);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 9);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 14);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.2020-12-bit returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -200,15 +224,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 9);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 15);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 9);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 15);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.2100-pq returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -216,15 +240,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 9);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 16);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 9);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 16);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset bt.2100-hlg returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -232,15 +256,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 9);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 18);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 9);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 18);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset dci-p3 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -248,15 +272,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 11);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 17);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 11);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 17);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset display-p3 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -264,15 +288,16 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 12);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			auto add_action = std::move(std::get<AddAction>(*result));
+
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 12);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset p3-d65-pq returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -280,15 +305,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 12);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 16);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 12);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 16);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p bt.709 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -296,15 +321,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--color_primaries 42 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -312,15 +337,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--transfer_function 42 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -328,15 +353,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--matrix_coefficients 42 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -344,15 +369,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--video_full_range_flag 42 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -360,15 +385,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--color_primaries 42 --transfer_function 43 --matrix_coefficients 44 --video_full_range_flag 45 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 11;
@@ -376,15 +401,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 43);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 44);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 45);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 43);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 44);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 45);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "--preset srgb --color_primaries 42 returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 7;
@@ -392,15 +417,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 42);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 42);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb --narrow returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 6;
@@ -408,15 +433,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb -n returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 6;
@@ -424,15 +449,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb -n --full returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 7;
@@ -440,15 +465,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "-p srgb -n -f returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 7;
@@ -456,15 +481,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Add);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<AddAction>(*result));
+			auto add_action = std::move(std::get<AddAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.add_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(add_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "overwrite -p srgb returns correct CICP values", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -472,15 +497,15 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Overwrite);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<OverwriteAction>(*result));
+			auto overwrite_action = std::move(std::get<OverwriteAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.cicp_.color_primaries_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.cicp_.transfer_function_ == 13);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.cicp_.matrix_coefficients_ == 0);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.cicp_.video_full_range_flag_ == 1);
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.overwrite_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(overwrite_action.cicp_.color_primaries_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(overwrite_action.cicp_.transfer_function_ == 13);
+			CurrentTest.MAX_TESTING_ASSERT(overwrite_action.cicp_.matrix_coefficients_ == 0);
+			CurrentTest.MAX_TESTING_ASSERT(overwrite_action.cicp_.video_full_range_flag_ == 1);
+			CurrentTest.MAX_TESTING_ASSERT(overwrite_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "remove return correct action and file path", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 3;
@@ -488,19 +513,18 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(result.has_value());
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_type_ == Actions::Remove);
+			CurrentTest.MAX_TESTING_ASSERT(std::holds_alternative<RemoveAction>(*result));
+			auto remove_action = std::move(std::get<RemoveAction>(*result));
 
-			CurrentTest.MAX_TESTING_ASSERT(result->action_.remove_.file_path_ == test_image_path);
-			}
-		});
+			CurrentTest.MAX_TESTING_ASSERT(remove_action.file_path_ == test_image_path);
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "Missing file path errors", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 3;
 			char const* argv[argc] = { program_name, preset, "srgb" };
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
-			}
-		});
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "Unrecognized flag errors", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 2;
@@ -508,8 +532,7 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
 			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::UnrecognizedParameter);
-			}
-		});
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "Unrecognized flag errors", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 4;
@@ -517,8 +540,7 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
 			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::UnrecognizedParameter);
-			}
-		});
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "Unrecognized preset errors", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -526,8 +548,7 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
 			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::UnrecognizedParameter);
-			}
-		});
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "Non-number values error", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -535,8 +556,7 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
 			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::UnrecognizedParameter);
-			}
-		});
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "Negative number value errors", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -544,8 +564,7 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
 			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::ValueOutsideRange);
-			}
-		});
+		}});
 
 		CommandLineParametersTestSuite.AddTest(max::Testing::Test< max::Testing::CoutResultPolicy >{ "Overflowing number value errors", [](max::Testing::Test< max::Testing::CoutResultPolicy >& CurrentTest, max::Testing::CoutResultPolicy const& ResultPolicy) {
 			const int argc = 5;
@@ -553,8 +572,7 @@ namespace PNG_CICP_Editor {
 			auto result = parse_command_line_parameters(argc, argv);
 			CurrentTest.MAX_TESTING_ASSERT(!result.has_value());
 			CurrentTest.MAX_TESTING_ASSERT(result.error().error_code_ == ParseCommandLineParametersErrorCode::ValueOutsideRange);
-			}
-		});
+		}});
 
 		CommandLineParametersTestSuite.RunTests();
 	}

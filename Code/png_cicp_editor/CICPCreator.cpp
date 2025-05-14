@@ -50,6 +50,26 @@ namespace {
 		return update_crc(0xffffffffL, buf, len) ^ 0xffffffffL;
 	}
 
+	// https://www.youtube.com/watch?v=m7PVZixO35c
+	unsigned computer_crc32(unsigned char* data, int length, int* zerop) noexcept {
+		uint32_t crc = 0xffffffff;
+		const uint32_t polynomial = 0xedb88320;
+
+		int zeroes = 0;
+		int i, j;
+		for (i = 0; i < length; i++) {
+			crc ^= data[i];
+			for (j = 0; j < 8; j++) {
+				// Do it without branching, use boolean operations to xor with the
+				// polynomial or zero depending on whether last bit is set
+				//zeroes += (1-(crc & 1));
+				crc = (crc >> 1) ^ ((0-(crc & 1)) & polynomial);
+			}
+		}
+		*zerop = zeroes;
+		return crc;
+	}
+
 } // anonymous namespace
 
 namespace PNG_CICP_Editor {

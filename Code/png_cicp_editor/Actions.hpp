@@ -6,36 +6,20 @@
 #define PNG_CICP_EDITOR_ACTIONS_HPP
 
 #include <string>
+#include <variant>
 
 #include "CICP.hpp"
 
 namespace PNG_CICP_Editor {
 
-	enum class Actions {
-		Version,
-		Help,
-		License,
-		Add,
-		Overwrite,
-		Remove,
-	};
+	struct VersionAction {};
 
-	struct VersionAction {
-		void operator()() const noexcept;
-	};
+	struct HelpAction {};
 
-	struct HelpAction {
-		void operator()() const noexcept;
-	};
-
-	struct LicenseAction {
-		void operator()() const noexcept;
-	};
+	struct LicenseAction {};
 
 	struct AddAction {
 		explicit AddAction(CICP cicp, std::string file_path) noexcept;
-
-		void operator()() const noexcept;
 
 		CICP cicp_;
 		std::string file_path_;
@@ -44,8 +28,6 @@ namespace PNG_CICP_Editor {
 	struct OverwriteAction {
 		explicit OverwriteAction(CICP cicp, std::string file_path) noexcept;
 
-		void operator()() const noexcept;
-
 		CICP cicp_;
 		std::string file_path_;
 	};
@@ -53,39 +35,20 @@ namespace PNG_CICP_Editor {
 	struct RemoveAction {
 		explicit RemoveAction(std::string file_path) noexcept;
 
-		void operator()() const noexcept;
-
 		std::string file_path_;
 	};
 
-	struct Action {
+	using Action = std::variant<VersionAction, HelpAction, LicenseAction, AddAction, OverwriteAction, RemoveAction>;
 
-		explicit Action(VersionAction version) noexcept;
-		explicit Action(HelpAction help) noexcept;
-		explicit Action(LicenseAction license) noexcept;
-		explicit Action(AddAction add) noexcept;
-		explicit Action(OverwriteAction overwrite) noexcept;
-		explicit Action(RemoveAction remove) noexcept;
+	struct ActionExecutor {
 
-		Action(const Action& rhs) noexcept;
-		Action(Action&& rhs) noexcept;
+		void operator()(const PNG_CICP_Editor::VersionAction& action) const noexcept;
+		void operator()(const PNG_CICP_Editor::HelpAction& action) const noexcept;
+		void operator()(const PNG_CICP_Editor::LicenseAction& action) const noexcept;
+		void operator()(const PNG_CICP_Editor::AddAction& action) const noexcept;
+		void operator()(const PNG_CICP_Editor::OverwriteAction& action) const noexcept;
+		void operator()(const PNG_CICP_Editor::RemoveAction& action) const noexcept;
 
-		~Action() noexcept;
-
-		Action& operator =(const Action& rhs) noexcept;
-		Action& operator =(Action&& rhs) noexcept;
-
-		Actions action_type_;
-		union A {
-			VersionAction version_;
-			HelpAction help_;
-			LicenseAction license_;
-			AddAction add_;
-			OverwriteAction overwrite_;
-			RemoveAction remove_;
-
-			~A() noexcept;
-		} action_;
 	};
 
 } // namespace PNG_CICP_Editor

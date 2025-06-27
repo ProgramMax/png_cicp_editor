@@ -150,36 +150,26 @@ png_cicp_editor depends on max:
 		print_bsd_3_clause_license(max_year, max_copyright_holder);
 	}
 
-
-
 	void ActionExecutor::operator()(const AddAction& action) const noexcept {
 		// TODO: Return error values
-		// Read the file
-		auto file_contents = read_file(action.file_path_);
+
+		auto file_contents = read_file(action.file_path_)
+			.transform_error(print_monad_error<ReadFileError>);
 		if (!file_contents.has_value()) {
-			print_error(file_contents.error());
-			//return 1;
 			return;
 		}
 
-
-		// Get indicies of all chunks
-		auto chunk_indices = get_chunk_indices(file_contents.value());
+		auto chunk_indices = get_chunk_indices(file_contents.value())
+			.transform_error(print_monad_error<GetChunkIndicesError>);
 		if (!chunk_indices.has_value()) {
-			print_error(chunk_indices.error());
-			//return 1;
 			return;
 		}
 
-
-		// Find overwrite index for cICP chunk
-		auto split_buffer = get_split_buffer_across_cicp_insertion_point(file_contents.value(), chunk_indices.value(), /*overwrite_cicp*/ false);
+		auto split_buffer = get_split_buffer_across_cicp_insertion_point(file_contents.value(), chunk_indices.value(), /*overwrite_cicp*/ false)
+			.transform_error(print_monad_error<GetInsertionIndexError>);
 		if (!split_buffer.has_value()) {
-			print_error(split_buffer.error());
-			//return 1;
 			return;
 		}
-
 
 		// Prepare cICP buffer to write
 		auto cicp_buffer = create_cicp_buffer(action.cicp_);
@@ -193,10 +183,9 @@ png_cicp_editor depends on max:
 
 
 		// Write the file with cICP inserted
-		auto write_result = PNG_CICP_Editor::write_file(action.file_path_, buffers);
+		auto write_result = PNG_CICP_Editor::write_file(action.file_path_, buffers)
+			.transform_error(print_monad_error<WriteFileError>);
 		if (!write_result.has_value()) {
-			print_error(write_result.error());
-			//return 1;
 			return;
 		}
 	}
@@ -204,28 +193,25 @@ png_cicp_editor depends on max:
 	void ActionExecutor::operator()(const OverwriteAction& action) const noexcept {
 		// TODO: Return error values
 		// Read the file
-		auto file_contents = read_file(action.file_path_);
+		auto file_contents = read_file(action.file_path_)
+			.transform_error(print_monad_error<ReadFileError>);
 		if (!file_contents.has_value()) {
-			print_error(file_contents.error());
-			//return 1;
 			return;
 		}
 
 
 		// Get indicies of all chunks
-		auto chunk_indices = get_chunk_indices(file_contents.value());
+		auto chunk_indices = get_chunk_indices(file_contents.value())
+			.transform_error(print_monad_error<GetChunkIndicesError>);
 		if (!chunk_indices.has_value()) {
-			print_error(chunk_indices.error());
-			//return 1;
 			return;
 		}
 
 
 		// Find overwrite index for cICP chunk
-		auto split_buffer = get_split_buffer_across_cicp_insertion_point(file_contents.value(), chunk_indices.value(), /*overwrite_cicp*/ true);
+		auto split_buffer = get_split_buffer_across_cicp_insertion_point(file_contents.value(), chunk_indices.value(), /*overwrite_cicp*/ true)
+			.transform_error(print_monad_error<GetInsertionIndexError>);
 		if (!split_buffer.has_value()) {
-			print_error(split_buffer.error());
-			//return 1;
 			return;
 		}
 
@@ -242,10 +228,9 @@ png_cicp_editor depends on max:
 
 
 		// Write the file with cICP inserted
-		auto write_result = PNG_CICP_Editor::write_file(action.file_path_, buffers);
+		auto write_result = PNG_CICP_Editor::write_file(action.file_path_, buffers)
+			.transform_error(print_monad_error<WriteFileError>);
 		if (!write_result.has_value()) {
-			print_error(write_result.error());
-			//return 1;
 			return;
 		}
 	}
@@ -253,19 +238,17 @@ png_cicp_editor depends on max:
 	void ActionExecutor::operator()(const RemoveAction& action) const noexcept {
 		// TODO: Return error values
 		// Read the file
-		auto file_contents = read_file(action.file_path_);
+		auto file_contents = read_file(action.file_path_)
+			.transform_error(print_monad_error<ReadFileError>);
 		if (!file_contents.has_value()) {
-			print_error(file_contents.error());
-			//return 1;
 			return;
 		}
 
 
 		// Get indicies of all chunks
-		auto chunk_indices = get_chunk_indices(file_contents.value());
+		auto chunk_indices = get_chunk_indices(file_contents.value())
+			.transform_error(print_monad_error<GetChunkIndicesError>);
 		if (!chunk_indices.has_value()) {
-			print_error(chunk_indices.error());
-			//return 1;
 			return;
 		}
 
@@ -310,10 +293,9 @@ png_cicp_editor depends on max:
 
 
 		// Write the file with cICP inserted
-		auto write_result = PNG_CICP_Editor::write_file(action.file_path_, buffers);
+		auto write_result = PNG_CICP_Editor::write_file(action.file_path_, buffers)
+			.transform_error(print_monad_error<WriteFileError>);
 		if (!write_result.has_value()) {
-			print_error(write_result.error());
-			//return 1;
 			return;
 		}
 	}

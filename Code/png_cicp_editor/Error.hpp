@@ -5,6 +5,7 @@
 #ifndef PNG_CICP_EDITOR_ERROR_HPP
 #define PNG_CICP_EDITOR_ERROR_HPP
 
+#include <expected>
 #include <string_view>
 #include <utility>
 #include <vector>
@@ -18,6 +19,12 @@ namespace PNG_CICP_Editor {
 	};
 
 	void print_error(const Error& error) noexcept;
+
+	template<typename T>
+	T print_monad_error(const T& error) noexcept {
+		print_error(error);
+		return error;
+	}
 
 	template<typename T>
 	struct ErrorWithCode : public Error {

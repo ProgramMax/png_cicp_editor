@@ -2,19 +2,29 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <type_traits>
+#include <utility>
+
 #include "Actions.hpp"
 #include "CommandLineParameters.hpp"
 #include "Error.hpp"
 
-int main(int argc, char const* argv[]) noexcept {
-	// Parse the command line parameters
-	auto command_line_parameters = PNG_CICP_Editor::parse_command_line_parameters(argc, argv);
-	if (!command_line_parameters.has_value()) {
-		print_error(command_line_parameters.error());
-		return 1;
+namespace {
+
+	using parsed_command_line_type = std::invoke_result_t<decltype(PNG_CICP_Editor::parse_command_line_parameters), int, char const*[]>;
+
+	parsed_command_line_type execute_action(PNG_CICP_Editor::Action action) noexcept {
+		std::visit(PNG_CICP_Editor::ActionExecutor(), action);
+		return action;
 	}
 
-	std::visit(PNG_CICP_Editor::ActionExecutor(), *command_line_parameters);
+} // anonymous namespace
 
-	return 0;
+int main(int argc, char const* argv[]) noexcept {
+	using namespace PNG_CICP_Editor;
+
+	return ! PNG_CICP_Editor::parse_command_line_parameters(argc, argv)
+		.transform_error(print_monad_error<ParseCommandLineParametersError>)
+		.and_then(execute_action)
+		.has_value();
 }
